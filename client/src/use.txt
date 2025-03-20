@@ -1,0 +1,16 @@
+ i have to use 
+ one = tailwindcss 
+ tow = useQuery  
+ three = react-hook-form 
+ four = react-router 
+ five = redux-toolkit 
+ six = passportAuth using google and github  
+ seven = useContext  
+ eight = ai for generating thing that i would like to have in the micro-Task platform
+ 
+
+ if possible i have to use docker 
+
+identify if the person is the new visitor and show them the landing pate otherwise show them the login page
+
+ 
