@@ -14,7 +14,7 @@ const Home = React.lazy(() => import("../Home/Home"));
 const Routers = () => {
   return (
     <Suspense fallback={<div className="text-center">Loading...</div>}>
-        <Header />
+      <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/protected/home" element={<Home />} />
