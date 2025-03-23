@@ -1,8 +1,26 @@
 @import "tailwindcss";
+@import "@material-symbols/font-400";
+@theme {
+  --breakpoint-xs: 405px; /* Custom breakpoint */
+}
 
 :root {
   --primary-color: #14a800;
   --secondary-dark-green: #108a00;
   --light-lime-green: #95df00;
-  --Dark-color:#000;
+  --Dark-color: #000;
+  --gray-10: #1a1a1a;
+  --gray-15: #1e1e1e;
+  --gray-20: #252525;
+  --gray-25: #333;
+  --gray-30: #3c3c3c;
+  --gray-40: #535353;
+  --gray-45: #676767;
+  --gray-50: #8d8c8c;
+  --gray-55: #a5a5a5;
+  --gray-60: #c6c6c6;
+  --gray-70: #d9d9d9;
+  --gray-80: #e9e9e9;
+  --gray-90: #f1f1f1;
+  --gray-95: #f9f9f9;
 }
