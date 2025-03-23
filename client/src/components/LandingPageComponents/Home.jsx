@@ -17,7 +17,7 @@ const Home = () => {
         }}
         className="flex p-5"
       >
-        <h1 className="w-4/6 pt-4 text-3xl text-white md:text-6xl lg:text-7xl font-semibold">
+        <h1 className="md:w-4/6 pt-6 text-4xl text-white md:text-6xl lg:text-7xl font-semibold">
           find the prefect freelancer <br /> or project on MicroWorks
         </h1>
       </div>
