@@ -2,7 +2,7 @@ import React from "react";
 import { ExploreOfferData } from "../../data/ExploreOfferData";
 const ExplorOffer = () => {
   return (
-    <section className="w-full grid justify-center">
+    <section className="w-full h-96 grid justify-center">
       <h1 className="text-3xl  mx-6 p-2 font-bold">
         {ExploreOfferData.enterprise.title}
       </h1>
