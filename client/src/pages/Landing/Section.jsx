@@ -33,7 +33,7 @@ const Section = () => {
 
       <div className="w-auto md:w-3/6  rounded-r-lg overflow-hidden">
         <img
-          className="w-full h-screen object-cover   rounded-r-lg"
+          className="w-full h-screen object-cover hidden md:block  rounded-r-lg"
           src={Hero3img}
           alt=""
         />
