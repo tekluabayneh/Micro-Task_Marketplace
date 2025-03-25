@@ -3,6 +3,7 @@ import Home from "../../components/LandingPageComponents/Home";
 import ExplorOffer from "./ExplorOffer";
 import Hero2img from "../../assets/2.jpg";
 import Section from "./Section";
+import Section2 from "./Section2";
 
 const Landing = () => {
   return (
@@ -32,6 +33,7 @@ const Landing = () => {
 
       <ExplorOffer />
       <Section />
+      <Section2 />
     </div>
   );
 };
