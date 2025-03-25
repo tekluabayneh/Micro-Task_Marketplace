@@ -2,11 +2,13 @@ import React from "react";
 import Home from "../../components/LandingPageComponents/Home";
 import ExplorOffer from "./ExplorOffer";
 import Hero2img from "../../assets/2.jpg";
+import Section from "./Section";
 
 const Landing = () => {
   return (
     <div className="mt-16">
       <Home />
+
       <section className="w-full h-96 mb-5">
         <div className="mx-auto">
           <h1 className="text-center font-black p-6 text-2xl">
@@ -27,7 +29,9 @@ const Landing = () => {
           </div>
         </div>
       </section>
+
       <ExplorOffer />
+      <Section />
     </div>
   );
 };
