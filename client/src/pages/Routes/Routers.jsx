@@ -1,7 +1,9 @@
 // src/routers/Routers.jsx
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "../../components/Header/Header";
+import Login from "../Login/login";
+import HomeHeader from "../../components/Header/HomeHeader";
 
 // Lazy-loaded page components
 const LandingPage = React.lazy(() => import("../Landing/Landing"));
@@ -12,15 +14,18 @@ const NotFound = React.lazy(() => import("../NotFound/NotFound"));
 const Home = React.lazy(() => import("../Home/Home"));
 
 const Routers = () => {
+  const [islogedin, setislogedin] = useState(true);
+
   return (
     <Suspense fallback={<div className="text-center">Loading...</div>}>
-      <Header />
+      {islogedin ? <HomeHeader /> : <Header />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/protected/home" element={<Home />} />
         {/* <Route path="/about" element={<About />} /> */}
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/Login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
