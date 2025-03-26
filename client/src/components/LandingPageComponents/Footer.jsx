@@ -79,8 +79,8 @@ const Footer = () => {
 
         {/* Legal links */}
         <ul className="flex flex-wrap justify-center gap-4 mt-2">
-          {legalLinks.map((link) => (
-            <li key={link}>
+          {legalLinks.map((link, i) => (
+            <li key={i}>
               <a href="#" className="text-xs text-gray-400 hover:text-gray-300">
                 {link}
               </a>
