@@ -11,7 +11,7 @@ const Landing = () => {
     <div className="mt-16">
       <Home />
 
-      <section className="w-full h-96 mb-5">
+      <section className="w-full h-96 m-5 ">
         <div className="mx-auto">
           <h1 className="text-center font-black p-6 text-2xl">
             Our Service Cater to the diverse <br /> need of freelancer and
