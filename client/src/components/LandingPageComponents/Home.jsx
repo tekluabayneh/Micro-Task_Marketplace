@@ -2,7 +2,7 @@ import React from "react";
 import HeroImage from "../../assets/1.png";
 const Home = () => {
   return (
-    <section className="w-full h-screen">
+    <section className="w-full">
       <div
         style={{
           backgroundImage: `url(${HeroImage})`,
