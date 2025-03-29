@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-
+import { MdSearch } from "react-icons/md";
+import AiImage from "../../assets/ai.png";
+import profile from "../../assets/profile.jpg";
 const HomeHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navItems = ["home", "about", "client", "price", "footer"];
   return (
     <div className="w-full fixed top-0 left-0 h-12 z-50 p-5 flex justify-between items-center bg-white shadow-sm">
       <button
-        className="block md:hidden z-50"
+        className="block md:hidden z-50 cursor-pointer"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         aria-label="Toggle menu"
       >
@@ -53,7 +55,7 @@ const HomeHeader = () => {
           </ul>
         </div>
       </div>
-
+      {/*  */}
       <div
         className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 md:hidden ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
@@ -82,12 +84,31 @@ const HomeHeader = () => {
         </ul>
       </div>
 
-      <div className="flex gap-2">
-        <div>
-          <h1>Ai</h1>
+      {/*  */}
+      <div className="flex relative items-center w-72 pt-2 ml-23 hidden md:block">
+        <input
+          className="border w-full rounded-sm text-xs p-1 border-indigo-950 text-black pl-2 placeholder:text-xs placeholder:leading-3 flex-1"
+          type="text"
+          placeholder="Search Job"
+        />
+        <button
+          className="cursor-pointer absolute top-2.5 right-1 z-50"
+          onClick={() => alert("asa")}
+        >
+          <MdSearch size={22} />
+        </button>
+      </div>
+      {/*  */}
+      <div className="flex gap-4 items-center cursor-pointer">
+        <div className="shadow-sm rounded-full cursor-pointer">
+          <img className="w-7 h-7 rounded-full" src={AiImage} alt="" />
         </div>
         <div>
-          <h1>Profile</h1>
+          <img
+            className="w-7 h-7 rounded-full bg-contain bg-center"
+            src={profile}
+            alt=""
+          />
         </div>
       </div>
     </div>
