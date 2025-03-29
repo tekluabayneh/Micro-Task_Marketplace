@@ -2,15 +2,17 @@
 import React, { Suspense, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "../../components/Header/Header";
-import Login from "../Login/login";
+// import Login from "../Auth/login";
+// import Register from "../Auth/Register";
 import HomeHeader from "../../components/Header/HomeHeader";
+import Login from "../Auth/login";
+import Register from "../Auth/signUp";
 
 // Lazy-loaded page components
 const LandingPage = React.lazy(() => import("../Landing/Landing"));
 const Profile = React.lazy(() => import("../Profile/Profile"));
 const Contact = React.lazy(() => import("../Contact/Contact"));
 const NotFound = React.lazy(() => import("../NotFound/NotFound"));
-// const About = React.lazy(() => import("../About/About"));
 const Home = React.lazy(() => import("../Home/Home"));
 
 const Routers = () => {
@@ -22,10 +24,10 @@ const Routers = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/protected/home" element={<Home />} />
-        {/* <Route path="/about" element={<About />} /> */}
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
