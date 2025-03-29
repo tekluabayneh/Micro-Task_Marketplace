@@ -7,7 +7,8 @@
  six = passportAuth using google and github  
  seven = useContext  
  eight = ai for generating thing that i would like to have in the micro-Task platform
- 
+ nine = Ai for  Matching cline with freelancer 
+ ten  = to use OTP (one time password) for login for resting password
 
  if possible i have to use docker 
 
