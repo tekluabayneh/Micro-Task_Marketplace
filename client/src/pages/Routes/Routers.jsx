@@ -10,7 +10,7 @@ import Register from "../Auth/signUp";
 
 // Lazy-loaded page components
 const LandingPage = React.lazy(() => import("../Landing/Landing"));
-const Profile = React.lazy(() => import("../Profile/Profile"));
+const Profile = React.lazy(() => import("../Client/Profile"));
 const Contact = React.lazy(() => import("../Contact/Contact"));
 const NotFound = React.lazy(() => import("../NotFound/NotFound"));
 const Home = React.lazy(() => import("../Home/Home"));
@@ -20,11 +20,12 @@ const Routers = () => {
 
   return (
     <Suspense fallback={<div className="text-center">Loading...</div>}>
-      {islogedin ? <HomeHeader /> : <Header />}
+      {/* {islogedin ? <HomeHeader /> : <Header />} */}
+      <HomeHeader />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/protected/home" element={<Home />} />
-        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
