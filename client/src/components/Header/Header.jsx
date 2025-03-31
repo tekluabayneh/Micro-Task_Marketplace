@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 const MobileNav = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +23,9 @@ const MobileNav = () => {
       fixed top-0 left-0 z-50 transition-colors duration-300 shadow-md"
     >
       {/* Logo */}
-      <h1 className="font-bold cursor-pointer text-xl">MicroWorks</h1>
+      <Link to={"/"} className="font-bold cursor-pointer text-xl">
+        MicroWorks
+      </Link>
 
       {/* Hamburger Button */}
       <button

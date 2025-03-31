@@ -26,7 +26,7 @@ const Footer = () => {
     Resources: [
       "Help & support",
       "Success stories",
-      "Upwork reviews",
+
       "Resources",
       "Blog",
       "Affiliate programme",

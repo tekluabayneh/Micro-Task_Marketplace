@@ -35,7 +35,6 @@ const Landing = () => {
       <ExplorOffer />
       <Section />
       <Section2 />
-      <Footer />
     </div>
   );
 };

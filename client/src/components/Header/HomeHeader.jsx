@@ -3,9 +3,10 @@ import { MdSearch } from "react-icons/md";
 import AiImage from "../../assets/ai.png";
 import profile from "../../assets/profile.jpg";
 import ProfilePop from "../ProfilePop/ProfilePop";
+import { Link } from "react-router-dom";
 const HomeHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isProfileMenu, setProfileMenu] = useState(true);
+  const [isProfileMenu, setProfileMenu] = useState(false);
 
   const navItems = ["home", "about", "client", "price", "footer"];
   return (
@@ -34,9 +35,9 @@ const HomeHeader = () => {
 
       {/* Desktop Nav */}
       <div className="flex gap-5 items-center">
-        <h1 className="font-bold cursor-pointer text-xl hidden md:block">
+        <Link to={"/"} className="font-bold cursor-pointer text-xl">
           MicroWorks
-        </h1>
+        </Link>
 
         <div className="hidden md:block pt-1">
           <ul className="flex gap-5  flex-col md:flex-row">
