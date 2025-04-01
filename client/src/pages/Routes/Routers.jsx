@@ -1,17 +1,16 @@
 // src/routers/Routers.jsx
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "../../components/Header/Header";
-// import Login from "../Auth/login";
-// import Register from "../Auth/Register";
 import HomeHeader from "../../components/Header/HomeHeader";
-import Login from "../Auth/login";
-import Register from "../Auth/signUp";
-import ClientProfile from "../Client/ClientProfile";
-import Footer from "../../components/LandingPageComponents/Footer";
-import JobPostPage from "../PostJob/JobPostPage";
+const Login = lazy(() => import("../Auth/login"));
+const Register = lazy(() => import("../Auth/signUp"));
+const ClientProfile = lazy(() => import("../Client/ClientProfile"));
+const Footer = lazy(() =>
+  import("../../components/LandingPageComponents/Footer")
+);
+const JobPostPage = lazy(() => import("../PostJob/JobPostPage"));
 
-// Lazy-loaded page components
 const LandingPage = React.lazy(() => import("../Landing/Landing"));
 const FreelancerProfile = React.lazy(() =>
   import("../Freelancer/FreelancerProfile")
@@ -33,7 +32,7 @@ const Routers = () => {
         <Route path="/profile" element={<FreelancerProfile />} />
         <Route path="/ClientProfile" element={<ClientProfile />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/JobPostPage" element={<JobPostPage />} />
+        <Route path="/JobPost" element={<JobPostPage />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
