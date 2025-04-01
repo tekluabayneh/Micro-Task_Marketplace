@@ -1,30 +1,27 @@
-import { useForm } from "react-hook-form";
-
 const JobHeader = () => {
-  const { register, formState = { errors } } = useForm({});
   return (
-    <div className="mb-6 custom-shadow h-60 md:h-32 rounded-sm p-5">
-      <form action="" className="flex flex-col gap-5 md:flex-row">
+    <div className="mb-6 custom-shadow h-96 rounded-sm p-5">
+      <div className="flex  gap-5 flex-col">
         <label className="text-xl" htmlFor="Title">
           Title
         </label>
+
         <input
-          className="border rounded-sm w-full p-1"
+          className="border rounded-sm w-full h-8 p-1"
           type="text"
           name="Title"
           placeholder="UX/Developer"
         />
 
         <label className="text-xl" htmlFor="description">
-          description
+          Describe what you need
         </label>
-        <input
-          className="border rounded-sm w-full p-1"
-          type="text"
+        <textarea 
+          className="border rounded-sm md:h-50 w-full p-1"
           name="description"
-          placeholder="we want someone.."
+          placeholder="we want someone..."
         />
-      </form>
+      </div>
     </div>
   );
 };
