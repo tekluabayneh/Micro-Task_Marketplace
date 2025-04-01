@@ -3,8 +3,21 @@ import ClientInfo from "./ClientInfo.jsx.jsx";
 import FeedbackSection from "./FeedbackSection.jsx.jsx";
 import JobHeader from "./JobHeader";
 import SkillsSection from "./SkillsSection";
-
+import { useForm } from "react-hook-form";
 const JobPostPage = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    setValue,
+    formState = { errors },
+  } = useForm({
+    defaultValues: {
+      skills: ["javascript", "react"],
+    },
+  });
+
   const jobDetails = {
     title: "Fullstack Developer Needed for SaaS Platform",
     description:
@@ -28,27 +41,23 @@ const JobPostPage = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white shadow-md rounded-lg mt-16">
-      {/* Job Header */}
-      <JobHeader
-        title={jobDetails.title}
-        description={jobDetails.description}
-      />
+      <form action="">
+        {/* Job Header */}
+        <JobHeader inputValue={jobDetails.title} />
 
-      {/* Skills Section */}
-      <SkillsSection skills={jobDetails.skillsRequired} />
+        {/* Skills Section */}
+        <SkillsSection skills={jobDetails.skillsRequired} />
 
-      {/* Budget Section */}
-      <BudgetSection
-        budget={jobDetails.budget}
-        postedDate={jobDetails.postedDate}
-        proposals={jobDetails.proposals}
-      />
+        {/* Budget Section */}
+        <BudgetSection
+          budget={jobDetails.budget}
+          postedDate={jobDetails.postedDate}
+          proposals={jobDetails.proposals}
+        />
 
-      {/* Client Information */}
-      <ClientInfo client={jobDetails.client} />
-
-      {/* Feedback Section */}
-      <FeedbackSection feedback={jobDetails.client.feedback} />
+        {/* Client Information */}
+        <ClientInfo client={jobDetails.client} />
+      </form>
     </div>
   );
 };
