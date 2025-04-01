@@ -4,7 +4,6 @@ import FeedbackSection from "./FeedbackSection.jsx.jsx";
 import JobHeader from "./JobHeader";
 import SkillsSection from "./SkillsSection";
 
-
 const JobPostPage = () => {
   const jobDetails = {
     title: "Fullstack Developer Needed for SaaS Platform",
@@ -28,7 +27,7 @@ const JobPostPage = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    <div className="max-w-6xl mx-auto p-6 bg-white shadow-md rounded-lg mt-16">
       {/* Job Header */}
       <JobHeader
         title={jobDetails.title}
