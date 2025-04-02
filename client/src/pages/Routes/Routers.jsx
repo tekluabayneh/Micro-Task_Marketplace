@@ -22,11 +22,11 @@ const NotFound = React.lazy(() => import("../NotFound/NotFound"));
 const Home = React.lazy(() => import("../Home/Home"));
 
 const Routers = () => {
-  const [islogedin, setislogedin] = useState(true);
+  const [islogedin, setislogedin] = useState(false);
 
   return (
     <Suspense fallback={<div className="text-center">Loading...</div>}>
-      {/* {islogedin ? <HomeHeader /> : <Header />} */}
+      {islogedin ? <HomeHeader /> : <Header />}
       <HomeHeader />
       <Routes>
         <Route path="/" element={<LandingPage />} />
