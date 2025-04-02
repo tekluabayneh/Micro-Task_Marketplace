@@ -3,6 +3,8 @@ import React, { Suspense, useState, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import HomeHeader from "../../components/Header/HomeHeader";
+import JobBiddingPage from "../Freelancer/JobBid";
+import TaskDetailsPage from "../../components/TaskDetail/TaskDetail";
 const Login = lazy(() => import("../Auth/login"));
 const Register = lazy(() => import("../Auth/signUp"));
 const ClientProfile = lazy(() => import("../Client/ClientProfile"));
@@ -33,6 +35,8 @@ const Routers = () => {
         <Route path="/ClientProfile" element={<ClientProfile />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/JobPost" element={<JobPostPage />} />
+        <Route path="/JobBidding" element={<JobBiddingPage />} />
+        <Route path="/TaskDetails" element={<TaskDetailsPage />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
