@@ -4,6 +4,7 @@ import FeedbackSection from "./FeedbackSection.jsx.jsx";
 import JobHeader from "./JobHeader";
 import SkillsSection from "./SkillsSection";
 import { useForm } from "react-hook-form";
+import TaskRequirements from "./TaskRequirements.jsx";
 const JobPostPage = () => {
   const {
     register,
@@ -47,7 +48,7 @@ const JobPostPage = () => {
 
         {/* Skills Section */}
         <SkillsSection skills={jobDetails.skillsRequired} />
-
+    <TaskRequirements/>
         {/* Budget Section */}
         <BudgetSection
           budget={jobDetails.budget}
