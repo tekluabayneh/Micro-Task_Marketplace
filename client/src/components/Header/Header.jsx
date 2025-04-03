@@ -20,10 +20,10 @@ const MobileNav = () => {
     <header
       style={{ background: `${isScrolled ? "white" : "transparent"}` }}
       className="w-full h-12 px-4 flex items-center justify-between 
-      fixed top-0 left-0 z-50 transition-colors duration-300 shadow-md"
+      fixed top-0 left-0 z-50 transition-colors duration-300 custom-shadow"
     >
       {/* Logo */}
-      <Link to={"/"} className="font-bold cursor-pointer text-xl">
+      <Link to={"/"} className="font-bold cursor-pointer text-xl ">
         MicroWorks
       </Link>
 
