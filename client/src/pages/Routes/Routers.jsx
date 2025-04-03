@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import HomeHeader from "../../components/Header/HomeHeader";
 import JobBiddingPage from "../Freelancer/JobBid";
 import TaskDetailsPage from "../../components/TaskDetail/TaskDetail";
+import FreelancerDashboardPage from "../Freelancer/FreelancerDashboardPage";
 const Login = lazy(() => import("../Auth/login"));
 const Register = lazy(() => import("../Auth/signUp"));
 const ClientProfile = lazy(() => import("../Client/ClientProfile"));
@@ -37,6 +38,10 @@ const Routers = () => {
         <Route path="/JobPost" element={<JobPostPage />} />
         <Route path="/JobBidding" element={<JobBiddingPage />} />
         <Route path="/TaskDetails" element={<TaskDetailsPage />} />
+        <Route
+          path="/FreelancerDashboard"
+          element={<FreelancerDashboardPage />}
+        />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
