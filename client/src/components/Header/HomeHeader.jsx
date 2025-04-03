@@ -35,7 +35,10 @@ const HomeHeader = () => {
 
       {/* Desktop Nav */}
       <div className="flex gap-5 items-center">
-        <Link to={"/"} className="font-bold cursor-pointer text-xl">
+        <Link
+          to={"/"}
+          className="font-bold cursor-pointer text-xl hidden md:block"
+        >
           MicroWorks
         </Link>
 
