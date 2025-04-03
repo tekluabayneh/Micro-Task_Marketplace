@@ -9,7 +9,8 @@
  eight = ai for generating thing that i would like to have in the micro-Task platform
  nine = Ai for  Matching cline with freelancer 
  ten  = to use OTP (one time password) for login for resting password
-
+ eleven = use the react portal to allow use to edit their thing like name and skill and other thing 
+ 
  if possible i have to use docker 
 
 identify if the person is the new visitor and show them the landing pate otherwise show them the login page
