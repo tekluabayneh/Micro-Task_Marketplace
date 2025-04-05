@@ -21,7 +21,7 @@ const Landing = () => {
           <div className="w-96  m-auto relative">
             <img
               style={{ borderRadius: "6rem" }}
-              className="w-full h-52 object-cover"
+              className="w-full h-52 object-cover bg-cover"
               src={Hero2img}
               alt=""
             />
