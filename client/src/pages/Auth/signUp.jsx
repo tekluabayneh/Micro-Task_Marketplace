@@ -114,6 +114,12 @@ function Register() {
             >
               Login
             </Link>
+            <Link
+              to="/ResetPassword"
+              className="text-blue-500 cursor-pointer hover:underline pl-4"
+            >
+              Reset Password
+            </Link>
           </div>
         </form>
       </div>
