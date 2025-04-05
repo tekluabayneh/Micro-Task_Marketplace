@@ -6,6 +6,10 @@ import HomeHeader from "../../components/Header/HomeHeader";
 import JobBiddingPage from "../Freelancer/JobBid";
 import TaskDetailsPage from "../../components/TaskDetail/TaskDetail";
 import FreelancerDashboardPage from "../Freelancer/FreelancerDashboardPage";
+import ResetPassword from "../Auth/ForgotPassword";
+import ResetConfirm from "../Auth/ResetConfirm";
+import MyJobs from "../PostJob/MYPostedProjects";
+import ClientDashboard from "../Dashboard/ClientDashboard";
 const Login = lazy(() => import("../Auth/login"));
 const Register = lazy(() => import("../Auth/signUp"));
 const ClientProfile = lazy(() => import("../Client/ClientProfile"));
@@ -26,8 +30,8 @@ const Routers = () => {
   const [islogedin, setislogedin] = useState(false);
 
   return (
-    <Suspense fallback={<div className="text-center">Loading...</div>}>
-      {islogedin ? <HomeHeader /> : <Header />}
+    <Suspense fallback={<div className=" text-center ">Loading...</div>}>
+      {/* {islogedin ? <HomeHeader /> : <Header />} */}
       <HomeHeader />
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -38,6 +42,10 @@ const Routers = () => {
         <Route path="/JobPost" element={<JobPostPage />} />
         <Route path="/JobBidding" element={<JobBiddingPage />} />
         <Route path="/TaskDetails" element={<TaskDetailsPage />} />
+        <Route path="/ResetPassword" element={<ResetPassword />} />
+        <Route path="/ResetConfirm" element={<ResetConfirm />} />
+        <Route path="/MyPostJobs" element={<MyJobs />} />
+        <Route path="/ClientDashboard" element={<ClientDashboard />} />
         <Route
           path="/FreelancerDashboard"
           element={<FreelancerDashboardPage />}
