@@ -16,7 +16,7 @@ const FreelancerDashboardPage = () => {
         </div>
 
         {/* Sidebar */}
-        <div className="">
+        <div className="hidden md:block">
           <Sidebar />
         </div>
       </div>
