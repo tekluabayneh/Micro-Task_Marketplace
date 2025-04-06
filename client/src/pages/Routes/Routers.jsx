@@ -1,15 +1,25 @@
 // src/routers/Routers.jsx
 import React, { Suspense, useState, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import HomeHeader from "../../components/Header/HomeHeader";
-import JobBiddingPage from "../Freelancer/JobBid";
-import TaskDetailsPage from "../../components/TaskDetail/TaskDetail";
-import FreelancerDashboardPage from "../Freelancer/FreelancerDashboardPage";
-import ResetPassword from "../Auth/ForgotPassword";
-import ResetConfirm from "../Auth/ResetConfirm";
-import MyJobs from "../PostJob/MYPostedProjects";
-import ClientDashboard from "../Dashboard/ClientDashboard";
+import Loading from "../../components/Loading";
+
+// Lazy load components
+const Header = lazy(() => import("../../components/Header/Header"));
+const HomeHeader = lazy(() => import("../../components/Header/HomeHeader"));
+const JobBiddingPage = lazy(() => import("../Freelancer/JobBid"));
+const TaskDetailsPage = lazy(() =>
+  import("../../components/TaskDetail/TaskDetail")
+);
+const FreelancerDashboardPage = lazy(() =>
+  import("../Freelancer/FreelancerDashboardPage")
+);
+const ResetPassword = lazy(() => import("../Auth/ForgotPassword"));
+const ResetConfirm = lazy(() => import("../Auth/ResetConfirm"));
+const MyJobs = lazy(() => import("../PostJob/MYPostedProjects"));
+const ClientDashboard = lazy(() => import("../Dashboard/ClientDashboard"));
+const Privacy = lazy(() => import("../Privacy/Privacy"));
+const Terms = lazy(() => import("../Terms/Terms"));
+
 const Login = lazy(() => import("../Auth/login"));
 const Register = lazy(() => import("../Auth/signUp"));
 const ClientProfile = lazy(() => import("../Client/ClientProfile"));
@@ -24,18 +34,17 @@ const FreelancerProfile = React.lazy(() =>
 );
 const Contact = React.lazy(() => import("../Contact/Contact"));
 const NotFound = React.lazy(() => import("../NotFound/NotFound"));
-const Home = React.lazy(() => import("../Home/Home"));
 
 const Routers = () => {
   const [islogedin, setislogedin] = useState(false);
 
   return (
-    <Suspense fallback={<div className=" text-center ">Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       {/* {islogedin ? <HomeHeader /> : <Header />} */}
       <HomeHeader />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/protected/home" element={<Home />} />
+
         <Route path="/profile" element={<FreelancerProfile />} />
         <Route path="/ClientProfile" element={<ClientProfile />} />
         <Route path="/contact" element={<Contact />} />
@@ -52,6 +61,8 @@ const Routers = () => {
         />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/term" element={<Terms />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
