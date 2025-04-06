@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdSearch } from "react-icons/md";
 import { Link, Links } from "react-router-dom";
+import LoadMore from "../../LoadMoreButton/LoadMore";
 
 const JobListings = () => {
+  const [page, setPage] = useState(1);
   const jobs = [
     {
       title: "Build a React App",
@@ -223,6 +225,13 @@ const JobListings = () => {
         "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration into code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
     },
   ];
+  const handlePrev = () => {
+    if (page > 1) setPage((prev) => prev - 1);
+  };
+
+  const handleNext = () => {
+    setPage((prev) => prev + 1);
+  };
 
   return (
     <div className="p-1">
@@ -281,9 +290,9 @@ const JobListings = () => {
           </li>
         ))}
       </ul>
-      <button className="w-full  underline cursor-pointer text-[var(--primary-color)]">
-        Load Mre
-      </button>
+      <div className="p-6">
+        <LoadMore count={page} onPrev={handlePrev} onNext={handleNext} />
+      </div>
     </div>
   );
 };
