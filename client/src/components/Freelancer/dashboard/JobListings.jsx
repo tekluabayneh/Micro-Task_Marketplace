@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { MdSearch } from "react-icons/md";
-import { Link, Links } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoadMore from "../../LoadMoreButton/LoadMore";
-
+import TaskDetailsPage from "../../../components/TaskDetail/TaskDetail";
 const JobListings = () => {
   const [page, setPage] = useState(1);
+  const [isApplied, setIsApplied] = useState(false);
   const jobs = [
     {
       title: "Build a React App",
@@ -233,8 +234,13 @@ const JobListings = () => {
     setPage((prev) => prev + 1);
   };
 
+  const handman = () => {
+    setIsApplied((prev) => prev + 1);
+  };
+
   return (
     <div className="p-1">
+      <TaskDetailsPage isApplied={isApplied} setIsApplied={setIsApplied} />
       <h2 className="text-2xl font-semibold m-1 pl-3">Jobs you might like</h2>
 
       <div className="w-full relative flex items-center">
@@ -257,8 +263,8 @@ const JobListings = () => {
             key={index}
             className="p-2 group bg-gray-50 custom-shadow cursor-pointer h-64 hover:bg-gray-100 overflow-hidden"
           >
-            <Link
-              to={job.title}
+            <div
+              onClick={handman}
               className="w-full h-full z-40 flex flex-col justify-start gap-1 md:gap-2"
             >
               <p className="text-gray-500 text-xs">Posted: {job.posted}</p>
@@ -286,7 +292,7 @@ const JobListings = () => {
               </div>
               <p className="text-xs">Payment: {job.payment}</p>
               <p className="text-xs">proposal: {job.proposal}</p>
-            </Link>
+            </div>
           </li>
         ))}
       </ul>
