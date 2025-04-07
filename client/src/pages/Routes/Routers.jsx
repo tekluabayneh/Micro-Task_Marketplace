@@ -2,14 +2,13 @@
 import React, { Suspense, useState, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import Loading from "../../components/Loading";
+import UserTypeSelector from "../Auth/UserTypeSelector";
 
 // Lazy load components
 const Header = lazy(() => import("../../components/Header/Header"));
 const HomeHeader = lazy(() => import("../../components/Header/HomeHeader"));
 const JobBiddingPage = lazy(() => import("../Freelancer/JobBid"));
-const TaskDetailsPage = lazy(() =>
-  import("../../components/TaskDetail/TaskDetail")
-);
+const JobApply = lazy(() => import("../ApplayJob/ApplayJob"));
 const FreelancerDashboardPage = lazy(() =>
   import("../Freelancer/FreelancerDashboardPage")
 );
@@ -27,7 +26,6 @@ const Footer = lazy(() =>
   import("../../components/LandingPageComponents/Footer")
 );
 const JobPostPage = lazy(() => import("../PostJob/JobPostPage"));
-
 const LandingPage = React.lazy(() => import("../Landing/Landing"));
 const FreelancerProfile = React.lazy(() =>
   import("../Freelancer/FreelancerProfile")
@@ -40,8 +38,8 @@ const Routers = () => {
 
   return (
     <Suspense fallback={<Loading />}>
-      {/* {islogedin ? <HomeHeader /> : <Header />} */}
-      <HomeHeader />
+      {islogedin ? <HomeHeader /> : <Header />}
+      {/* <HomeHeader /> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
 
@@ -50,16 +48,17 @@ const Routers = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/JobPost" element={<JobPostPage />} />
         <Route path="/JobBidding" element={<JobBiddingPage />} />
-        <Route path="/TaskDetails" element={<TaskDetailsPage />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route path="/ResetConfirm" element={<ResetConfirm />} />
         <Route path="/MyPostJobs" element={<MyJobs />} />
         <Route path="/ClientDashboard" element={<ClientDashboard />} />
+        <Route path="/FreelancerDashboard/JobApply" element={<JobApply />} />
         <Route
           path="/FreelancerDashboard"
           element={<FreelancerDashboardPage />}
         />
         <Route path="/Login" element={<Login />} />
+        <Route path="/UserTypeSelector" element={<UserTypeSelector />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/term" element={<Terms />} />
