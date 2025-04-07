@@ -92,9 +92,11 @@ const MobileNav = () => {
           ))}
         </ul>
         <ul className="flex items-center gap-3">
-          <button className="text-sm cursor-pointer text-nowrap">Log in</button>
+          <button className="text-sm cursor-pointer text-nowrap">
+            <Link to={"/login"}>Log in</Link>
+          </button>
           <button className="text-sm cursor-pointer rounded-lg bg-[var(--secondary-dark-green)] hover:bg-[var(--Dark-color)] px-5 py-1 text-white">
-            Signup
+            <Link to={"/UserTypeSelector"}>Signup</Link>
           </button>
         </ul>
       </div>
