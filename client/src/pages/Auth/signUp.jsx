@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
 import GoogleImg from "../../assets/Google.png";
 import GithubImg from "../../assets/github-2.webp";
+import { useForm } from "react-hook-form";
 function Register() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isLogin) {
-      console.log("Login:", email, password);
-      // Implement login logic here
-    } else {
-      console.log("Signup:", email, password);
-      // Implement signup logic here
-    }
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({});
+
+  const onSubmitRegister = (data) => {
+    let useType = localStorage.getItem("userType");
+    console.log(data);
+    console.log(useType);
+    reset();
   };
 
   return (
@@ -39,7 +43,7 @@ function Register() {
             />{" "}
           </button>
         </div>
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form className="space-y-4" onSubmit={handleSubmit(onSubmitRegister)}>
           <div className="space-y-1">
             <label
               htmlFor="email"
@@ -48,12 +52,17 @@ function Register() {
               firstName:
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              required
+              type="text"
+              id="firstName"
+              name="firstName"
+              {...register("firstName", {
+                required: "firstName must be provided",
+              })}
               className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-            />
+            />{" "}
+            {errors.firstName && (
+              <span style={{ color: "red" }}>{errors.firstName.message}</span>
+            )}
           </div>
           <div className="space-y-1">
             <label
@@ -63,12 +72,17 @@ function Register() {
               lastName:
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              required
+              type="text"
+              id="lastName"
+              name="lastName"
+              {...register("lastName", {
+                required: "lastName must be provided",
+              })}
               className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-            />
+            />{" "}
+            {errors.lastName && (
+              <span style={{ color: "red" }}>{errors.lastName.message}</span>
+            )}
           </div>
           <div className="space-y-1">
             <label
@@ -81,9 +95,12 @@ function Register() {
               type="email"
               id="email"
               name="email"
-              required
+              {...register("email", { required: "email must be provided" })}
               className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-            />
+            />{" "}
+            {errors.email && (
+              <span style={{ color: "red" }}>{errors.email.message}</span>
+            )}
           </div>
           <div className="space-y-1">
             <label
@@ -94,11 +111,19 @@ function Register() {
             </label>
             <input
               type="password"
-              id="password"
               name="password"
-              required
+              {...register("password", {
+                required: "password must be provided",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              })}
               className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
+            {errors.password && (
+              <span style={{ color: "red" }}>{errors.password.message}</span>
+            )}
           </div>
           <button
             type="submit"
@@ -114,12 +139,7 @@ function Register() {
             >
               Login
             </Link>
-            <Link
-              to="/ResetPassword"
-              className="text-blue-500 cursor-pointer hover:underline pl-4"
-            >
-              Reset Password
-            </Link>
+      
           </div>
         </form>
       </div>
