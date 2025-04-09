@@ -1,0 +1,48 @@
+backend/
+│
+├── config/                  # Config files (DB, environment, etc.)
+│   ├── db.js                # Database connection logic
+│   ├── env.js               # Environment variables setup
+│   └── oauthConfig.js       # OAuth credentials for Google & GitHub
+│
+├── controllers/            # Route logic (what happens when a route is hit)
+│   ├── authController.js   # Login, register, logout (with Google/GitHub)
+│   ├── userController.js   # User profile CRUD
+│   ├── jobController.js    # Job listing CRUD
+│   └── dashboardController.js # Freelancer/client dashboard data
+│
+├── models/                 # Mongoose/Sequelize/Prisma models
+│   ├── User.js             # User schema with Google/GitHub OAuth fields
+│   ├── Job.js
+│   └── Application.js
+│
+├── routes/                 # Express route handlers
+│   ├── authRoutes.js       # Routes for login, register, Google/GitHub login
+│   ├── userRoutes.js
+│   ├── jobRoutes.js
+│   └── dashboardRoutes.js
+│
+├── middleware/             # Middleware for auth, error handling, etc.
+│   ├── authMiddleware.js
+│   ├── errorHandler.js
+│   └── validateInput.js
+│
+├── services/               # Business logic (e.g., sending email, filtering jobs)
+│   ├── authService.js      # Logic for handling authentication (including OAuth)
+│   ├── jobService.js
+│   └── userService.js
+│
+├── utils/                  # Reusable helper functions
+│   ├── formatDate.js
+│   ├── generateToken.js
+│   └── constants.js
+│
+├── validators/             # Request validation schemas (e.g., Joi, Zod)
+│   ├── authValidator.js
+│   └── jobValidator.js
+│
+├── uploads/                # For storing uploaded images/files (if needed)
+│
+├── .env                    # Environment variables
+├── server.js               # Entry point for Express server
+└── package.json
