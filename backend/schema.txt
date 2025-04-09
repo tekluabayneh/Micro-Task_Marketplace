@@ -1,0 +1,17 @@
+app.get("/create", async (req, res) => {
+  let createTable = `CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    firstName VARCHAR(100),
+    lastName VARCHAR(100),
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('freelancer', 'client') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)`;
+
+  let [result] = await db.execute(createTable);
+
+  console.log(result);
+
+  res.json(result);
+});
