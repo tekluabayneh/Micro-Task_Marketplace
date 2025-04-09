@@ -1,0 +1,65 @@
+frontend/ (src)
+│
+├── assets/               # Static files like images, icons, fonts, etc.
+│   ├── images/
+│   ├── icons/
+│   └── styles/           # Global CSS or SCSS files
+│       └── global.scss
+│
+├── components/           # Reusable UI components
+│   ├── common/           # Common components used across the app
+│   │   ├── Button/
+│   │   ├── Input/
+│   │   ├── Modal/
+│   │   └── Navbar/
+│   ├── layout/           # Layout components (e.g., Header, Footer, Sidebar)
+│   │   ├── Header/
+│   │   ├── Footer/
+│   │   └── Sidebar/
+│   └── widgets/          # Small widgets like cards, charts, etc.
+│       ├── JobCard/
+│       ├── ProfileCard/
+│       └── Notification/
+│
+├── pages/                # Page-level components
+│   ├── Home/             # Homepage
+│   ├── About/            # About page
+│   ├── Jobs/             # Job listings page
+│   │   ├── JobList/
+│   │   └── JobDetails/
+│   ├── Profiles/         # Freelancer and client profiles
+│   │   ├── FreelancerProfile/
+│   │   └── ClientProfile/
+│   ├── Dashboard/        # User dashboard (freelancer/client-specific)
+│   │   ├── FreelancerDashboard/
+│   │   └── ClientDashboard/
+│   ├── Auth/             # Authentication pages
+│   │   ├── Login/
+│   │   ├── Register/
+│   │   └── ForgotPassword/
+│   └── NotFound/         # 404 Page
+│
+├── hooks/                # Custom React hooks
+│   ├── useAuth.js        # Authentication-related hooks
+│   ├── useFetch.js       # Data fetching hooks
+│   └── useLocalStorage.js # Local storage management hooks
+│
+├── context/              # React Context for state management
+│   ├── AuthContext.js    # Authentication state
+│   ├── JobContext.js     # Job-related state
+│   └── UserContext.js    # User profile state
+│
+├── services/             # API services and utility functions
+│   ├── api.js            # Axios instance or fetch wrapper
+│   ├── authService.js    # Authentication-related API calls
+│   ├── jobService.js     # Job-related API calls
+│   └── userService.js    # User-related API calls
+│
+├── utils/                # Utility functions and helpers
+│   ├── constants.js      # App-wide constants (e.g., API endpoints)
+│   ├── helpers.js        # Helper functions (e.g., formatting dates)
+│   └── validators.js     # Form validation logic
+│
+├── App.js                # Main application component
+├── index.js              # Entry point of the app
+└── routes.js             # Route configuration for React Router
