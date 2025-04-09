@@ -2,7 +2,21 @@ import React from "react";
 import GoogleImg from "../../assets/Google.png";
 import GithubImg from "../../assets/github-2.webp";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 const Login = () => {
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({});
+
+  const onSubmitLogin = (data) => {
+    console.log(data);
+
+    reset();
+  };
+
   return (
     <div className="bg-gray-100 flex justify-center items-center h-screen mt-10">
       <div className="bg-white p-8 rounded shadow-md w-96">
@@ -32,7 +46,7 @@ const Login = () => {
           </button>
         </div>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit(onSubmitLogin)}>
           <div className="space-y-1">
             <label
               htmlFor="email"
@@ -44,9 +58,12 @@ const Login = () => {
               type="email"
               id="email"
               name="email"
-              required
+              {...register("email", { required: "email must be provided" })}
               className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
+            {errors.email && (
+              <span style={{ color: "red" }}>{errors.email.message}</span>
+            )}
           </div>
           <div className="space-y-1">
             <label
@@ -57,11 +74,19 @@ const Login = () => {
             </label>
             <input
               type="password"
-              id="password"
               name="password"
-              required
+              {...register("password", {
+                required: "password must be provided",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              })}
               className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
+            {errors.password && (
+              <span style={{ color: "red" }}>{errors.password.message}</span>
+            )}
           </div>
           <button
             type="submit"
@@ -72,11 +97,11 @@ const Login = () => {
         </form>
         <h1 className="text-center py-8 text-sm">
           {" "}
-          ------- Don't have an Upwork account? ------
+          ------- Don't have an MicroWork account? ------
         </h1>
         <div className="text-center mt-4">
           <Link
-            to="/Register"
+            to="/UserTypeSelector"
             className="text-blue-500 cursor-pointer hover:underline"
           >
             Signup
