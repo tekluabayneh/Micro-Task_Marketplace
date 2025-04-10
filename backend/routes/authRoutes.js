@@ -1,5 +1,4 @@
-
-const { Register, logout, Login } = require("../controllers/authController");
+const { Register, Login } = require("../controllers/authController");
 const {
   RegisterMiddleware,
   LoginMiddleware,
@@ -17,9 +16,6 @@ AuthRoute.post(
   Register
 );
 
-
-
 AuthRoute.post("/login", [LoginMiddleware, CheckUserExistLogin], Login);
-AuthRoute.post("/logout", logout);
 
 module.exports = AuthRoute;
