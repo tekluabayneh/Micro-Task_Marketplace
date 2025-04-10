@@ -28,7 +28,7 @@ const Register = async (req, res) => {
 const Login = (req, res) => {
   const userInfoFromDB = req.userInfoFromDB;
 
-//   console.log(userInfoFromDB);
+  //   console.log(userInfoFromDB);
 
   // check the user type and navigate them to the dashboard
   if (userInfoFromDB[0].role === "freelancer") {
@@ -37,17 +37,5 @@ const Login = (req, res) => {
     res.redirect("/clientDashboard");
   }
 };
-const logout = (req, res) => {
 
-  // for logout we just have to delete the data from the database and also remove staff that the user has
-
-  
-  // first we have to check if the user exist
-
-
-
-
-
-};
-
-module.exports = { logout, Login, Register };
+module.exports = { Login, Register };
