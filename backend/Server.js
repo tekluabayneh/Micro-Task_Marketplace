@@ -28,6 +28,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// // Github auth
+configureGitHubStrategy(passport);
+
+// // Google auth
+configureGoogleAuth(passport);
+
 passport.serializeUser((done, user) => done(null, user.id));
 passport.deserializeUser(async (user, done) => {
   try {
@@ -44,16 +50,6 @@ passport.deserializeUser(async (user, done) => {
     return done(err); // Handle errors (e.g., database query errors)
   }
 });
-
-
-
-// // Google auth
-// configureGitHubStrategy(passport);
-
-configureGoogleAuth(passport);
-
-
-
 
 app.use("/Oauth", OauthRoute);
 
