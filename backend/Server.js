@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();  
 const cors = require("cors");
 const AuthRoute = require("./routes/authRoutes");
 const db = require("./config/db");
@@ -7,14 +8,13 @@ const passport = require("passport");
 const configureGitHubStrategy = require("./controllers/GithubAuth");
 const configureGoogleAuth = require("./controllers/GoogleAuth");
 const OauthRoute = require("./routes/OAuthRouter");
-require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-
+``;
 // session
 app.use(
   session({
@@ -28,11 +28,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// // Github auth
-configureGitHubStrategy(passport);
+// // // Github auth
+// configureGitHubStrategy(passport);
 
-// // Google auth
-configureGoogleAuth(passport);
+// // // Google auth
+// configureGoogleAuth(passport);
 
 passport.serializeUser((done, user) => done(null, user.id));
 passport.deserializeUser(async (user, done) => {
@@ -55,6 +55,8 @@ app.use("/Oauth", OauthRoute);
 
 //// this is for use login and register route
 app.use("/auth", AuthRoute);
+
+console.log("GitHub ID:", process.env.GITHUB_CLIENT_SECRET);
 
 app.get("/", (req, res) => {
   res.send("Job Platform API is running...");
