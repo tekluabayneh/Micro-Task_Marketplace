@@ -1,3 +1,4 @@
+
 const { Register, logout, Login } = require("../controllers/authController");
 const {
   RegisterMiddleware,
@@ -10,14 +11,14 @@ const {
 } = require("../middleware/userexistCheck");
 const AuthRoute = require("express").Router();
 
-
-
-
 AuthRoute.post(
   "/register",
   [RegisterMiddleware, CheckUserExistRegister],
   Register
 );
+
+
+
 AuthRoute.post("/login", [LoginMiddleware, CheckUserExistLogin], Login);
 AuthRoute.post("/logout", logout);
 
