@@ -46,7 +46,6 @@ const CheckUserExistRegister = async (req, res, next) => {
     let CheckQuery = "SELECT * FROM users  WHERE email = ? ";
     let [result] = await db.execute(CheckQuery, [email]);
 
- 
     if (result.length > 0) {
       return res.status(401).json({ message: "user already exist" });
     }
