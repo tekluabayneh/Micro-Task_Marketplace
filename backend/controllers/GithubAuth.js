@@ -12,7 +12,7 @@ const configureGitHubStrategy = (passport) => {
       (accessToken, refreshToken, profile, done) => {
         console.log(accessToken, refreshToken, profile);
 
-        done(null, true)
+        done(null, true);
       }
     )
   );
