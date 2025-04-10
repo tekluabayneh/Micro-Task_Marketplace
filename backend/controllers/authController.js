@@ -37,6 +37,17 @@ const Login = (req, res) => {
     res.redirect("/clientDashboard");
   }
 };
-const logout = (req, res) => {};
+const logout = (req, res) => {
+
+  // for logout we just have to delete the data from the database and also remove staff that the user has
+
+  
+  // first we have to check if the user exist
+
+
+
+
+
+};
 
 module.exports = { logout, Login, Register };
