@@ -1,5 +1,5 @@
+require("dotenv").config();
 const express = require("express");
-require("dotenv").config();  
 const cors = require("cors");
 const AuthRoute = require("./routes/authRoutes");
 const db = require("./config/db");
@@ -11,10 +11,10 @@ const OauthRoute = require("./routes/OAuthRouter");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+console.log(process.env);
 app.use(cors());
 app.use(express.json());
-``;
+
 // session
 app.use(
   session({

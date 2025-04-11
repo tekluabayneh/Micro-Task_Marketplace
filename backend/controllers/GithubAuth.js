@@ -1,6 +1,6 @@
 const db = require("../config/db");
 const GitHubStrategy = require("passport-github2").Strategy;
-require("dotenv").config();
+
 
 const configureGitHubStrategy = (passport) => {
   passport.use(

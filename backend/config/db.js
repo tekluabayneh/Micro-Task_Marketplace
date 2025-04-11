@@ -15,7 +15,7 @@
 const mysql = require("mysql2/promise");
 
 const db = mysql.createPool({
-  uri: "mysql://microWorkDB_gonetrack:b39c8547ee783e1f2355fff0b823979bd3264bd6@lvp4r.h.filess.io:3307/microWorkDB_gonetrack",
+  // uri: "mysql://microWorkDB_gonetrack:b39c8547ee783e1f2355fff0b823979bd3264bd6@lvp4r.h.filess.io:3307/microWorkDB_gonetrack",
 });
 module.exports = db;
 
