@@ -1,7 +1,6 @@
 const db = require("../config/db");
 const GitHubStrategy = require("passport-github2").Strategy;
 
-
 const configureGitHubStrategy = (passport) => {
   passport.use(
     new GitHubStrategy(
@@ -11,8 +10,13 @@ const configureGitHubStrategy = (passport) => {
         callbackURL: "http://localhost:3001/auth/github/callback",
       },
       (accessToken, refreshToken, profile, done) => {
-        console.log(accessToken, refreshToken, profile);
-        done(null, true);
+        try {
+          console.log(accessToken, refreshToken, profile);
+          done(null, true);
+        } catch (error) {
+          console.error("Error during Google OAuth:", error);
+          return done(error, null);
+        }
       }
     )
   );
