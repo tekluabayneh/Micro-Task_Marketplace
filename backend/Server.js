@@ -19,7 +19,7 @@ app.use(
   session({
     secret: "my-secret",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: { secure: false },
   })
 );
@@ -33,7 +33,7 @@ configureGitHubStrategy(passport);
 // // Google auth
 configureGoogleAuth(passport);
 
-passport.serializeUser((done, user) => done(null, user.id));
+passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser(async (user, done) => {
   try {
     let CheckQuery = "SELECT * FROM users WHERE email = ? ";
@@ -43,10 +43,10 @@ passport.deserializeUser(async (user, done) => {
       // If user already exists, handle it appropriately
       return done(null, result[0]);
     } else {
-      return done(null, false); // No user found
+      return done(null, false);
     }
   } catch (err) {
-    return done(err); // Handle errors (e.g., database query errors)
+    return done(err);
   }
 });
 
