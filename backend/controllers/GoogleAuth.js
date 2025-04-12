@@ -1,7 +1,6 @@
 const db = require("../config/db");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
-
 const configureGoogleAuth = (passport) => {
   passport.use(
     new GoogleStrategy(
@@ -11,7 +10,9 @@ const configureGoogleAuth = (passport) => {
         callbackURL: "http://localhost:3001/auth/google/callback",
       },
       (accessToken, refreshToken, profile, done) => {
-        console.log(profile, refreshToken, accessToken);
+        console.log("profile", profile);
+        console.log("refreshToken", refreshToken);
+        console.log("accessToken", accessToken);
         done(null, true);
       }
     )

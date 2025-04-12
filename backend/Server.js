@@ -27,11 +27,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// // // Github auth
-// configureGitHubStrategy(passport);
+// // Github auth
+configureGitHubStrategy(passport);
 
-// // // Google auth
-// configureGoogleAuth(passport);
+// // Google auth
+configureGoogleAuth(passport);
 
 passport.serializeUser((done, user) => done(null, user.id));
 passport.deserializeUser(async (user, done) => {
@@ -50,12 +50,11 @@ passport.deserializeUser(async (user, done) => {
   }
 });
 
+// passport auth
 app.use("/Oauth", OauthRoute);
 
 //// this is for use login and register route
 app.use("/auth", AuthRoute);
-
-console.log("GitHub ID:", process.env.GITHUB_CLIENT_SECRET);
 
 app.get("/", (req, res) => {
   res.send("Job Platform API is running...");
