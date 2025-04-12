@@ -1,7 +1,7 @@
 // src/routers/Routers.jsx
 import React, { Suspense, useState, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 import UserTypeSelector from "../Auth/UserTypeSelector";
 
 // Lazy load components
