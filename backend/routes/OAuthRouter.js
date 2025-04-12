@@ -8,14 +8,14 @@ OauthRoute.get(
 
 // redirect the user if the user successfully registered
 OauthRoute.get(
-  "/google/callback",
+  "/google/FreelancerDashboard",
   passport.authenticate("google", { failureRedirect: "/" }, (req, res) => {
-    res.redirect("/dashboard");
+    res.redirect("/FreelancerDashboard");
   })
 );
 
 // redirect the user if the user successfully registered
-OauthRoute.get(
+http: OauthRoute.get(
   "/github/callback",
   passport.authenticate("github", { failureRedirect: "/" }, (req, res) => {
     res.redirect("/dashboard");
