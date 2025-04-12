@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GoogleImg from "../../assets/Google.png";
 import GithubImg from "../../assets/github-2.webp";
 import { Link } from "react-router-dom";
@@ -13,15 +13,17 @@ const Login = () => {
 
   const onSubmitLogin = (data) => {
     console.log(data);
-
     reset();
   };
+
+  const handleLoginWithGoogle = () => {};
 
   return (
     <div className="bg-gray-100 flex justify-center items-center h-screen mt-10">
       <div className="bg-white p-8 rounded shadow-md w-96">
         <div className="flex flex-col gap-2 justify-center mb-3">
           <button
+            onClick={handleLoginWithGoogle}
             type="button"
             className="bg-blue-500 border-none p-2 cursor-pointer rounded-md text-white capitalize  flex items-center gap-7"
           >
