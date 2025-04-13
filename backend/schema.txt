@@ -5,13 +5,19 @@ app.get("/create", async (req, res) => {
     lastName VARCHAR(100),
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
+    skills VARCHAR(2000),
+    availability BOOLEAN DEFAULT false,
+    experienceLevel ENUM('junior', 'mid', 'expert'),
     role ENUM('freelancer', 'client') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)`;
+  )`;
 
-  let [result] = await db.execute(createTable);
-
-  console.log(result);
-
-  res.json(result);
+  try {
+    let [result] = await db.execute(createTable);
+    console.log(result);
+    res.json(result);
+  } catch (err) {
+    console.error("Table creation failed:", err.message);
+    res.status(500).json({ error: err.message });
+  }
 });
