@@ -7,14 +7,19 @@ const configureGoogleAuth = (passport) => {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:5173/auth/google/FreelancerDashboard",
+        callbackURL: "http://localhost:5000/api/oauth/google/callback",
       },
       (accessToken, refreshToken, profile, done) => {
         try {
-          console.log("profile", profile);
-          console.log("refreshToken", refreshToken);
-          console.log("accessToken", accessToken);
-          done(null, true);
+
+          const user = {
+            id: profile.id, // Google's unique ID
+            displayName: profile.displayName,
+            email: profile.emails[0].value,
+            photo: profile.photos[0].value,
+          };
+
+          done(null, user);
         } catch (error) {
           console.error("Error during Google OAuth:", error);
           return done(error, null);
