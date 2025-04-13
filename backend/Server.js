@@ -36,6 +36,7 @@ configureGitHubStrategy(passport);
 configureGoogleAuth(passport);
 
 passport.serializeUser((user, done) => {
+  console.log("this is the user id", user.id);
   done(null, user.id);
 });
 
