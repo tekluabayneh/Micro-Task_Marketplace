@@ -1,18 +1,20 @@
 require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const AuthRoute = require("./routes/authRoutes");
-const db = require("./config/db");
-const session = require("express-session");
-const passport = require("passport");
 const configureGitHubStrategy = require("./controllers/GithubAuth");
 const configureGoogleAuth = require("./controllers/GoogleAuth");
 const OauthRoute = require("./routes/OAuthRouter");
+const AuthRoute = require("./routes/authRoutes");
+const cookieParser = require("cookie-parser");
+const express = require("express");
+const session = require("express-session");
+const db = require("./config/db");
+const passport = require("passport");
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 // session
 app.use(
@@ -33,7 +35,10 @@ configureGitHubStrategy(passport);
 // // Google auth
 configureGoogleAuth(passport);
 
-passport.serializeUser((user, done) => done(null, user.id));
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
 passport.deserializeUser(async (user, done) => {
   try {
     let CheckQuery = "SELECT * FROM users WHERE email = ? ";
@@ -51,7 +56,7 @@ passport.deserializeUser(async (user, done) => {
 });
 
 // passport auth
-app.use("/Oauth", OauthRoute);
+app.use("/api/oauth", OauthRoute);
 
 //// this is for use login and register route
 app.use("/auth", AuthRoute);
