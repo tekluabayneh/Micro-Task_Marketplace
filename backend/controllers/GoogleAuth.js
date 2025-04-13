@@ -11,13 +11,14 @@ const configureGoogleAuth = (passport) => {
       },
       (accessToken, refreshToken, profile, done) => {
         try {
-
           const user = {
             id: profile.id, // Google's unique ID
             displayName: profile.displayName,
             email: profile.emails[0].value,
             photo: profile.photos[0].value,
           };
+
+          // one main thing to do is we have to store the user data to database
 
           done(null, user);
         } catch (error) {
