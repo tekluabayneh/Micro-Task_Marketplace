@@ -4,8 +4,6 @@ const OauthRoute = require("express").Router();
 OauthRoute.get("/google", (req, res, next) => {
   const { type } = req.query;
 
-  console.log("this is the user type", type);
-
   // add this user type to the cookies and we can grab and check where to redirect the user
   res.cookie("user_type", type, { httpOnly: true });
 
@@ -24,7 +22,7 @@ OauthRoute.get(
   (req, res) => {
     // now ths is how we access the user type since we store it in cookies
     let userType = req.cookies.user_type;
-    console.log("this is the user type", userType);
+
     if (!req.user || !userType) {
       return res.redirect("http://localhost:5173");
     }
@@ -40,15 +38,41 @@ OauthRoute.get(
 /// github Oauth
 OauthRoute.get(
   "/github",
-  passport.authenticate("github", { scope: ["profile", "email"] })
+  (req, res, next) => {
+    let { type } = req.query;
+
+    console.log(type);
+    res.cookie("user_type", type, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Lax",
+    });
+    next();
+  },
+  passport.authenticate("github", { scope: ["user:email"] })
 );
 
 // redirect the user if the user successfully registered
 OauthRoute.get(
   "/github/callback",
-  passport.authenticate("github", { failureRedirect: "/" }, (req, res) => {
-    res.redirect("/dashboard");
-  })
+  passport.authenticate("github", { failureRedirect: "/" }),
+  (req, res) => {
+    // now ths is how we access the user type since we store it in cookies
+    let userType = req.cookies.user_type;
+
+    // check if there is no user or user type return the user to landing page
+    if (!req.user || !userType) {
+      return res.redirect("http://localhost:5173");
+    }
+
+    // redirect the user based on the type
+
+    if (userType === "freelancer") {
+      return res.redirect("http://localhost:5173/FreelancerDashboard");
+    } else {
+      return res.redirect("http://localhost:5173/ClientDashboard");
+    }
+  }
 );
 
 module.exports = OauthRoute;
