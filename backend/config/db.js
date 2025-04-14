@@ -1,23 +1,16 @@
-// const mysql = require("mysql2/promise");
-// require("dotenv").config();
-
-// const db = mysql.createPool({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
-//   waitForConnections: true,
-//   connectionLimit: 10,
-//   queueLimit: 0,
-// });
-
-// module.exports = db;
+require("dotenv").config();
 const mysql = require("mysql2/promise");
 
 const db = mysql.createPool({
-  uri: "mysql://microWorkDB_gonetrack:b39c8547ee783e1f2355fff0b823979bd3264bd6@lvp4r.h.filess.io:3307/microWorkDB_gonetrack",
+  host: "localhost",
+  port: "3306",
+  user: "root",
+  password: "root",
+  database: "microworkdb",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
 });
-module.exports = db;
 
 async function testDBConnection() {
   try {
@@ -29,3 +22,11 @@ async function testDBConnection() {
   }
 }
 testDBConnection();
+
+// const mysql = require("mysql2/promise");
+
+// const db = mysql.createPool({
+//   // uri: "mysql://microWorkDB_gonetrack:b39c8547ee783e1f2355fff0b823979bd3264bd6@lvp4r.h.filess.io:3307/microWorkDB_gonetrack",
+// });
+
+module.exports = db;
