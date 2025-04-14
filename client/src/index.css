@@ -42,7 +42,6 @@
 }
 
 .dots-loading span {
-  font-size: 2rem;
   animation: Loading 1s infinite ease-in-out;
   opacity: 0;
 }
