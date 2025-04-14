@@ -17,7 +17,7 @@ const configureGoogleAuth = (passport) => {
             email: profile.emails[0].value,
             photo: profile.photos[0].value,
           };
-          console.log("this is the profile thing in here", profile);
+          // console.log("this is the profile thing in here", profile);
           // one main thing to do is we have to store the user data to database
 
           done(null, user);
