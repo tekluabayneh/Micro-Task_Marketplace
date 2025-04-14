@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import GoogleImg from "../../assets/Google.png";
 import GithubImg from "../../assets/github-2.webp";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 function Register() {
   const {
     register,
@@ -21,8 +22,10 @@ function Register() {
     <div className="bg-gray-100 flex justify-center items-center h-screen mt-10">
       <div className="bg-white p-8 rounded shadow-md w-96">
         <div className="flex flex-row gap-2 justify-center mb-3">
-          <button
-            type="button"
+          <Link
+            to={`http://localhost:5000/api/oauth/google?type=${localStorage.getItem(
+              "userType"
+            )}`}
             className="bg-blue-500 border-none p-2 cursor-pointer rounded-md text-white capitalize  flex items-center gap-7"
           >
             <img
@@ -30,10 +33,12 @@ function Register() {
               src={GoogleImg}
               alt=""
             />
-          </button>
+          </Link>
 
-          <button
-            type="button"
+          <Link
+            to={`http://localhost:5000/api/oauth/github?type=${localStorage.getItem(
+              "userType"
+            )}`}
             className="p-2 border cursor-pointer border-black rounded-md flex items-center gap-7 capitalize"
           >
             <img
@@ -41,7 +46,7 @@ function Register() {
               src={GithubImg}
               alt=""
             />{" "}
-          </button>
+          </Link>
         </div>
         <form className="space-y-4" onSubmit={handleSubmit(onSubmitRegister)}>
           <div className="space-y-1">
@@ -139,7 +144,6 @@ function Register() {
             >
               Login
             </Link>
-      
           </div>
         </form>
       </div>
