@@ -1,26 +1,69 @@
-import { Link } from "react-router-dom";
+import { data, Link, useNavigate, useSearchParams } from "react-router-dom";
 import GoogleImg from "../../assets/Google.png";
 import GithubImg from "../../assets/github-2.webp";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import BTNloading from "../../components/Loading/BTNloading";
+import { useState } from "react";
 function Register() {
+  let [Error, setError] = useState("");
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm({});
+  let navigate = useNavigate();
+
+  const registerUser = async (userData) => {
+    return await axios.post("http://localhost:5000/auth/register", userData);
+  };
+
+  const { mutate, isLoading, isError, isSuccess, error } = useMutation({
+    mutationFn: registerUser,
+    onSuccess: (response) => {
+      console.log(response);
+      let role = localStorage.getItem("userType");
+      toast.success(response.data.message);
+
+      if (role == "freelancer") {
+        navigate("/FreelancerDashboard");
+      } else {
+        navigate("/ClientDashboard");
+      }
+    },
+    onError: (err) => {
+      console.log(err);
+      setError(err.response.data.message);
+      toast.error(err.response?.data?.message || "Something went wrong!");
+    },
+  });
 
   const onSubmitRegister = (data) => {
-    let useType = localStorage.getItem("userType");
-    console.log(data);
-    console.log(useType);
+    let role = localStorage.getItem("userType");
+
+    if (!role) {
+      toast.error("User type is missing. Please select user type first.");
+      return;
+    }
+    let user = { ...data, role };
+    mutate(user);
     reset();
   };
 
   return (
     <div className="bg-gray-100 flex justify-center items-center h-screen mt-10">
       <div className="bg-white p-8 rounded shadow-md w-96">
+        <div>
+          {Error ? (
+            <p className="text-red-500 p-3">{Error}</p>
+          ) : (
+            <p className="text-green-500 p-3">{isSuccess?.message}</p>
+          )}
+        </div>
         <div className="flex flex-row gap-2 justify-center mb-3">
           <Link
             to={`http://localhost:5000/api/oauth/google?type=${localStorage.getItem(
@@ -132,9 +175,9 @@ function Register() {
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-[var(--primary-color)] text-white rounded-md cursor-pointer focus:ring focus:border-blue-300"
+            className="w-full py-2 bg-[var(--primary-color)] text-white rounded-md cursor-pointer focus:ring focus:border-blue-300 relative"
           >
-            Register
+            {isLoading ? <BTNloading /> : "Register"}
           </button>
 
           <div className="text-center mt-4">
