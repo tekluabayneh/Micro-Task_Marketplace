@@ -6,7 +6,7 @@ app.get("/create", async (req, res) => {
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     skills VARCHAR(2000),
-    availability BOOLEAN DEFAULT false,
+ 
     experienceLevel ENUM('junior', 'mid', 'expert'),
     role ENUM('freelancer', 'client') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -21,3 +21,68 @@ app.get("/create", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+
+
+CREATE TABLE users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  firstName VARCHAR(100),
+  lastName VARCHAR(100),
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('freelancer', 'client') NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE proposals (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  job_id INT NOT NULL,
+  freelancer_id INT NOT NULL,
+  cover_letter TEXT,
+  proposed_rate DECIMAL(10, 2),
+  status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE,
+  FOREIGN KEY (freelancer_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE jobs (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  client_id INT NOT NULL,
+  title VARCHAR(255),
+  description TEXT,
+  budget DECIMAL(10, 2),
+  experience_level ENUM('junior', 'mid', 'expert'),
+  skills_required TEXT,
+  status ENUM('open', 'in_progress', 'completed') DEFAULT 'open',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (client_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE client_profiles (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  company_name VARCHAR(255),
+  website VARCHAR(255),
+  industry VARCHAR(100),
+  location VARCHAR(100),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+
+CREATE TABLE freelancer_profiles (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  title VARCHAR(255),
+  bio TEXT,
+  skills TEXT,
+  experience_level ENUM('junior', 'mid', 'expert'),
+  hourly_rate DECIMAL(10, 2),
+  location VARCHAR(100),
+  availability BOOLEAN DEFAULT false,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
