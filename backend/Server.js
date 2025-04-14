@@ -42,9 +42,9 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (user, done) => {
   try {
-    let CheckQuery = "SELECT * FROM users WHERE email = ? ";
-    let [result] = await db.execute(CheckQuery, [user.email]);
-
+    // let CheckQuery = "SELECT * FROM users WHERE email = ? ";
+    // let [result] = await db.execute(CheckQuery, [user.email]);
+    let result = 1;
     if (result.length > 0) {
       // If user already exists, handle it appropriately
       return done(null, result[0]);
