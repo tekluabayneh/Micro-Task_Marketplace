@@ -69,7 +69,6 @@ const JobListings = () => {
       budget: "$200",
       payment: "verified",
       proposal: "Less than 5",
-      payment: "verified",
       skill: ["node", "css", "html", "Java", "JavaScript", "React"],
       posted: "3 days ago",
       description:
@@ -109,7 +108,7 @@ const JobListings = () => {
     },
     {
       title: "Write Blog Articles",
-      isPixPrice: "PixPrice",
+
       isPixPrice: "PixPrice",
       proposal: "Less than 5",
       budget: "$200",
@@ -226,6 +225,7 @@ const JobListings = () => {
         "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration into code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
     },
   ];
+
   const handlePrev = () => {
     if (page > 1) setPage((prev) => prev - 1);
   };
@@ -274,8 +274,8 @@ const JobListings = () => {
               <div className="flex gap-5">
                 <p className="text-xs">{job.isPixPrice}</p>
                 <p className="text-gray-600 flex gap-1 text-nowrap text-xs">
-                  <p>Budget:</p>
-                  <p>{job.budget}</p>
+                  <span>Budget:</span>
+                  <span>{job.budget}</span>
                 </p>
               </div>
 
