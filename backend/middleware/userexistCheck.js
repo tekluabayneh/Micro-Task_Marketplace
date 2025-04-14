@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const CheckUserExistLogin = async (req, res, next) => {
   try {
     let { email, password } = req.body;
-
     if (password.length < 6) {
       return res
         .status(400)
@@ -19,9 +18,8 @@ const CheckUserExistLogin = async (req, res, next) => {
 
     // check if password mach
     let isMatch = await bcrypt.compare(password, result[0].password);
-
     if (!isMatch) {
-      return res.status(401).json({ message: "password or email is Invalid" });
+      return res.status(401).json({ message: "password  is Invalid" });
     }
 
     // this let's me to use it in the route page using this name
