@@ -12,9 +12,9 @@ const configureGitHubStrategy = (passport) => {
       },
       (accessToken, refreshToken, profile, done) => {
         try {
-          console.log("profile", profile);
-          console.log("refreshToken", refreshToken);
-          console.log("accessToken", accessToken);
+          // console.log("profile", profile);
+          // console.log("refreshToken", refreshToken);
+          // console.log("accessToken", accessToken);
 
           const user = {
             id: profile.id,
