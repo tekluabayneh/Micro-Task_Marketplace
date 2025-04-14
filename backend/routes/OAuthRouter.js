@@ -23,7 +23,6 @@ OauthRoute.get(
   }),
   (req, res) => {
     try {
-      console.log(req);
       // now ths is how we access the user type since we store it in cookies
       let userType = req.cookies.user_type;
 
@@ -48,7 +47,6 @@ OauthRoute.get(
   (req, res, next) => {
     let { type } = req.query;
 
-    console.log(type);
     res.cookie("user_type", type, {
       httpOnly: true,
       secure: false,
