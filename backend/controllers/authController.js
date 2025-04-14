@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const db = require("../config/db");
 const Register = async (req, res) => {
   const { password, lastName, email, role, firstName } = req.body;
+  console.log(req.body);
   try {
     let Gensalt = await bcrypt.genSalt(10);
     let HashedPassword = await bcrypt.hash(password, Gensalt);
@@ -28,13 +29,11 @@ const Register = async (req, res) => {
 const Login = (req, res) => {
   const userInfoFromDB = req.userInfoFromDB;
 
-  //   console.log(userInfoFromDB);
-
-  // check the user type and navigate them to the dashboard
+  // heck the user type and navigate them to the dashboard
   if (userInfoFromDB[0].role === "freelancer") {
-    res.redirect("/freelancerDashboard");
+    return res.redirect("http://localhost:5173/FreelancerDashboard");
   } else {
-    res.redirect("/clientDashboard");
+    return res.redirect("http://localhost:5173/ClientDashboard");
   }
 };
 
