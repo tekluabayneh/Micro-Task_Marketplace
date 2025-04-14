@@ -16,15 +16,14 @@ const Login = () => {
     reset();
   };
 
-  const handleLoginWithGoogle = () => {};
-
   return (
     <div className="bg-gray-100 flex justify-center items-center h-screen mt-10">
       <div className="bg-white p-8 rounded shadow-md w-96">
         <div className="flex flex-col gap-2 justify-center mb-3">
-          <button
-            onClick={handleLoginWithGoogle}
-            type="button"
+          <Link
+            to={`http://localhost:5000/api/oauth/google?type=${localStorage.getItem(
+              "userType"
+            )}`}
             className="bg-blue-500 border-none p-2 cursor-pointer rounded-md text-white capitalize  flex items-center gap-7"
           >
             <img
@@ -33,10 +32,12 @@ const Login = () => {
               alt=""
             />
             Continue With Google
-          </button>
+          </Link>
 
-          <button
-            type="button"
+          <Link
+            to={`http://localhost:5000/api/oauth/github?type=${localStorage.getItem(
+              "userType"
+            )}`}
             className="p-2 border cursor-pointer border-black rounded-md flex items-center gap-7 capitalize"
           >
             <img
@@ -45,7 +46,7 @@ const Login = () => {
               alt=""
             />{" "}
             Continue With GitHub
-          </button>
+          </Link>
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit(onSubmitLogin)}>
