@@ -3,12 +3,11 @@ import React, { Suspense, useState, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import UserTypeSelector from "../Auth/UserTypeSelector";
+import ApplicationForm from "../../components/Freelancer/applicationSteps/ApplicationForm";
 
 // Lazy load components
 const Header = lazy(() => import("../../components/Header/Header"));
 const HomeHeader = lazy(() => import("../../components/Header/HomeHeader"));
-const JobBiddingPage = lazy(() => import("../Freelancer/JobBid"));
-const JobApply = lazy(() => import("../ApplayJob/ApplayJob"));
 const FreelancerDashboardPage = lazy(() =>
   import("../Freelancer/FreelancerDashboardPage")
 );
@@ -47,12 +46,14 @@ const Routers = () => {
         <Route path="/ClientProfile" element={<ClientProfile />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/JobPost" element={<JobPostPage />} />
-        <Route path="/JobBidding" element={<JobBiddingPage />} />
         <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route path="/ResetConfirm" element={<ResetConfirm />} />
         <Route path="/MyPostJobs" element={<MyJobs />} />
         <Route path="/ClientDashboard" element={<ClientDashboard />} />
-        <Route path="/FreelancerDashboard/JobApply" element={<JobApply />} />
+        <Route
+          path="/FreelancerDashboard/JobBidding"
+          element={<ApplicationForm />}
+        />
         <Route
           path="/FreelancerDashboard"
           element={<FreelancerDashboardPage />}
@@ -69,4 +70,3 @@ const Routers = () => {
   );
 };
 export default Routers;
-// ClientProfile;
