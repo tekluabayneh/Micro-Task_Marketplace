@@ -95,7 +95,7 @@ const TaskDetailsPage = ({ isApplied, setIsApplied }) => {
             onClick={handleApply}
             className="w-full bg-[var(--primary-color)] cursor-pointer text-white px-4 py-2 rounded-md"
           >
-            <Link to={"./JobApply"}>Apply Now</Link>
+            <Link to={"./JobBidding"}>Apply Now</Link>
           </button>
         </div>
       </div>
