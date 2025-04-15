@@ -28,12 +28,12 @@ const Register = async (req, res) => {
 };
 const Login = (req, res) => {
   const userInfoFromDB = req.userInfoFromDB;
-
+  console.log(req.body);
   // heck the user type and navigate them to the dashboard
   if (userInfoFromDB[0].role === "freelancer") {
-    return res.redirect("http://localhost:5173/FreelancerDashboard");
+    return res.status(200).json({ role: "FreelancerDashboard" });
   } else {
-    return res.redirect("http://localhost:5173/ClientDashboard");
+    return res.status(200).json({ role: "ClientDashboard" });
   }
 };
 
