@@ -1,3 +1,4 @@
+import ApplicationForm from "./components/Freelancer/applicationSteps/ApplicationForm";
 import Routers from "./pages/Routes/Routers";
 function App() {
   return (
