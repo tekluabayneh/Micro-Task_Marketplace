@@ -9,6 +9,7 @@ const configureGitHubStrategy = (passport) => {
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
         callbackURL: "http://localhost:5000/api/oauth/github/callback",
         scope: ["user:email"],
+        passReqToCallback: true,
       },
       (accessToken, refreshToken, profile, done) => {
         try {
