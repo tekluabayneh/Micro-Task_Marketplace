@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import GoogleImg from "../../assets/Google.png";
 import GithubImg from "../../assets/github-2.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 const Login = () => {
   let [Error, setError] = useState("");
+  const navigate = useNavigate();
   const {
     register,
     reset,
@@ -22,6 +23,8 @@ const Login = () => {
     mutationFn: LoginUser,
     onSuccess: (response) => {
       console.log(response);
+
+      navigate(`/${response.data.role}`);
     },
     onError: (err) => {
       console.log(err);
@@ -38,7 +41,9 @@ const Login = () => {
   return (
     <div className="bg-gray-100 flex justify-center items-center h-screen mt-10">
       <div className="bg-white p-8 rounded shadow-md w-96">
-        <div className="p-3">{Error ? <p className="text-red-500">{Error}</p> : ""}</div>
+        <div className="p-3">
+          {Error ? <p className="text-red-500">{Error}</p> : ""}
+        </div>
         <div className="flex flex-col gap-2 justify-center mb-3">
           <Link
             to={`http://localhost:5000/api/oauth/google?type=${localStorage.getItem(
