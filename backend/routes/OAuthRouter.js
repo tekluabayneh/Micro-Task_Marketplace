@@ -6,11 +6,6 @@ OauthRoute.get("/google", (req, res, next) => {
   // add this user type to the cookies and we can grab and check where to redirect the user
   res.cookie("user_type", type, { httpOnly: true, secure: true });
 
-  let userRole = req.cookies.user_type;
-  // and now continue login with google
-
-  console.log("this is the testing role in hre ", userRole);
-
   passport.authenticate("google", {
     scope: ["profile", "email"],
     state: JSON.stringify({ role: type }),
@@ -44,20 +39,16 @@ OauthRoute.get(
 );
 
 /// github Oauth
-OauthRoute.get(
-  "/github",
-  (req, res, next) => {
-    let { type } = req.query;
+OauthRoute.get("/github", (req, res, next) => {
+  const { type } = req.query;
 
-    res.cookie("user_type", type, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "Lax",
-    });
-    next();
-  },
-  passport.authenticate("github", { scope: ["user:email"] })
-);
+  res.cookie("user_type", type, { httpOnly: true, secure: true });
+
+  passport.authenticate("github", {
+    scope: ["user:email"],
+    state: JSON.stringify({ role: type }),
+  })(req, res, next);
+});
 
 // redirect the user if the user successfully registered
 OauthRoute.get(
