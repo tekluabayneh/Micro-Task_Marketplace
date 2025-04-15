@@ -3,16 +3,18 @@ const OauthRoute = require("express").Router();
 /// Google Oauth
 OauthRoute.get("/google", (req, res, next) => {
   const { type } = req.query;
-
   // add this user type to the cookies and we can grab and check where to redirect the user
-  res.cookie("user_type", type, { httpOnly: true });
+  res.cookie("user_type", type, { httpOnly: true, secure: true });
 
+  let userRole = req.cookies.user_type;
   // and now continue login with google
-  passport.authenticate("google", { scope: ["profile", "email"] })(
-    req,
-    res,
-    next
-  );
+
+  console.log("this is the testing role in hre ", userRole);
+
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+    state: JSON.stringify({ role: type }),
+  })(req, res, next);
 });
 
 // redirect the user if the user successfully registered
