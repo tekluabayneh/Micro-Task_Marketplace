@@ -11,20 +11,52 @@ const configureGitHubStrategy = (passport) => {
         scope: ["user:email"],
         passReqToCallback: true,
       },
-      (accessToken, refreshToken, profile, done) => {
+      async (req, accessToken, refreshToken, profile, done) => {
         try {
-          // console.log("profile", profile);
-          // console.log("refreshToken", refreshToken);
-          // console.log("accessToken", accessToken);
+          let fullName = profile._json.name;
+
+          let firstName = "";
+          let lastName = "";
+
+          if (fullName) {
+            const parts = fullName.trim().split(" ");
+            firstName = parts[0];
+            lastName = parts.slice(1).join(" ") || "";
+          } else {
+            // fallback: use username as both first and last name
+            firstName = profile.username;
+            lastName = profile.username;
+          }
 
           const user = {
             id: profile.id,
             username: profile.username,
             photo: profile.photos?.[0]?.value || "",
             email: profile.emails?.[0]?.value ?? null,
+            firstName,
+            lastName,
           };
 
-          done(null, user);
+          // check if the user exist
+          let checkQuery = "SELECT * FROM users WHERE email = ?";
+          let [result] = await db.execute(checkQuery, [user.email]);
+
+          // if the user already exist just no need to store the data
+          if (result.length > 0) {
+            done(null, user);
+            return;
+          }
+          let userRole = JSON.parse(req.query.state);
+
+          // if user didn't exist store the data in the data base
+          const insertQuery = ` INSERT INTO users (firstName, lastName, email, role)VALUES (?, ?, ?, ?)`;
+          let data = [user.firstName, user.lastName, user.email, userRole.role];
+          let [storeResult] = await db.execute(insertQuery, data);
+
+          if (storeResult.affectedRows) {
+            done(null, user);
+            return;
+          }
         } catch (error) {
           console.error("Error during Github OAuth:", error);
           return done(error, null);
