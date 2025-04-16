@@ -43,21 +43,21 @@ const HomeHeader = () => {
         </Link>
 
         <div className="hidden md:block pt-1">
-          <ul className="flex gap-5  flex-col md:flex-row">
+          <ul className="flex gap-3 flex-col md:flex-row">
             <li className="text-xs cursor-pointer">
-              <a href="">Home</a>
+              <Link to="/FreelancerDashboard">Dashboard</Link>
             </li>
             <li className="text-xs cursor-pointer">
-              <a href="">Home</a>
+              <Link to="/profile">Profile</Link>
             </li>
             <li className="text-xs cursor-pointer">
-              <a href="">Home</a>
+              <Link to="/setting">Setting</Link>
             </li>
             <li className="text-xs cursor-pointer">
-              <a href="">Home</a>
+              <Link to="/contract">Contract</Link>
             </li>
             <li className="text-xs cursor-pointer">
-              <a href="">Home</a>
+              <Link to="/earnings">Earnings</Link>
             </li>
           </ul>
         </div>
@@ -98,17 +98,17 @@ const HomeHeader = () => {
       </div>
 
       {/*  */}
-      <div className="flex relative items-center w-72 pt-2 ml-23 hidden md:block">
+      <div className="flex relative items-center w-96 pt-2 ml-23 hidden md:block">
         <input
-          className="border w-full rounded-sm text-xs p-1 border-indigo-950 text-black pl-2 placeholder:text-xs placeholder:leading-3 flex-1"
+          className="border w-full rounded-sm text-xs p-1.5 outline-none border-indigo-950 text-black pl-2 placeholder:text-xs placeholder:leading-3 flex-1"
           type="text"
           placeholder="Search Job"
         />
         <button
-          className="cursor-pointer absolute top-2.5 right-1 z-50"
+          className="cursor-pointer absolute top-3 right-1 z-50"
           onClick={() => alert("asa")}
         >
-          <MdSearch size={22} />
+          <MdSearch size={24} />
         </button>
       </div>
       {/*  */}
