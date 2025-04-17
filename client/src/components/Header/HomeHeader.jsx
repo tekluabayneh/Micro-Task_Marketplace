@@ -99,17 +99,18 @@ const HomeHeader = () => {
 
       {/*  */}
       <div className="flex relative items-center w-96 pt-2 ml-23 hidden md:block">
-        <input
-          className="border w-full rounded-sm text-xs p-1.5 outline-none border-indigo-950 text-black pl-2 placeholder:text-xs placeholder:leading-3 flex-1"
-          type="text"
-          placeholder="Search Job"
-        />
-        <button
-          className="cursor-pointer absolute top-3 right-1 z-50"
-          onClick={() => alert("asa")}
-        >
-          <MdSearch size={24} />
-        </button>
+        <div className="relative w-full max-w-md hidden md:block relative">
+          <MdSearch
+            onClick={() => alert("asa")}
+            size={24}
+            className="absolute cursor-pointer left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+          />
+          <input
+            type="text"
+            placeholder="Search jobs, clients..."
+            className="pl-10 pr-4 py-2 w-full bg-gray-50 border-gray-200 focus:bg-white custom-shadow rounded-sm"
+          />
+        </div>
       </div>
       {/*  */}
       <div className="flex gap-4 items-center cursor-pointer">
