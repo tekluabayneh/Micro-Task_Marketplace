@@ -13,12 +13,16 @@ const UserTypeSelector = () => {
       return;
     }
     localStorage.setItem("userType", UserType);
-    console.log(UserType);
     navigate("/register");
   };
 
   return (
-    <main className="w-full h-96 my-32 flex items-center justify-center">
+    <main className="w-full h-96 my-32 flex flex-col items-center justify-center">
+      <h1 className="text-lg font-medium">
+        When logging in, please make sure to choose the same option you selected
+        during registration.
+      </h1>
+
       <dvi className="space-y-4">
         <div className="flex flex-col">
           <label className="block text-lg font-medium text-gray-700 mb-2">
