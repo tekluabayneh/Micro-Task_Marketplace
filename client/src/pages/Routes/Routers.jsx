@@ -7,17 +7,18 @@ import ApplicationForm from "../../components/Freelancer/applicationSteps/Applic
 import ContractsPage from "../ContractsPage/ContractsPage";
 import ClientSetting from "../SettingsPage/ClientSettingsPage ";
 import FreelancerSetting from "../SettingsPage/FreelancerSettingsPage ";
+import Dashborad from "../../components/Client/DashBoardComponent/Dashborad";
 
 // Lazy load components
 const Header = lazy(() => import("../../components/Header/Header"));
 const HomeHeader = lazy(() => import("../../components/Header/HomeHeader"));
 const FreelancerDashboardPage = lazy(() =>
-  import("../Freelancer/FreelancerDashboardPage")
+  import("../Dashboard/FreelancerDashboardPage")
 );
 const ResetPassword = lazy(() => import("../Auth/ForgotPassword"));
 const ResetConfirm = lazy(() => import("../Auth/ResetConfirm"));
 const MyJobs = lazy(() => import("../PostJob/MYPostedProjects"));
-const ClientDashboard = lazy(() => import("../Dashboard/ClientDashboard"));
+const Search = lazy(() => import("../Search/Search"));
 const Privacy = lazy(() => import("../Privacy/Privacy"));
 const Terms = lazy(() => import("../Terms/Terms"));
 
@@ -50,30 +51,33 @@ const Routers = () => {
       ) : userType === "freelancer" ? (
         <HomeHeader />
       ) : userType === "client" ? (
-        <Header />
+        <HomeHeader />
       ) : (
         <HomeHeader />
       )}
 
       <Routes>
+        {/* FREELANCER ROUTE */}
         <Route path="/" element={<LandingPage />} />
-        <Route path="/profile" element={<FreelancerProfile />} />
-        <Route path="/ClientProfile" element={<ClientProfile />} />
-        <Route path="/JobPost" element={<JobPostPage />} />
-        <Route path="/MyPostJobs" element={<MyJobs />} />
-        {/* this one is the cline job posted page */}
-        <Route path="/ContractsPage" element={<ContractsPage />} />
-        <Route path="/ClientSetting" element={<ClientSetting />} />
-        <Route path="/FreelancerSetting" element={<FreelancerSetting />} />
-        <Route path="/ClientDashboard" element={<ClientDashboard />} />
+        <Route path="/Freelancer/JobBidding" element={<ApplicationForm />} />
         <Route
-          path="/FreelancerDashboard/JobBidding"
-          element={<ApplicationForm />}
-        />
-        <Route
-          path="/FreelancerDashboard"
+          path="/Freelancer/Dashboard"
           element={<FreelancerDashboardPage />}
         />
+        <Route path="/Freelancer/Setting" element={<FreelancerSetting />} />
+        <Route path="/Freelancer/profile" element={<FreelancerProfile />} />
+
+        {/* CLIENT ROUTE */}
+        <Route path="/Client/Dashboard" element={<Dashborad />} />
+        <Route path="/Client/ClientProfile" element={<ClientProfile />} />
+        {/* this one is the cline job posted page */}
+        <Route path="/Client/Contracts" element={<ContractsPage />} />
+        <Route path="/Client/JobPost" element={<JobPostPage />} />
+        <Route path="Client//MyPostJobs" element={<MyJobs />} />
+        <Route path="/Client/Setting" element={<ClientSetting />} />
+        <Route path="/Client/Search" element={<Search />} />
+
+        {/* ths is common route */}
         <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route path="/ResetConfirm" element={<ResetConfirm />} />
         <Route path="/contact" element={<Contact />} />
