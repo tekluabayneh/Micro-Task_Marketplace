@@ -1,0 +1,122 @@
+export const sampleJobs = [
+  {
+    id: 1,
+    title: "React Developer",
+    company: "Tech Innovations Inc.",
+    location: "Remote",
+    salary: "$80,000 - $120,000",
+    description:
+      "We are looking for a skilled React developer to join our innovative team...",
+    tags: ["React", "TypeScript", "Frontend"],
+    postedDate: "2 days ago",
+    applicants: 25,
+    isActive: true,
+  },
+  {
+    id: 2,
+    title: "UX/UI Designer",
+    company: "Creative Solutions Ltd.",
+    location: "New York, NY",
+    salary: "$70,000 - $90,000",
+    description:
+      "Seeking a talented UX/UI designer to create beautiful and functional interfaces for our clients...",
+    tags: ["Figma", "UI Design", "User Research"],
+    postedDate: "1 week ago",
+    applicants: 18,
+    isActive: true,
+  },
+  {
+    id: 3,
+    title: "Full Stack Developer",
+    company: "WebStack Systems",
+    location: "San Francisco, CA",
+    salary: "$100,000 - $140,000",
+    description:
+      "Join our team to build scalable web applications using modern technologies...",
+    tags: ["React", "Node.js", "MongoDB"],
+    postedDate: "3 weeks ago",
+    applicants: 42,
+    isActive: false,
+  },
+  {
+    id: 4,
+    title: "DevOps Engineer",
+    company: "Cloud Platforms Inc.",
+    location: "Remote",
+    salary: "$90,000 - $130,000",
+    description:
+      "Looking for a DevOps engineer to streamline our deployment processes and infrastructure...",
+    tags: ["AWS", "Docker", "CI/CD"],
+    postedDate: "5 days ago",
+    applicants: 12,
+    isActive: true,
+  },
+];
+
+export const sampleRecommendations = [
+  {
+    id: 1,
+    name: "John Doe",
+    title: "Senior Frontend Developer",
+    skills: ["React", "TypeScript", "Next.js"],
+    matchPercentage: 85,
+    rating: 4.8,
+    completedJobs: 42,
+    verified: true,
+  },
+  {
+    id: 2,
+    name: "Sarah Johnson",
+    title: "UX/UI Designer",
+    skills: ["Figma", "Adobe XD", "User Research"],
+    matchPercentage: 92,
+    rating: 4.9,
+    completedJobs: 37,
+    verified: true,
+  },
+  {
+    id: 3,
+    name: "Michael Chen",
+    title: "Full Stack Developer",
+    skills: ["React", "Node.js", "MongoDB"],
+    matchPercentage: 78,
+    rating: 4.5,
+    completedJobs: 23,
+    verified: false,
+  },
+];
+
+export const statsData = [
+  {
+    title: "Total Jobs",
+    value: "24",
+    icon: "briefcase",
+    change: "+5%",
+    trend: "up",
+    color: "blue",
+  },
+  {
+    title: "Applications",
+    value: "156",
+    icon: "users",
+    change: "+12%",
+    color: "green",
+    trend: "up",
+  },
+  {
+    title: "Interviews",
+    value: "38",
+    icon: "calendar",
+    color: "green",
+    change: "+2%",
+    trend: "up",
+  },
+  {
+    title: "Avg. Response",
+    value: "4h",
+    icon: "clock",
+    change: "-10%",
+    color: "red",
+    trend: "down",
+  },
+];
