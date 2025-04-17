@@ -16,10 +16,12 @@ const CheckUserExistLogin = async (req, res, next) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // check if password mach
-    let isMatch = await bcrypt.compare(password, result[0].password);
-    if (!isMatch) {
-      return res.status(401).json({ message: "password is Invalid" });
+    if (result[0].password) {
+      // check if password mach
+      let isMatch = await bcrypt.compare(password, result[0].password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "password is Invalid" });
+      }
     }
 
     // this let's me to use it in the route page using this name
