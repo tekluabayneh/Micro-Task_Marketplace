@@ -30,11 +30,12 @@ function Register() {
       toast.success(response.data.message);
 
       if (role == "freelancer") {
-        navigate("/FreelancerDashboard");
+        navigate("/Freelancer/Dashboard");
       } else {
-        navigate("/ClientDashboard");
+        navigate("/Client/Dashboard");
       }
     },
+
     onError: (err) => {
       console.log(err);
       setError(err.response.data.message);
