@@ -13,7 +13,6 @@ const configureGoogleAuth = async (passport) => {
       },
       async (req, accessToken, refreshToken, profile, done) => {
         try {
-          console.log("this is the params is in here baby", profile);
           const user = {
             id: profile.id,
             firstName: profile.name.familyName,
@@ -44,7 +43,6 @@ const configureGoogleAuth = async (passport) => {
             done(null, user);
             return;
           }
-          console.log(user);
         } catch (error) {
           console.error("Error during Google OAuth:", error);
           done(error, null);
