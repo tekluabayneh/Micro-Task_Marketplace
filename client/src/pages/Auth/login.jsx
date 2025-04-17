@@ -22,8 +22,6 @@ const Login = () => {
   const { mutate, isError, isLoading, error } = useMutation({
     mutationFn: LoginUser,
     onSuccess: (response) => {
-      console.log(response);
-
       navigate(`/${response.data.role}`);
     },
     onError: (err) => {
