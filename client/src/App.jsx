@@ -1,4 +1,4 @@
-import ApplicationForm from "./components/Freelancer/applicationSteps/ApplicationForm";
+import Index from "./components/Client/DashBoardComponent/Dashborad";
 import Routers from "./pages/Routes/Routers";
 function App() {
   return (
