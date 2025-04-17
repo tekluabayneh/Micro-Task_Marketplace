@@ -3,6 +3,7 @@ const OauthRoute = require("express").Router();
 /// Google Oauth
 OauthRoute.get("/google", (req, res, next) => {
   const { type } = req.query;
+
   // add this user type to the cookies and we can grab and check where to redirect the user
   res.cookie("user_type", type, { httpOnly: true, secure: true });
 
@@ -18,19 +19,18 @@ OauthRoute.get(
   passport.authenticate("google", {
     failureRedirect: "http://localhost:5173",
   }),
-  (req, res) => {
+  async (req, res) => {
     try {
       // now ths is how we access the user type since we store it in cookies
       let userType = req.cookies.user_type;
-
       if (!req.user || !userType) {
         return res.redirect("http://localhost:5173");
       }
 
       if (userType === "freelancer") {
-        return res.redirect("http://localhost:5173/FreelancerDashboard");
+        return res.redirect("http://localhost:5173/Freelancer/Dashboard");
       } else {
-        return res.redirect("http://localhost:5173/ClientDashboard");
+        return res.redirect("http://localhost:5173/Client/Dashboard");
       }
     } catch (error) {
       return res.redirect("http://localhost:5173");
@@ -69,9 +69,9 @@ OauthRoute.get(
       // redirect the user based on the type
 
       if (userType === "freelancer") {
-        return res.redirect("http://localhost:5173/FreelancerDashboard");
+        return res.redirect("http://localhost:5173/Freelancer/Dashboard");
       } else {
-        return res.redirect("http://localhost:5173/ClientDashboard");
+        return res.redirect("http://localhost:5173/Client/Dashboard");
       }
     } catch (error) {
       return res.redirect("http://localhost:5173");
