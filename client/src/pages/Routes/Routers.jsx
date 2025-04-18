@@ -1,6 +1,7 @@
 // src/routers/Routers.jsx
 import React, { Suspense, useState, lazy } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import Loading from "../../components/Loading/Loading";
 import UserTypeSelector from "../Auth/UserTypeSelector";
 import ApplicationForm from "../../components/Freelancer/applicationSteps/ApplicationForm";
@@ -8,6 +9,7 @@ import ContractsPage from "../ContractsPage/ContractsPage";
 import ClientSetting from "../SettingsPage/ClientSettingsPage ";
 import FreelancerSetting from "../SettingsPage/FreelancerSettingsPage ";
 import Dashborad from "../../components/Client/DashBoardComponent/Dashborad";
+import JobPostForm from "../../components/Client/PostJob_form/JobPostForm";
 
 // Lazy load components
 const Header = lazy(() => import("../../components/Header/Header"));
@@ -55,7 +57,7 @@ const Routers = () => {
       ) : (
         <HomeHeader />
       )}
-
+      <Toaster />;
       <Routes>
         {/* FREELANCER ROUTE */}
         <Route path="/" element={<LandingPage />} />
@@ -72,8 +74,8 @@ const Routers = () => {
         <Route path="/Client/ClientProfile" element={<ClientProfile />} />
         {/* this one is the cline job posted page */}
         <Route path="/Client/Contracts" element={<ContractsPage />} />
-        <Route path="/Client/JobPost" element={<JobPostPage />} />
-        <Route path="Client//MyPostJobs" element={<MyJobs />} />
+        <Route path="/Client/JobPost" element={<JobPostForm />} />
+        <Route path="Client/MyPostJobs" element={<MyJobs />} />
         <Route path="/Client/Setting" element={<ClientSetting />} />
         <Route path="/Client/Search" element={<Search />} />
 
