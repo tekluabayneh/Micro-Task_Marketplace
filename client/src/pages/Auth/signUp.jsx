@@ -51,6 +51,7 @@ function Register() {
       return;
     }
     let user = { ...data, role };
+    localStorage.setItem("userEmail", data.email);
     mutate(user);
     reset();
   };
