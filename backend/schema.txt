@@ -51,9 +51,10 @@ CREATE TABLE jobs (
   client_id INT NOT NULL,
   title VARCHAR(255),
   description TEXT,
+  jobSize TEXT,
   budget DECIMAL(10, 2),
-  experience_level ENUM('junior', 'mid', 'expert'),
-  skills_required TEXT,
+  experience ENUM('junior', 'mid', 'expert'),
+  skills TEXT,
   status ENUM('open', 'in_progress', 'completed') DEFAULT 'open',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (client_id) REFERENCES users(id) ON DELETE CASCADE
