@@ -39,4 +39,12 @@ FreelanceHub is a full-stack freelancing platform inspired by Upwork, designed t
 ```bash
 cd backend
 npm install
-npm start
+node server
+```
+
+### 📦 client
+
+```bash
+cd client
+npm install
+npm run dev
