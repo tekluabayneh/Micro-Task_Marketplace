@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GoogleImg from "../../assets/Google.png";
 import GithubImg from "../../assets/github-2.webp";
-import { Link, useNavigate } from "react-router-dom";
+import { data, Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
@@ -23,6 +23,7 @@ const Login = () => {
     mutationFn: LoginUser,
     onSuccess: (response) => {
       navigate(`/${response.data.role}`);
+      
     },
     onError: (err) => {
       console.log(err);
@@ -33,6 +34,7 @@ const Login = () => {
   const onSubmitLogin = (data) => {
     console.log(data);
     mutate(data);
+  localStorage.setItem("userEmail", data.email);
     reset();
   };
 
