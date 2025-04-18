@@ -9,6 +9,7 @@ const session = require("express-session");
 const db = require("./config/db");
 const passport = require("passport");
 const cors = require("cors");
+const JobPostRouter = require("./routes/JobPostRouter");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -58,6 +59,7 @@ passport.deserializeUser(async (user, done) => {
 
 // passport auth
 app.use("/api/oauth", OauthRoute);
+app.use("/api", JobPostRouter);
 
 //// this is for use login and register route
 app.use("/auth", AuthRoute);
