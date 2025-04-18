@@ -1,4 +1,4 @@
-# 💼 FreelanceHub — Connect Clients with Top Freelancers
+# 💼 Micro-Task_Marketplace — Connect Clients with Top Freelancers
 
 FreelanceHub is a full-stack freelancing platform inspired by Upwork, designed to connect clients with skilled freelancers. The app includes user authentication, project posting, real-time messaging, AI-powered freelancer recommendations, and a smart chatbot to assist users throughout their journey.
 
