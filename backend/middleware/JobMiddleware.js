@@ -24,6 +24,14 @@ const JobMiddle = async (req, res, next) => {
     if (result.length === 0) {
       return res.status(400).json("You must have an account to post a job");
     }
+    // Check if the user is not a client, return a message
+    if (result[0].role === "freelancer") {
+      res.status(400).json({
+        message:
+          "Access denied. Please log in with a client account or create one to continue.",
+      });
+      return;
+    }
 
     req.userid = result[0].id;
     next();
