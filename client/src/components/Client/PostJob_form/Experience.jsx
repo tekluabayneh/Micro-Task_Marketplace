@@ -70,9 +70,9 @@ const Experience = ({ jobSize, experience, updateFields }) => {
             className="w-full border-none rounded-sm outline-none py-1 bg-gray-100 pl-2 custom-shadow"
           >
             <option value="">Select Experience Level</option>
-            <option value="entry">Entry Level</option>
+            <option value="junior">junior Level</option>
             <option value="mid">Mid Level</option>
-            <option value="senior">Senior Level</option>
+            <option value="expert">expert Level</option>
           </select>
         </div>
       </div>
