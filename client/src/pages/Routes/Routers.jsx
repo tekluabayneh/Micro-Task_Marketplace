@@ -3,23 +3,30 @@ import React, { Suspense, useState, lazy } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Loading from "../../components/Loading/Loading";
-import UserTypeSelector from "../Auth/UserTypeSelector";
-import ApplicationForm from "../../components/Freelancer/applicationSteps/ApplicationForm";
-import ContractsPage from "../ContractsPage/ContractsPage";
-import ClientSetting from "../SettingsPage/ClientSettingsPage ";
-import FreelancerSetting from "../SettingsPage/FreelancerSettingsPage ";
-import Dashborad from "../../components/Client/DashBoardComponent/Dashborad";
-import JobPostForm from "../../components/Client/PostJob_form/JobPostForm";
+import ClientHeader from "../Header/ClientHeader";
+
+const UserTypeSelector = lazy(() => import("../Auth/UserTypeSelector"));
+const ApplicationForm = lazy(() =>
+  import("../../components/Freelancer/applicationSteps/ApplicationForm")
+);
+const ContractsPage = lazy(() => import("../ContractsPage/ContractsPage"));
+const ClientSetting = lazy(() => import("../SettingsPage/ClientSettingsPage "));
+const FreelancerSetting = lazy(() =>
+  import("../SettingsPage/FreelancerSettingsPage ")
+);
+const Dashborad = lazy(() =>
+  import("../../components/Client/DashBoardComponent/Dashborad")
+);
+const JobPostForm = lazy(() => import("../PostJob/JobPostForm"));
 
 // Lazy load components
-const Header = lazy(() => import("../../components/Header/Header"));
-const HomeHeader = lazy(() => import("../../components/Header/HomeHeader"));
+const Header = lazy(() => import("../Header/Header"));
 const FreelancerDashboardPage = lazy(() =>
   import("../Dashboard/FreelancerDashboardPage")
 );
 const ResetPassword = lazy(() => import("../Auth/ForgotPassword"));
 const ResetConfirm = lazy(() => import("../Auth/ResetConfirm"));
-const MyJobs = lazy(() => import("../PostJob/MYPostedProjects"));
+const MyJobs = lazy(() => import("../Jobs/MYPostedProjects"));
 const Search = lazy(() => import("../Search/Search"));
 const Privacy = lazy(() => import("../Privacy/Privacy"));
 const Terms = lazy(() => import("../Terms/Terms"));
@@ -30,7 +37,6 @@ const ClientProfile = lazy(() => import("../Profiles/ClientProfile"));
 const Footer = lazy(() =>
   import("../../components/LandingPageComponents/Footer")
 );
-const JobPostPage = lazy(() => import("../PostJob/JobPostPage"));
 const LandingPage = React.lazy(() => import("../Landing/Landing"));
 const FreelancerProfile = React.lazy(() =>
   import("../Profiles/FreelancerProfile")
@@ -51,11 +57,11 @@ const Routers = () => {
       {isPublic ? (
         <Header />
       ) : userType === "freelancer" ? (
-        <HomeHeader />
+        <ClientHeader />
       ) : userType === "client" ? (
-        <HomeHeader />
+        <ClientHeader />
       ) : (
-        <HomeHeader />
+        <ClientHeader />
       )}
       <Toaster />;
       <Routes>
@@ -68,6 +74,7 @@ const Routers = () => {
         />
         <Route path="/Freelancer/Setting" element={<FreelancerSetting />} />
         <Route path="/Freelancer/profile" element={<FreelancerProfile />} />
+        <Route path="/Freelancer/Search" element={<Search />} />
 
         {/* CLIENT ROUTE */}
         <Route path="/Client/Dashboard" element={<Dashborad />} />
