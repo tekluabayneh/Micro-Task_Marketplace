@@ -9,6 +9,7 @@ import RecommendationsList from "./RecommendationsList";
 import { useIsMobile } from "../../hooks/use-mobile";
 import { Filter, PlusCircle } from "lucide-react";
 import { sampleJobs, sampleRecommendations, statsData } from "./sampleData";
+import { Link } from "react-router-dom";
 const Dashborad = () => {
   const isMobile = useIsMobile();
 
@@ -38,7 +39,7 @@ const Dashborad = () => {
           className="gap-1 text-green-500 flex items-center border p-1 border-green-400 hover:bg-green-500 hover:text-white cursor-pointer rounded-sm text-nowrap"
         >
           <PlusCircle size={16} />
-          <span>New Job</span>
+          <Link to={"/Client/JobPost"}>New Job</Link>
         </button>
       </div>
 
@@ -58,7 +59,7 @@ const Dashborad = () => {
             className="gap-1 text-green-500 flex items-center border p-1 border-green-400 hover:bg-green-500 hover:text-white cursor-pointer rounded-sm text-nowrap"
           >
             <PlusCircle size={16} />
-            <span>New Job</span>
+            <Link to={"/Client/JobPost"}>New Job</Link>
           </button>
         }
       >
