@@ -11,8 +11,8 @@ const ClientProfile = () => {
     email: "t***a@gmail.com",
     companyName: "Teklu Abayneh",
     owner: "T***yneh",
-    phone: "", // Empty if not provided
-    vatId: "", // Empty if not provided
+    phone: "",
+    vatId: "",
     timeZone: "UTC+03:00 Baghdad, Kuwait, Nairobi, Riyadh",
     address: "Ethiopia",
   };
