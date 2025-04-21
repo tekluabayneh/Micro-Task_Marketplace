@@ -45,7 +45,6 @@ const Contact = React.lazy(() => import("../Contact/Contact"));
 const NotFound = React.lazy(() => import("../NotFound/NotFound"));
 
 const Routers = () => {
-  const [islogedin, setislogedin] = useState(false);
   let location = useLocation();
 
   const userType = localStorage.getItem("userType");
@@ -63,7 +62,7 @@ const Routers = () => {
       ) : (
         <ClientHeader />
       )}
-      <Toaster />;
+      <Toaster />
       <Routes>
         {/* FREELANCER ROUTE */}
         <Route path="/" element={<LandingPage />} />
