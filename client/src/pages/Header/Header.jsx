@@ -14,7 +14,12 @@ const MobileNav = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = ["home", "about", "client", "price", "footer"];
+  const navItems = [
+    { label: "home", to: "#" },
+    { label: "talent by category", to: "#talentbycategory" },
+    { label: "Business Pro Package", to: "#BusinessProPackage" },
+    { label: "Find great work", to: "#Findgreatwork" },
+  ];
 
   return (
     <header
@@ -58,13 +63,14 @@ const MobileNav = () => {
       >
         <ul className="pt-16 p-4 flex flex-col gap-6">
           {navItems.map((item) => (
-            <li
-              key={item}
+            <a
+              href={`${item.to}`}
+              key={item.to}
               className="cursor-pointer capitalize text-sm text-gray-500 hover:text-[var(--primary-color)]"
               onClick={() => setIsMenuOpen(false)}
             >
-              {item}
-            </li>
+              {item.label}
+            </a>
           ))}
           <li>
             <button className="text-sm cursor-pointer text-nowrap w-full text-left py-2">
@@ -81,14 +87,16 @@ const MobileNav = () => {
 
       {/* Desktop Menu */}
       <div className="hidden md:flex items-center justify-between w-full ml-8">
-        <ul className="flex items-center gap-5">
+        <ul className="flex  gap-6 pt-2">
           {navItems.map((item) => (
-            <li
-              key={item}
+            <a
+              href={`${item.to}`}
+              key={item.to}
               className="cursor-pointer capitalize text-sm text-gray-500 hover:text-[var(--primary-color)]"
+              onClick={() => setIsMenuOpen(false)}
             >
-              {item}
-            </li>
+              {item.label}
+            </a>
           ))}
         </ul>
         <ul className="flex items-center gap-3">
