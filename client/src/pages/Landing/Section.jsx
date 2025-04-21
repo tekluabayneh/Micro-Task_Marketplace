@@ -2,7 +2,10 @@ import React from "react";
 import Hero3img from "../../assets/3.jpg";
 const Section = () => {
   return (
-    <section className="w-full h-[30rem] flex flex-col md:flex-row gap-0 m-1 rounded-lg overflow-hidden p-1 my-10">
+    <section
+      className="w-full h-[30rem] flex flex-col md:flex-row gap-0 m-1 rounded-lg overflow-hidden p-1 my-10"
+      id="BusinessProPackage"
+    >
       <div className="w-full md:w-3/6   flex  gap-0 flex-col bg-[#5d7e7b] rounded-l-lg text-white p-5">
         <h1 className="text-2xl">Business Pro Package</h1>
         <h1 className="text-4xl font-semibold p-1">
