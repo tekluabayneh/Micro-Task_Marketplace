@@ -76,16 +76,19 @@ CREATE TABLE jobs (
 );
 
 
+
 CREATE TABLE client_profiles (
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
   company_name VARCHAR(255),
+  owner_name VARCHAR(255),
+  
+  phone VARCHAR(20),
   website VARCHAR(255),
   industry VARCHAR(100),
   location VARCHAR(100),
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
 
 CREATE TABLE freelancer_profiles (
   id INT PRIMARY KEY AUTO_INCREMENT,
