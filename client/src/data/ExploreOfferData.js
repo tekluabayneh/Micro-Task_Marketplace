@@ -10,7 +10,7 @@ export const ExploreOfferData = {
     { name: "Engineering & Architecture", rating: "4.85/5", skills: 650 },
   ],
   enterprise: {
-    title: "talent by category",
+    title: "Talent By Category",
     tagline: "Looking for work? Browse jobs",
   },
 };
