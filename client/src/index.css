@@ -4,6 +4,9 @@
 @theme {
   --breakpoint-xs: 405px; /* Custom breakpoint */
 }
+html {
+  scroll-behavior: smooth;
+}
 
 .custom-shadow {
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
