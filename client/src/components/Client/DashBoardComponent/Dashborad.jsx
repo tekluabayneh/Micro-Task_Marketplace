@@ -1,30 +1,14 @@
 // src/pages/Index.tsx
-import React, { useState } from "react";
-
+import React from "react";
 import DashboardSection from "./DashboardSection";
 import StatsCard from "./StatsCard";
 import DashboardTabs from "./DashboardTabs";
 import JobListings from "./JobListings";
 import RecommendationsList from "./RecommendationsList";
-import { useIsMobile } from "../../hooks/use-mobile";
-import { Filter, PlusCircle } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import { sampleJobs, sampleRecommendations, statsData } from "./sampleData";
 import { Link } from "react-router-dom";
 const Dashborad = () => {
-  const isMobile = useIsMobile();
-
-  const jobsContent = (
-    <div>
-      <JobListings jobs={sampleJobs} />
-    </div>
-  );
-
-  const recommendationsContent = (
-    <div>
-      <RecommendationsList recommendations={sampleRecommendations} />
-    </div>
-  );
-
   return (
     <div className="flex flex-col gap-6 mt-12">
       <div className="flex justify-between items-center">
@@ -63,10 +47,7 @@ const Dashborad = () => {
           </button>
         }
       >
-        <DashboardTabs
-          tab1={<JobListings jobs={sampleJobs} />}
-          tab2={<RecommendationsList recommendations={sampleRecommendations} />}
-        />
+        <DashboardTabs tab1={<JobListings />} tab2={<RecommendationsList />} />
       </DashboardSection>
     </div>
   );
