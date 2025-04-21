@@ -8,7 +8,7 @@ import MicroWork from "./MicroSection";
 
 const Landing = () => {
   return (
-    <div className="mt-16">
+    <div className="mt-16" id="home">
       <Home />
 
       <MicroWork />
