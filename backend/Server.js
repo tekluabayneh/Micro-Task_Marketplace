@@ -11,6 +11,7 @@ const passport = require("passport");
 const cors = require("cors");
 const JobPostRouter = require("./routes/JobPostRouter");
 const MyJobsRouter = require("./routes/MyJobsRoute");
+const SearchFreelancerRoute = require("./routes/SearchFreelancerRouter");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -69,6 +70,8 @@ app.use("/auth", AuthRoute);
 
 // client job
 app.use("/myJobs", MyJobsRouter);
+
+app.use("/api/search", SearchFreelancerRoute);
 
 app.get("/", (req, res) => {
   res.send("Job Platform API is running...");
