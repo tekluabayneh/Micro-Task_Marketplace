@@ -3,10 +3,25 @@ import { MdSearch } from "react-icons/md";
 import AiImage from "../../assets/ai.png";
 import profile from "../../assets/profile.jpg";
 import ProfilePop from "../../components/ProfilePop/ProfilePop";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { clientSearch } from "../../components/Slices/clientSearchSlice";
+
 const ClientHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenu, setProfileMenu] = useState(false);
+  const [Search, setSearch] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const useSelector1 = useSelector(
+    (state) => state.clientSearchSlice.SearchClient
+  );
+
+  const handleSerach = () => {
+    dispatch(clientSearch({ Search: Search }));
+    navigate("/Client/search");
+    setSearch("");
+  };
 
   return (
     <div className="w-full fixed shadow-md top-0 left-0 h-12 z-50 p-5 py-6 flex justify-between items-center bg-white">
@@ -114,13 +129,17 @@ const ClientHeader = () => {
       {/*  */}
       <div className="flex items-center w-80 md:w-96  ml-2 hidden md:block ">
         <div className="w-full max-w-md hidden md:block relative">
-          <MdSearch
-            onClick={() => alert("asa")}
-            size={24}
-            className="absolute cursor-pointer left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-          />
+          <Link to={"/Client/Search"}>
+            <MdSearch
+              size={24}
+              onClick={handleSerach}
+              className="absolute cursor-pointer left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            />
+          </Link>
           <input
             type="text"
+            value={Search}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Search jobs, clients..."
             className="pl-10 pr-4 py-1.5 w-full bg-gray-50 border-gray-200 focus:bg-white custom-shadow rounded-sm"
           />
