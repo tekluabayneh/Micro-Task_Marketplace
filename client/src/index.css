@@ -2,7 +2,7 @@
 @import "@material-symbols/font-400";
 
 @theme {
-  --breakpoint-xs: 405px; /* Custom breakpoint */
+  --breakpoint-xs: 405px;
 }
 html {
   scroll-behavior: smooth;
@@ -14,13 +14,22 @@ html {
 }
 /* Hide scrollbar for a specific container */
 .custom-ScrollTum {
-  overflow-y: scroll; /* Enable vertical scrolling */
-  scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none; /* For IE and Edge */
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .custom-ScrollTum::-webkit-scrollbar {
-  display: none; /* For Chrome, Safari, and Opera */
+  display: none;
+}
+
+.custom-ScrollTum_2::-webkit-scrollbar {
+  width: 5px;
+  scrollbar-width: 5px;
+}
+.custom-ScrollTum_2::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 1rem;
 }
 
 :root {
