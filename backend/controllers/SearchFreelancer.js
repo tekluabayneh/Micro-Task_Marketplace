@@ -1,5 +1,6 @@
 const SearchFreelancer = (req, res) => {
-  console.log(res.body);
+  console.log(req.body);
+  res.send(req.body);
 };
 
 module.exports = SearchFreelancer;
