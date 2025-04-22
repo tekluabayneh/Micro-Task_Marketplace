@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import FilterBar from "../../components/Client/FilterBar";
 import { Link } from "react-router-dom";
 import LoadMore from "../../components/LoadMoreButton/LoadMore";
+import { useSelector } from "react-redux";
 
 const freelancers = [
   {
     id: 1,
     name: "Sara Daniel",
     location: "Ethiopia",
-
     paragraph:
       "I am a qualified,talented co-operative and self-motivated Graphic designer. I have over 13 years of experience in Advertising & Direct Marketing. I am very familiar with Graphic Design, as I have done many creative projects for clients in",
     role: "Frontend Developer",
@@ -17,6 +17,7 @@ const freelancers = [
     earned: "12$",
     rate: "$25/hr",
     image: "https://randomuser.me/api/portraits/men/1.jpg",
+    work_history: "",
   },
 
   {
@@ -47,6 +48,11 @@ const freelancers = [
 
 const ClientDashboard = () => {
   const [page, setPage] = useState(1);
+  const useSelector1 = useSelector(
+    (state) => state.clientSearchSlice.SearchClient
+  );
+  console.log(useSelector1);
+
   const handlePrev = () => {
     if (page > 1) setPage((prev) => prev - 1);
   };
@@ -54,6 +60,7 @@ const ClientDashboard = () => {
   const handleNext = () => {
     setPage((prev) => prev + 1);
   };
+
   return (
     <div className="bg-gray-100 min-h-screen  py-10 mt-12">
       <FilterBar />
