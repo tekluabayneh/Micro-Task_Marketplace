@@ -4,9 +4,21 @@ import AiImage from "../../assets/ai.png";
 import profile from "../../assets/profile.jpg";
 import ProfilePop from "../../components/ProfilePop/ProfilePop";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { freelancerSearch } from "../../components/Slices/freelancerSearchSlice";
+import { Target } from "lucide-react";
 const FreelancerHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenu, setProfileMenu] = useState(false);
+  const [Search, setSearch] = useState("");
+  const useSelector1 = useSelector(
+    (state) => state.freelancerSearchSlice.SearchFreelancer
+  );
+  const dispatch = useDispatch();
+
+  const handleSerach = () => {
+    dispatch(freelancerSearch());
+  };
 
   const navItems = ["home", "about", "client", "price", "footer"];
   return (
@@ -100,13 +112,17 @@ const FreelancerHeader = () => {
       {/*  */}
       <div className="flex relative items-center w-96 pt-2 ml-23 hidden md:block">
         <div className="relative w-full max-w-md hidden md:block relative">
-          <MdSearch
-            onClick={() => alert("asa")}
-            size={24}
-            className="absolute cursor-pointer left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-          />
+          <Link to={"/freelancer/Serach"}>
+            <MdSearch
+              onClick={handleSerach}
+              size={24}
+              className="absolute cursor-pointer left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            />
+          </Link>
           <input
             type="text"
+            value={Search}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Search jobs, clients..."
             className="pl-10 pr-4 py-2 w-full bg-gray-50 border-gray-200 focus:bg-white custom-shadow rounded-sm"
           />
