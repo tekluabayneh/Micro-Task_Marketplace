@@ -48,7 +48,7 @@ const AccountSection = ({ username }) => {
         {" "}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="space-y-4 w-[32rem] h-[23rem] p-7"
+          className="space-y-9 w-[26rem] h-[28rem] p-7"
         >
           <div>
             <label htmlFor="OwnerName" className="block">
@@ -60,7 +60,7 @@ const AccountSection = ({ username }) => {
                 required: "OwnerName is required",
               })}
               type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-xl border border-white/20 shadow-lg bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New OwnerName"
             />
@@ -78,8 +78,8 @@ const AccountSection = ({ username }) => {
                 required: "CompanyName is required",
               })}
               type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-xl border border-white/20 shadow-lg bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
-                focus:ring-2 focus:ring-primary/40 transition"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
+               focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New CompanyName"
             />
             {errors.CompanyName && (
@@ -87,28 +87,24 @@ const AccountSection = ({ username }) => {
             )}
           </div>
 
-          <div className="flex gap-2">
+          <div className="w-full flex gap-1 flex-col md:flex-row">
             <button
               type="submit"
-              className="bg-green-500 text-white px-4 py-2 rounded cursor-pointer"
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer w-full"
             >
-              Submit
+              Save
             </button>
             <button
               type="button"
-              onClick={handleDelete}
-              className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer"
+              onClick={() => {
+                setIsPortalOpen(false), handleDelete;
+              }}
+              className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer w-full mt-4"
             >
               Delete
             </button>
           </div>
         </form>
-        <button
-          onClick={() => setIsPortalOpen(false)}
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
-        >
-          Save
-        </button>
       </DynamicPortal>
     </div>
   );
