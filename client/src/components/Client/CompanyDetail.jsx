@@ -18,6 +18,7 @@ const CompanyDetails = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -34,11 +35,12 @@ const CompanyDetails = ({
 
   const handleDelete = () => {
     console.log("Delete clicked");
+    reset();
     // You can implement deletion logic here
   };
 
   return (
-    <div className="mb-4 custom-shadow p-4 h-70 rounded-sm relative">
+    <div className="p-2 mb-4 custom-shadow  h-70 rounded-sm relative ">
       <span
         className="material-symbols-outlined absolute top-2 right-6 border-1 cursor-pointer border-green-600 bg-white shadow-2xl rounded-full text-green-600 text-sm"
         style={{ fontSize: "18px" }}
@@ -77,11 +79,11 @@ const CompanyDetails = ({
       >
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="space-y-4 w-[40rem] h-[45rem] overflow-y-auto flex flex-col justify-center pl-24 p-7"
+          className="w-[25rem] md:w-[30rem] h-[30rem] overflow-y-auto flex flex-col justify-center p-5 gap-5 custom-ScrollTum_2"
         >
           {/* Company Name */}
-          <div>
-            <label htmlFor="CompanyName" className="block">
+          <div className="w-full">
+            <label htmlFor="CompanyName" className="block pt-60">
               Company Name:
             </label>
             <input
@@ -89,7 +91,7 @@ const CompanyDetails = ({
                 required: "Company Name is required",
               })}
               type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-xl border border-white/20 shadow-lg bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New Company Name"
             />
             {errors.CompanyName && (
@@ -98,7 +100,7 @@ const CompanyDetails = ({
           </div>
 
           {/* Owner Name */}
-          <div>
+          <div className="w-full">
             <label htmlFor="OwnerName" className="block">
               Owner Name:
             </label>
@@ -107,7 +109,7 @@ const CompanyDetails = ({
                 required: "Owner Name is required",
               })}
               type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-xl border border-white/20 shadow-lg bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New Owner Name"
             />
             {errors.OwnerName && (
@@ -116,81 +118,76 @@ const CompanyDetails = ({
           </div>
 
           {/* Phone */}
-          <div>
+          <div className="w-full">
             <label htmlFor="Phone" className="block">
               Phone:
             </label>
             <input
               {...register("Phone")}
               type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-xl border border-white/20 shadow-lg bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter Phone Number"
             />
           </div>
 
           {/* Time Zone */}
-          <div>
+          <div className="w-full">
             <label htmlFor="TimeZone" className="block">
               Time Zone:
             </label>
             <input
               {...register("TimeZone")}
               type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-xl border border-white/20 shadow-lg bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter Time Zone"
             />
           </div>
 
           {/* Website */}
-          <div>
+          <div className="w-full">
             <label htmlFor="Website" className="block">
               Website:
             </label>
             <input
               {...register("Website")}
               type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-xl border border-white/20 shadow-lg bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter Website"
             />
           </div>
 
           {/* Address */}
-          <div>
+          <div className="w-full">
             <label htmlFor="Address" className="block">
               Address:
             </label>
             <input
               {...register("Address")}
               type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-xl border border-white/20 shadow-lg bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter Address"
             />
           </div>
 
           {/* Buttons */}
-          <div className="flex gap-2">
+          <div className="w-full flex gap-1 flex-col md:flex-row">
             <button
               type="submit"
-              className="bg-green-500 text-white px-4 py-2 rounded cursor-pointer"
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer w-full"
             >
-              Submit
+              Save
             </button>
             <button
               type="button"
-              onClick={handleDelete}
-              className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer"
+              onClick={() => {
+                setIsPortalOpen(false), handleDelete;
+              }}
+              className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer w-full mt-4"
             >
               Delete
             </button>
           </div>
         </form>
-
-        <button
-          onClick={() => setIsPortalOpen(false)}
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
-        >
-          Save
-        </button>
       </DynamicPortal>
     </div>
   );
