@@ -4,31 +4,30 @@ import DynamicPortal from "../../components/Modal/Modal";
 import { useMutation } from "@tanstack/react-query";
 import useFetch from "../../components/hooks/Fetch";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
 // Main Component: SettingsPage
 const SettingsPage = () => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState(null);
+  const dispatch = useDispatch();
+  const profileData = useSelector(
+    (state) => state.clientProfileSettingSlice.CL_slide
+  );
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const mutate = useMutation({
-    mutationFn: useFetch(),
-
-    onSuccess: () => {},
-    onError: () => {},
-  });
-
-  const handleEdit = (formData) => {
-    setActiveItem(formData);
+  const handleEdit = () => {
     setIsPortalOpen(true);
-    mutate.mutate(formData);
   };
-  let onSubmit = () => {};
-  let handleDelete = () => {};
+
+  let onSubmit = (data) => {
+    console.log(data);
+    dispatch(update(data));
+  };
+
   return (
     <div className="max-w-4xl mt-12 mx-auto p-6 bg-white custom-shadow rounded-lg">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">image</h1>
@@ -126,9 +125,7 @@ const SettingsPage = () => {
             </button>
             <button
               type="button"
-              onClick={() => {
-                setIsPortalOpen(false), handleDelete;
-              }}
+              onClick={() => setIsPortalOpen(false)}
               className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer w-full mt-4"
             >
               Delete
