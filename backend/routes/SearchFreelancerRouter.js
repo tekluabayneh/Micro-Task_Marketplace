@@ -4,9 +4,6 @@ const Filterfreelancer = require("../middleware/filterFreelancer");
 
 const SearchFreelancerRoute = express.Router();
 
-
-
 SearchFreelancerRoute.get("/filter", Filterfreelancer, SearchFreelancer);
 
-
-module.exports =SearchFreelancerRoute
+module.exports = SearchFreelancerRoute;
