@@ -3,30 +3,31 @@ import DynamicPortal from "../Modal/Modal";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import useFetch from "../hooks/Fetch";
+import { useDispatch, useSelector } from "react-redux";
+import { update } from "../Slices/clientProfileSettingSlice";
 
 const AccountSection = ({ username }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState(null);
+  const dispatch = useDispatch();
+  const profileData = useSelector(
+    (state) => state.clientProfileSettingSlice.CL_slide
+  );
+  console.log(profileData)
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const mutate = useMutation({
-    mutationFn: useFetch(),
-
-    onSuccess: () => {},
-    onError: () => {},
-  });
-
-  const handleEdit = (formData) => {
-    setActiveItem(formData);
+  const handleEdit = () => {
     setIsPortalOpen(true);
-    mutate.mutate(formData);
   };
-  let onSubmit = () => {};
-  let handleDelete = () => {};
+
+  let onSubmit = (data) => {
+    console.log(data);
+    dispatch(update(data));
+  };
+
   return (
     <div className="mb-4 shadow-md p-4 h-70 custom-shadow relative">
       <span
@@ -96,9 +97,7 @@ const AccountSection = ({ username }) => {
             </button>
             <button
               type="button"
-              onClick={() => {
-                setIsPortalOpen(false), handleDelete;
-              }}
+              onClick={() => setIsPortalOpen(false)}
               className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer w-full mt-4"
             >
               Delete
