@@ -3,6 +3,7 @@ import DynamicPortal from "../Modal/Modal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useFetch from "../hooks/Fetch";
+import { useDispatch, useSelector } from "react-redux";
 
 const CompanyDetails = ({
   companyName,
@@ -13,30 +14,22 @@ const CompanyDetails = ({
   address,
 }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState(null);
-
+  const dispatch = useDispatch();
+  const profileData = useSelector(
+    (state) => state.clientProfileSettingSlice.CL_slide
+  );
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
-  const mutate = useMutation({
-    mutationFn: useFetch(), // Your custom fetch hook
-    onSuccess: () => {},
-    onError: () => {},
-  });
-
-  const onSubmit = (formData) => {
-    mutate.mutate(formData);
-    setIsPortalOpen(false); // close modal after submit
+  const handleEdit = () => {
+    setIsPortalOpen(true);
   };
 
-  const handleDelete = () => {
-    console.log("Delete clicked");
-    reset();
-    // You can implement deletion logic here
+  let onSubmit = (data) => {
+    console.log(data);
   };
 
   return (
@@ -83,7 +76,7 @@ const CompanyDetails = ({
         >
           {/* Company Name */}
           <div className="w-full">
-            <label htmlFor="CompanyName" className="block pt-60">
+            <label htmlFor="CompanyName" className="block pt-30">
               Company Name:
             </label>
             <input
@@ -127,19 +120,6 @@ const CompanyDetails = ({
               type="text"
               className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter Phone Number"
-            />
-          </div>
-
-          {/* Time Zone */}
-          <div className="w-full">
-            <label htmlFor="TimeZone" className="block">
-              Time Zone:
-            </label>
-            <input
-              {...register("TimeZone")}
-              type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
-              placeholder="Enter Time Zone"
             />
           </div>
 
