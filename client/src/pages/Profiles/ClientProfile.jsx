@@ -3,8 +3,10 @@ import CompanyDetails from "../../components/Client/CompanyDetail";
 import AccountSection from "../../components/Client/AccountSection";
 import MyInfo from "../../components/Client/MyInfo";
 import SettingsPage from "../SettingsPage/ClientSettingsPage ";
+import UpdatePorfile from "../../components/hooks/UpdatePorfile";
+import { useDispatch, useSelector } from "react-redux";
 
-// Main Component: ClientProfile
+
 const ClientProfile = () => {
   const clientData = {
     username: "T***yneh",
@@ -17,10 +19,18 @@ const ClientProfile = () => {
     address: "Ethiopia",
   };
 
+  const dispatch = useDispatch();
+  const profileData = useSelector(
+    (state) => state.clientProfileSettingSlice.CL_slide
+  );
+
+
+  
   return (
     <main className="w-full mt-20 flex flex-col md:flex-row gap-3">
       <div className="w-full md:w-70">
         <SettingsPage />
+        <UpdatePorfile />
       </div>
 
       <div className="w-auto md:w-[36rem]">
