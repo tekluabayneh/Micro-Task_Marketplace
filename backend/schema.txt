@@ -86,8 +86,13 @@ CREATE TABLE client_profiles (
   website VARCHAR(255),
   industry VARCHAR(100),
   location VARCHAR(100),
+  image VARCHAR(255),
+  description TEXT,
+  Social VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE freelancer_profiles (
   id INT PRIMARY KEY AUTO_INCREMENT,
