@@ -4,9 +4,6 @@ const UpdateClientProfile = async (req, res) => {
   const fieldsToUpdate = req.filteredUpdate;
   const user_id = req.user_id;
 
-  console.log(fieldsToUpdate);
-  console.log(user_id);
-
   try {
     // Check if a client profile already exists
     const [existing] = await db.execute(
