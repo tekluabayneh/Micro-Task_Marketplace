@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useFetch from "../hooks/Fetch";
 import { useDispatch, useSelector } from "react-redux";
+import { update } from "../Slices/clientProfileSettingSlice";
 
 const CompanyDetails = ({
   companyName,
@@ -15,21 +16,21 @@ const CompanyDetails = ({
 }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const dispatch = useDispatch();
-  const profileData = useSelector(
-    (state) => state.clientProfileSettingSlice.CL_slide
-  );
+
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleEdit = () => {
-    setIsPortalOpen(true);
-  };
-
   let onSubmit = (data) => {
-    console.log(data);
+    dispatch(update(data));
+
+    reset();
+    setTimeout(() => {
+      setIsPortalOpen(false);
+    }, 2000);
   };
 
   return (
@@ -74,44 +75,8 @@ const CompanyDetails = ({
           onSubmit={handleSubmit(onSubmit)}
           className="w-[25rem] md:w-[30rem] h-[30rem] overflow-y-auto flex flex-col justify-center p-5 gap-5 custom-ScrollTum_2"
         >
-          {/* Company Name */}
-          <div className="w-full">
-            <label htmlFor="CompanyName" className="block pt-30">
-              Company Name:
-            </label>
-            <input
-              {...register("CompanyName", {
-                required: "Company Name is required",
-              })}
-              type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
-              placeholder="Enter New Company Name"
-            />
-            {errors.CompanyName && (
-              <p className="text-red-500">{errors.CompanyName.message}</p>
-            )}
-          </div>
-
-          {/* Owner Name */}
-          <div className="w-full">
-            <label htmlFor="OwnerName" className="block">
-              Owner Name:
-            </label>
-            <input
-              {...register("OwnerName", {
-                required: "Owner Name is required",
-              })}
-              type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
-              placeholder="Enter New Owner Name"
-            />
-            {errors.OwnerName && (
-              <p className="text-red-500">{errors.OwnerName.message}</p>
-            )}
-          </div>
-
           {/* Phone */}
-          <div className="w-full">
+          <div className="w-full mt-50">
             <label htmlFor="Phone" className="block">
               Phone:
             </label>
@@ -123,29 +88,49 @@ const CompanyDetails = ({
             />
           </div>
 
-          {/* Website */}
-          <div className="w-full">
-            <label htmlFor="Website" className="block">
-              Website:
-            </label>
-            <input
-              {...register("Website")}
-              type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
-              placeholder="Enter Website"
-            />
-          </div>
-
           {/* Address */}
           <div className="w-full">
-            <label htmlFor="Address" className="block">
-              Address:
+            <label htmlFor="location" className="block">
+              location:
             </label>
             <input
-              {...register("Address")}
+              {...register("location")}
               type="text"
               className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
-              placeholder="Enter Address"
+              placeholder="Enter location"
+            />
+          </div>
+          <div className="w-full">
+            <label htmlFor="industry" className="block">
+              industry:
+            </label>
+            <input
+              {...register("industry")}
+              type="text"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+              placeholder="Enter industry"
+            />
+          </div>
+          <div className="w-full">
+            <label htmlFor="Social" className="block">
+              Social:
+            </label>
+            <input
+              {...register("Social")}
+              type="text"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+              placeholder="Enter Social"
+            />
+          </div>
+          <div className="w-full">
+            <label htmlFor="description" className="block">
+              description:
+            </label>
+            <textarea
+              {...register("description")}
+              type="text"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+              placeholder="Enter industry"
             />
           </div>
 
@@ -159,9 +144,7 @@ const CompanyDetails = ({
             </button>
             <button
               type="button"
-              onClick={() => {
-                setIsPortalOpen(false), handleDelete;
-              }}
+              onClick={() => setIsPortalOpen(false)}
               className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer w-full mt-4"
             >
               Delete
