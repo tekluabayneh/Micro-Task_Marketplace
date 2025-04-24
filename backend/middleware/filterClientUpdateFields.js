@@ -1,17 +1,14 @@
 const filterClientUpdateFields = (req, res, next) => {
   const allowedFields = [
-    "name",
-    "title",
-    "phone",
-    "owner_name",
-    "skills",
     "company_name",
-    "description",
-    "location",
-    "Social",
-    "industry",
+    "owner_name",
+    "phone",
     "website",
+    "industry",
+    "location",
     "image",
+    "description",
+    "Social",
   ];
 
   const filtered = {};
