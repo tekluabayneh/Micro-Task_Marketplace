@@ -14,6 +14,7 @@ const passport = require("passport");
 const express = require("express");
 const db = require("./config/db");
 const cors = require("cors");
+const fetchClientProfileRoute = require("./routes/fetchClientProfileRoute");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -80,6 +81,10 @@ app.use("/api/update", updateClientProfileRoute);
 
 // update
 app.use("/api/update", updateFreelancerProfileRoute);
+
+// fetchClientProfileRoute
+app.use("/api", fetchClientProfileRoute);
+
 
 app.get("/", (req, res) => {
   res.send("Job Platform API is running...");
