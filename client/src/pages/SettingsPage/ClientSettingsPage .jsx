@@ -1,49 +1,48 @@
 import React, { useState } from "react";
-import ProfileHeader from "../../components/Freelancer/ProfileHeader";
 import DynamicPortal from "../../components/Modal/Modal";
-import { useMutation } from "@tanstack/react-query";
-import useFetch from "../../components/hooks/Fetch";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { update } from "../../components/Slices/clientProfileSettingSlice";
 
 // Main Component: SettingsPage
-const SettingsPage = () => {
+const SettingsPage = ({ image, username }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const dispatch = useDispatch();
-  const profileData = useSelector(
-    (state) => state.clientProfileSettingSlice.CL_slide
-  );
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleEdit = () => {
-    setIsPortalOpen(true);
-  };
-
   let onSubmit = (data) => {
-    console.log(data);
     dispatch(update(data));
-  };
 
+    reset();
+    setTimeout(() => {
+      setIsPortalOpen(false);
+    }, 2000);
+  };
+  let currentDate = new Date();
+  let getDate = currentDate.getDate();
+  let year = currentDate.getFullYear();
+  let month = currentDate.getMonth();
   return (
-    <div className="max-w-4xl mt-12 mx-auto p-6 bg-white custom-shadow rounded-lg">
+    <div className="max-w-6xl mt-12 mx-auto p-6 bg-white custom-shadow rounded-lg">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">image</h1>
       <div className="bg-white ">
         <div className="flex items-center gap-4">
           {/* Profile Picture */}
           <div className="relative">
             <span
-              onClick={handleEdit}
+              onClick={() => setIsPortalOpen(true)}
               className="material-symbols-outlined absolute bottom-0  border-1 cursor-pointer  border-green-600  bg-white shadow-2xl rounded-full text-green-600 text-xl"
               style={{ fontSize: "18px" }}
             >
               edit
             </span>
             <img
-              src="https://randomuser.me/api/portraits/men/1.jpg"
+              src={image}
               alt="Profile"
               className="w-20 h-20 rounded-full object-cover border-2 border-green-600"
             />
@@ -52,7 +51,8 @@ const SettingsPage = () => {
           {/* Name, Title, Location */}
           <div className="relative flex flex-col gap-6">
             <div>
-              <h1 className="text-xl font-bold text-gray-800">John Doe</h1>
+              <h1 className="text-xl font-bold text-gray-800">{username}</h1>
+
               <div className="flex gap-2 mt-1">
                 <div className="flex gap-2 ">
                   <span
@@ -64,7 +64,9 @@ const SettingsPage = () => {
                   <p className="text-sm text-gray-600 text-xs">Ethiopia</p>
                 </div>
 
-                <p className="text-xs text-gray-500">7:00 pm local Time</p>
+                <p className="text-xs text-gray-500">
+                  {getDate + ":" + month + ":" + year}
+                </p>
               </div>
             </div>
           </div>
@@ -79,40 +81,27 @@ const SettingsPage = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-9 w-[26rem] h-[28rem] p-7"
         >
+          <p className="text-red-500 text-xs">
+            Please note: We currently only accept image URLs. If you've uploaded
+            an image elsewhere (like on Remo), you can paste the image URL here.
+          </p>
+
           <div>
-            <label htmlFor="OwnerName" className="block">
-              OwnerName:
+            <label htmlFor="image" className="block">
+              image url:
             </label>
 
             <input
-              {...register("OwnerName", {
-                required: "OwnerName is required",
+              {...register("image", {
+                required: "image url is required",
               })}
               type="text"
               className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New OwnerName"
             />
-            {errors.OwnerName && (
-              <p className="text-red-500">{errors.OwnerName.message}</p>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="imageUrl" className="block">
-              Image url:
-            </label>
-            <input
-              {...register("imageUrl", {
-                required: "image url is required",
-              })}
-              type="text"
-              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
-               focus:ring-2 focus:ring-primary/40 transition"
-              placeholder="Enter New image url"
-            />
-            {errors.imageUrl && (
-              <p className="text-red-500">{errors.imageUrl.message}</p>
+            {errors.image && (
+              <p className="text-red-500">{errors.image.message}</p>
             )}
           </div>
 
