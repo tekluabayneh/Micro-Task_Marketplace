@@ -27,7 +27,7 @@ const FilterBar = () => {
         className="px-4 py-2 text-sm border rounded-md"
         {...register("country")}
       >
-        <option value="">All Countries</option>
+        <option value="All">All Countries</option>
         <option value="Ethiopia">Ethiopia</option>
         <option value="USA">USA</option>
         <option value="India">India</option>
@@ -54,7 +54,7 @@ const FilterBar = () => {
         className="px-4 py-2 text-sm border rounded-md"
         {...register("skill")}
       >
-        <option value="">All Roles</option>
+        <option value="All">All Roles</option>
         <option value="Frontend Developer">Frontend Developer</option>
         <option value="Backend Developer">Backend Developer</option>
         <option value="Full Stack Developer">Full Stack Developer</option>
