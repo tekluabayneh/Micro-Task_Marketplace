@@ -1,20 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DynamicPortal from "../Modal/Modal";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import useFetch from "../hooks/Fetch";
 import { useDispatch, useSelector } from "react-redux";
 import { update } from "../Slices/clientProfileSettingSlice";
 
-const AccountSection = ({ username }) => {
+const AccountSection = ({ username, companyname }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const dispatch = useDispatch();
-  const profileData = useSelector(
-    (state) => state.clientProfileSettingSlice.CL_slide
-  );
-  console.log(profileData)
+
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -24,8 +20,12 @@ const AccountSection = ({ username }) => {
   };
 
   let onSubmit = (data) => {
-    console.log(data);
     dispatch(update(data));
+
+    reset();
+    setTimeout(() => {
+      setIsPortalOpen(false);
+    }, 2000);
   };
 
   return (
@@ -41,7 +41,7 @@ const AccountSection = ({ username }) => {
 
       <h3 className="text-xl font-medium text-gray-700 pb-4">Account</h3>
       <p className="text-lg text-gray-600 pb-6">ownerName: {username}</p>
-      <p className="text-lg text-gray-600 pb-7">CompanyName: {username}</p>
+      <p className="text-lg text-gray-600 pb-7">CompanyName: {companyname}</p>
       <DynamicPortal
         isOpen={isPortalOpen}
         onClose={() => setIsPortalOpen(false)}
@@ -52,12 +52,12 @@ const AccountSection = ({ username }) => {
           className="space-y-9 w-[26rem] h-[28rem] p-7"
         >
           <div>
-            <label htmlFor="OwnerName" className="block">
+            <label htmlFor="owner_name" className="block">
               OwnerName:
             </label>
 
             <input
-              {...register("OwnerName", {
+              {...register("owner_name", {
                 required: "OwnerName is required",
               })}
               type="text"
@@ -65,17 +65,17 @@ const AccountSection = ({ username }) => {
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New OwnerName"
             />
-            {errors.OwnerName && (
-              <p className="text-red-500">{errors.OwnerName.message}</p>
+            {errors.owner_name && (
+              <p className="text-red-500">{errors.owner_name.message}</p>
             )}
           </div>
 
           <div>
-            <label htmlFor="CompanyName" className="block">
+            <label htmlFor="company_name" className="block">
               CompanyName:
             </label>
             <input
-              {...register("CompanyName", {
+              {...register("company_name", {
                 required: "CompanyName is required",
               })}
               type="text"
@@ -83,8 +83,8 @@ const AccountSection = ({ username }) => {
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New CompanyName"
             />
-            {errors.CompanyName && (
-              <p className="text-red-500">{errors.CompanyName.message}</p>
+            {errors.company_name && (
+              <p className="text-red-500">{errors.company_name.message}</p>
             )}
           </div>
 
