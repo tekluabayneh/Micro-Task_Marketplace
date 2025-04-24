@@ -63,6 +63,7 @@ const Routers = () => {
         <ClientHeader />
       )}
       <Toaster />
+
       <Routes>
         {/* FREELANCER ROUTE */}
         <Route path="/" element={<LandingPage />} />
