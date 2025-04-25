@@ -5,6 +5,7 @@ import OverviewSection from "../../components/Freelancer/OverviewSection";
 import WorkHistorySection from "../../components/Freelancer/WorkHistorySection";
 import ReviewsSection from "../../components/Freelancer/ReviewsSection";
 import FreelancerSidebar from "../../components/Freelancer/FreelancerSidebar";
+import FR_PortFolio from "../../components/Freelancer/Portfolio";
 const Profile = () => {
   return (
     <main
@@ -25,6 +26,8 @@ const Profile = () => {
 
           {/* Work History Section */}
           <WorkHistorySection />
+
+          <FR_PortFolio />
 
           {/* Reviews Section */}
           <ReviewsSection />
