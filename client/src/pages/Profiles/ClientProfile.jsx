@@ -6,6 +6,7 @@ import SettingsPage from "../SettingsPage/ClientSettingsPage ";
 import UpdatePorfile from "../../components/hooks/UpdatePorfile";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import ClientHeader from "../Header/ClientHeader";
 
 const ClientProfile = () => {
   const [ClientProfileData, setClientProfileData] = useState(null);
@@ -25,6 +26,7 @@ const ClientProfile = () => {
             params: { email },
           }
         );
+        console.log(response);
         // Make sure we got valid data before setting
         if (response.data && response.data.length > 0) {
           setClientProfileData(response.data[0]);
@@ -42,6 +44,8 @@ const ClientProfile = () => {
   if (!ClientProfileData) {
     return <div className="mt-20 text-center">Loading profile...</div>;
   }
+  localStorage.setItem("userImg", ClientProfileData.image);
+  localStorage.setItem("username", ClientProfileData.owner_name);
   return (
     <main className="w-full mt-20 flex flex-col md:flex-row gap-3">
       <div className="w-full md:w-70">
