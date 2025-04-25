@@ -22,8 +22,8 @@ const Login = () => {
   const { mutate, isError, isLoading, error } = useMutation({
     mutationFn: LoginUser,
     onSuccess: (response) => {
+      localStorage.setItem("userType", response.data.role.split("/")[0]);
       navigate(`/${response.data.role}`);
-      
     },
     onError: (err) => {
       console.log(err);
@@ -34,7 +34,7 @@ const Login = () => {
   const onSubmitLogin = (data) => {
     console.log(data);
     mutate(data);
-  localStorage.setItem("userEmail", data.email);
+    localStorage.setItem("userEmail", data.email);
     reset();
   };
 
