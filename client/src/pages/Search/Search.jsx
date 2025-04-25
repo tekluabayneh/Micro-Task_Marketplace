@@ -67,7 +67,6 @@ const ClientDashboard = () => {
         const response = await axios.get(
           `http://localhost:5000/api/search/filter?Search=${useSelectorProfile}`
         );
-        console.log(response);
         setLoading(false);
         dispatch(storeResponse({ response: response.data }));
       } catch (error) {
@@ -81,8 +80,7 @@ const ClientDashboard = () => {
   console.log("useSelectorProfile inside useEffect", useSelectorProfile);
   console.log("useSelectorProfile inside second ", useSelectorProfileStore);
   let data = useSelectorProfileStore;
-  console.log(data);
-  console.log(freelancers);
+
   const handlePrev = () => {
     if (page > 1) setPage((prev) => prev - 1);
   };
