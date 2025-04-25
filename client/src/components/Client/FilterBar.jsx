@@ -21,7 +21,6 @@ const FilterBar = () => {
 
   return (
     <div className="flex flex-wrap items-center gap-4 mb-6">
-      <label htmlFor="country">Select a Country:</label>
       <select
         name="country"
         className="px-4 py-2 text-sm border rounded-md"
