@@ -22,6 +22,12 @@ html {
 .custom-ScrollTum::-webkit-scrollbar {
   display: none;
 }
+.custom-ScrollTum_1::-webkit-scrollbar {
+  width: 1px;
+  scrollbar-width: 1px;
+  background: #fff;
+  border-radius: 1rem;
+}
 
 .custom-ScrollTum_2::-webkit-scrollbar {
   width: 5px;
@@ -80,6 +86,120 @@ logo {
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* Custom Profile Pop Styles */
+.profile-pop {
+  width: 16rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  background-image: linear-gradient(to bottom, white, rgb(249 250 251));
+  border: 1px solid rgb(243 244 246);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: fixed;
+  top: 3.5rem;
+  right: 1.25rem;
+  z-index: 50;
+  transform: translateY(0);
+  transition: all 200ms;
+  animation: fade-in 200ms ease-in-out;
+  overflow: hidden;
+}
+
+.profile-header {
+  padding: 1rem;
+  background-image: linear-gradient(
+    to right,
+    rgb(239 246 255),
+    rgb(245 243 255)
+  );
+}
+
+.profile-avatar {
+  height: 3rem;
+  width: 3rem;
+  border: 2px solid white;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.profile-name {
+  font-weight: 500;
+  color: rgb(31 41 55);
+}
+
+.profile-role {
+  font-size: 0.75rem;
+  color: rgb(107 114 128);
+  text-transform: capitalize;
+}
+
+.profile-menu {
+  padding: 0.75rem;
+  flex: 1;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  color: rgb(55 65 81);
+  border-radius: 0.375rem;
+  transition: background-color 150ms;
+}
+
+.menu-item:hover {
+  background-color: rgb(239 246 255);
+}
+
+.menu-icon {
+  color: rgb(107 114 128);
+  transition: color 150ms;
+}
+
+.menu-item:hover .menu-icon {
+  color: rgb(37 99 235);
+}
+
+.menu-text {
+  font-size: 0.875rem;
+  transition: color 150ms;
+}
+
+.menu-item:hover .menu-text {
+  color: rgb(37 99 235);
+}
+
+.logout-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: rgb(239 68 68);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: background-color 150ms;
+}
+
+.logout-button:hover {
+  background-color: rgb(220 38 38);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes logo-spin {
