@@ -2,27 +2,23 @@ import React, { useState } from "react";
 import { MdSearch } from "react-icons/md";
 import AiImage from "../../assets/ai.png";
 import profile from "../../assets/profile.jpg";
-import ProfilePop from "../../components/ProfilePop/ProfilePop";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clientSearch } from "../../components/Slices/clientSearchSlice";
+import CL_ProfilePop from "../../components/ProfilePop/ClientProfilePop";
 
-const ClientHeader = () => {
+const ClientHeader = ({ image, username }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenu, setProfileMenu] = useState(false);
   const [Search, setSearch] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const useSelector1 = useSelector(
-    (state) => state.clientSearchSlice.SearchClient
-  );
-
   const handleSerach = () => {
     dispatch(clientSearch({ Search: Search }));
     navigate("/Client/search");
     setSearch("");
   };
-
+  const userimg = localStorage.getItem("userImg");
   return (
     <div className="w-full fixed shadow-md top-0 left-0 h-12 z-50 p-5 py-6 flex justify-between items-center bg-white">
       <button
@@ -140,7 +136,7 @@ const ClientHeader = () => {
             type="text"
             value={Search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search jobs, clients..."
+            placeholder="Search jobs, Freelancer..."
             className="pl-10 pr-4 py-1.5 w-full bg-gray-50 border-gray-200 focus:bg-white custom-shadow rounded-sm"
           />
         </div>
@@ -158,12 +154,21 @@ const ClientHeader = () => {
           <img
             onClick={() => setProfileMenu(!isProfileMenu)}
             className="w-7 h-7 rounded-full bg-contain bg-center border border-green-400"
-            src={profile}
+            src={userimg}
             alt=""
           />
         </div>
         <div className="absolute top-0 right-1 ">
-          {isProfileMenu ? <ProfilePop /> : ""}
+          {isProfileMenu ? (
+            <CL_ProfilePop
+              isProfileMenu={isProfileMenu}
+              setProfileMenu={setProfileMenu}
+              username={username}
+              image={image}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
