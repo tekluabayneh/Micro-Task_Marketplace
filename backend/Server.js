@@ -85,7 +85,6 @@ app.use("/api/update", updateFreelancerProfileRoute);
 // fetchClientProfileRoute
 app.use("/api", fetchClientProfileRoute);
 
-
 app.get("/", (req, res) => {
   res.send("Job Platform API is running...");
 });
