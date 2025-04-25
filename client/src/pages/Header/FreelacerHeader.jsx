@@ -2,27 +2,25 @@ import React, { useState } from "react";
 import { MdSearch } from "react-icons/md";
 import AiImage from "../../assets/ai.png";
 import profile from "../../assets/profile.jpg";
-import ProfilePop from "../../components/ProfilePop/ProfilePop";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { freelancerSearch } from "../../components/Slices/freelancerSearchSlice";
-import { Target } from "lucide-react";
-const FreelancerHeader = () => {
+import { clientSearch } from "../../components/Slices/clientSearchSlice";
+import FR_ProfilePop from "../../components/ProfilePop/FreelancerProfilePop";
+
+const FreelancerHeader = ({ image, username }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenu, setProfileMenu] = useState(false);
   const [Search, setSearch] = useState("");
-  const useSelector1 = useSelector(
-    (state) => state.freelancerSearchSlice.SearchFreelancer
-  );
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const handleSerach = () => {
-    dispatch(freelancerSearch());
+    dispatch(clientSearch({ Search: Search }));
+    navigate("/Freelancer/search");
+    setSearch("");
   };
-
-  const navItems = ["home", "about", "client", "price", "footer"];
+  const userimg = localStorage.getItem("userImg");
   return (
-    <div className="w-full fixed top-0 left-0 h-12 z-50 p-5 flex justify-between items-center bg-white ">
+    <div className="w-full fixed shadow-md top-0 left-0 h-12 z-50 p-5 py-6 flex justify-between items-center bg-white">
       <button
         className="block md:hidden z-50 cursor-pointer"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -57,19 +55,14 @@ const FreelancerHeader = () => {
         <div className="hidden md:block pt-1">
           <ul className="flex gap-3 flex-col md:flex-row">
             <li className="text-xs cursor-pointer">
-              <Link to="/FreelancerDashboard">Dashboard</Link>
+              <Link to="/Freelancer/Dashboard">Dashboard</Link>
             </li>
             <li className="text-xs cursor-pointer">
-              <Link to="/profile">Profile</Link>
+              <Link to="Freelancer/FreelancerProfile">Profile</Link>
             </li>
+
             <li className="text-xs cursor-pointer">
-              <Link to="/setting">Setting</Link>
-            </li>
-            <li className="text-xs cursor-pointer">
-              <Link to="/contract">Contract</Link>
-            </li>
-            <li className="text-xs cursor-pointer">
-              <Link to="/earnings">Earnings</Link>
+              <Link to="Freelancer/JobBidding">JobBidding</Link>
             </li>
           </ul>
         </div>
@@ -87,35 +80,52 @@ const FreelancerHeader = () => {
             src={profile}
             alt=""
           />
-          {navItems.map((item) => (
-            <li
-              key={item}
-              className="cursor-pointer capitalize text-sm text-gray-500 hover:text-[var(--primary-color)]"
-              onClick={() => setIsMenuOpen(false)}
+          <Link
+            onClick={() => setIsMenuOpen(false)}
+            className="cursor-pointer capitalize text-sm text-gray-500 hover:text-[var(--primary-color)]"
+            to="/Client/Dashboard"
+          >
+            Dashboard
+          </Link>
+          <Link
+            onClick={() => setIsMenuOpen(false)}
+            className="cursor-pointer capitalize text-sm text-gray-500 hover:text-[var(--primary-color)]"
+            to="/Client/ClientProfile"
+          >
+            Profile
+          </Link>
+          <Link
+            onClick={() => setIsMenuOpen(false)}
+            className="cursor-pointer capitalize text-sm text-gray-500 hover:text-[var(--primary-color)]"
+            to="/Client/MyPostJobs"
+          >
+            MYJob
+          </Link>
+          <Link
+            onClick={() => setIsMenuOpen(false)}
+            className="cursor-pointer capitalize text-sm text-gray-500 hover:text-[var(--primary-color)]"
+            to="/Client/JobPost"
+          >
+            PostJob
+          </Link>
+          <li>
+            <Link
+              to={"/login"}
+              className="text-sm cursor-pointer rounded-lg bg-[var(--secondary-dark-green)] hover:bg-[var(--Dark-color)] px-5 py-2 text-white w-full"
             >
-              {item}
-            </li>
-          ))}
-          <li>
-            <button className="text-sm cursor-pointer text-nowrap w-full text-left py-2">
-              Log in
-            </button>
-          </li>
-          <li>
-            <button className="text-sm cursor-pointer rounded-lg bg-[var(--secondary-dark-green)] hover:bg-[var(--Dark-color)] px-5 py-2 text-white w-full">
-              Signup
-            </button>
+              Logout
+            </Link>
           </li>
         </ul>
       </div>
 
       {/*  */}
-      <div className="flex relative items-center w-96 pt-2 ml-23 hidden md:block">
-        <div className="relative w-full max-w-md hidden md:block relative">
-          <Link to={"/freelancer/Serach"}>
+      <div className="flex items-center w-80 md:w-96  ml-2 hidden md:block ">
+        <div className="w-full max-w-md hidden md:block relative">
+          <Link to={"/Client/Search"}>
             <MdSearch
-              onClick={handleSerach}
               size={24}
+              onClick={handleSerach}
               className="absolute cursor-pointer left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
             />
           </Link>
@@ -124,25 +134,38 @@ const FreelancerHeader = () => {
             value={Search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search jobs, clients..."
-            className="pl-10 pr-4 py-2 w-full bg-gray-50 border-gray-200 focus:bg-white custom-shadow rounded-sm"
+            className="pl-10 pr-4 py-1.5 w-full bg-gray-50 border-gray-200 focus:bg-white custom-shadow rounded-sm"
           />
         </div>
       </div>
       {/*  */}
       <div className="flex gap-4 items-center cursor-pointer">
         <div className="shadow-sm rounded-full cursor-pointer">
-          <img className="w-7 h-7 rounded-full" src={AiImage} alt="" />
+          <img
+            className="w-7 h-7 rounded-full border border-black"
+            src={AiImage}
+            alt=""
+          />
         </div>
         <div className="relative hidden md:block">
           <img
             onClick={() => setProfileMenu(!isProfileMenu)}
-            className="w-7 h-7 rounded-full bg-contain bg-center"
-            src={profile}
+            className="w-7 h-7 rounded-full bg-contain bg-center border border-green-400"
+            src={userimg}
             alt=""
           />
         </div>
         <div className="absolute top-0 right-1 ">
-          {isProfileMenu ? <ProfilePop /> : ""}
+          {isProfileMenu ? (
+            <FR_ProfilePop
+              isProfileMenu={isProfileMenu}
+              setProfileMenu={setProfileMenu}
+              username={username}
+              image={image}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
