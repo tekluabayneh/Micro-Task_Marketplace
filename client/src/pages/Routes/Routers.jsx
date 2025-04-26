@@ -88,7 +88,7 @@ const Routers = () => {
         <Route path="/Freelancer/Search" element={<Search />} />
         <Route path="/Freelancer/Earnings" element={<FreelancerEarnings />} />
         <Route path="/Freelancer/MyJobs" element={<FR_MyJobs />} />
-     
+
         {/* CLIENT ROUTE */}
         {/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
         <Route path="/Client/Dashboard" element={<Dashborad />} />
