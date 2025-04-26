@@ -7,9 +7,9 @@ const profileImageUrl = "https://i.pravatar.cc/150?img=32";
 
 const FR_ProfilePop = ({ isProfileMenu, setProfileMenu }) => {
   if (!isProfileMenu) return null;
-  const userimg = localStorage.getItem("userImg");
+  const userimg = localStorage.getItem("f_userImg");
   const userType = localStorage.getItem("userType");
-  const username = localStorage.getItem("username");
+  const username = localStorage.getItem("F_username");
 
   return (
     <div className="profile-pop">
