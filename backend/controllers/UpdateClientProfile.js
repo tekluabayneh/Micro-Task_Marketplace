@@ -13,7 +13,9 @@ const UpdateClientProfile = async (req, res) => {
 
     // Dynamically generate the SET part of the SQL query
     const fields = Object.keys(fieldsToUpdate);
-    const values = Object.values(fieldsToUpdate);
+    const values = Object.values(fieldsToUpdate).filter(
+      (value) => value !== ""
+    );
 
     let query = "";
     let result;
