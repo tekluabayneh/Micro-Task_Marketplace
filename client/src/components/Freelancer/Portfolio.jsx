@@ -1,6 +1,28 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import DynamicPortal from "../Modal/Modal";
+import { useForm } from "react-hook-form";
 
-const FR_PortFolio = () => {
+const FR_PortFolio = ({ data }) => {
+  let { Profile } = data[0];
+  const [isPortalOpen, setIsPortalOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  let onSubmit = (data) => {
+    // dispatch(update(data));
+
+    reset();
+    setTimeout(() => {
+      setIsPortalOpen(false);
+    }, 2000);
+  };
   // Sample portfolio data - in a real app this would come from a database
   const portfolioItems = [
     {
@@ -55,6 +77,7 @@ const FR_PortFolio = () => {
           My Portfolio
         </h1>
         <span
+          onClick={() => setIsPortalOpen(true)}
           className="material-symbols-outlined absolute top-6 right-12 
            border-1 cursor-pointer  border-green-600  bg-white shadow-2xl rounded-full text-green-600 text-sm"
           style={{ fontSize: "18px" }}
@@ -112,6 +135,81 @@ const FR_PortFolio = () => {
           </span>
         </div>
       </div>
+      <DynamicPortal
+        isOpen={isPortalOpen}
+        onClose={() => setIsPortalOpen(false)}
+      >
+        {" "}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-9 w-[26rem] h-[30rem] p-4"
+        >
+          <div>
+            <label htmlFor="title" className="block">
+              Title:
+            </label>
+            <input
+              {...register("title", {
+                required: "Title is required",
+              })}
+              type="text"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
+               focus:ring-2 focus:ring-primary/40 transition"
+              placeholder="Enter New title"
+            />
+            {errors.title && (
+              <p className="text-red-500">{errors.title.message}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="subtitle" className="block">
+              SubTitle:
+            </label>
+            <input
+              {...register("subtitle", {
+                required: "subtitle is required",
+              })}
+              type="text"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
+               focus:ring-2 focus:ring-primary/40 transition"
+              placeholder="Enter New subtitle"
+            />
+            {errors.subtitle && (
+              <p className="text-red-500">{errors.subtitle.message}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="img" className="block">
+              img_url:
+            </label>
+            <input
+              {...register("img", {
+                required: "img is required",
+              })}
+              type="text"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
+               focus:ring-2 focus:ring-primary/40 transition"
+              placeholder="Enter New img"
+            />
+            {errors.img && <p className="text-red-500">{errors.img.message}</p>}
+          </div>
+          <div className="w-full flex gap-1 flex-col md:flex-row">
+            <button
+              type="submit"
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer w-full"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsPortalOpen(false)}
+              className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer w-full mt-4"
+            >
+              Delete
+            </button>
+          </div>
+        </form>
+      </DynamicPortal>
     </div>
   );
 };
