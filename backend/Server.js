@@ -15,6 +15,9 @@ const express = require("express");
 const db = require("./config/db");
 const cors = require("cors");
 const fetchClientProfileRoute = require("./routes/fetchClientProfileRoute");
+const fetchJobController = require("./controllers/FetchJobs");
+const FetchJobsRoute = require("./routes/FetchJobsRoute");
+const fetchFreelancerProfileRoute = require("./routes/fetchFreelancerProfileRoute");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -62,6 +65,9 @@ passport.deserializeUser(async (user, done) => {
   }
 });
 
+// fetch jobs route
+app.use("/api", FetchJobsRoute);
+
 // passport auth
 app.use("/api/oauth", OauthRoute);
 
@@ -84,6 +90,9 @@ app.use("/api/update", updateFreelancerProfileRoute);
 
 // fetchClientProfileRoute
 app.use("/api", fetchClientProfileRoute);
+
+// fetch freelancer profile
+app.use("/api", fetchFreelancerProfileRoute);
 
 app.get("/", (req, res) => {
   res.send("Job Platform API is running...");
