@@ -10,8 +10,9 @@ import ClientHeader from "../Header/ClientHeader";
 
 const ClientProfile = () => {
   const [ClientProfileData, setClientProfileData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const dispatch = useDispatch();
   const profileData = useSelector(
     (state) => state.clientProfileSettingSlice.CL_slide
   );
@@ -35,23 +36,35 @@ const ClientProfile = () => {
         }
       } catch (error) {
         console.error("❌ Error fetching client profile:", error);
+        setError("Failed to fetch profile. Please try again.");
+      } finally {
+        setLoading(false);
       }
     };
     FetchClientProfile();
   }, []);
 
   // Prevent error on first render
-  if (!ClientProfileData) {
+  if (loading) {
     return <div className="mt-20 text-center">Loading profile...</div>;
   }
-  localStorage.setItem("userImg", ClientProfileData.image);
-  localStorage.setItem("username", ClientProfileData.owner_name);
+
+  if (error) {
+    return <div className="mt-20 text-center text-red-500">{error}</div>;
+  }
+
+  localStorage.setItem("userImg", ClientProfileData?.image ?? "not provided");
+  localStorage.setItem(
+    "C_username",
+    ClientProfileData?.owner_name ?? "not provided"
+  );
+
   return (
     <main className="w-full mt-20 flex flex-col md:flex-row gap-3">
       <div className="w-full md:w-70">
         <SettingsPage
-          image={ClientProfileData?.image}
-          username={ClientProfileData?.owner_name}
+          image={ClientProfileData?.image ?? "not provided"}
+          username={ClientProfileData?.owner_name ?? "not provided"}
         />
         <UpdatePorfile />
       </div>
@@ -63,19 +76,19 @@ const ClientProfile = () => {
         {/* Account Section */}
         {ClientProfileData && (
           <AccountSection
-            username={ClientProfileData?.owner_name}
-            companyname={ClientProfileData?.company_name}
+            username={ClientProfileData?.owner_name ?? "not provided"}
+            companyname={ClientProfileData?.company_name ?? "not provided"}
           />
         )}
 
         {/* Company Details */}
         {ClientProfileData && (
           <CompanyDetails
-            companyName={ClientProfileData.company_name}
-            owner={ClientProfileData.owner_name}
-            phone={ClientProfileData.phone}
-            industry={ClientProfileData.industry}
-            address={ClientProfileData.location}
+            companyName={ClientProfileData?.company_name ?? "not provided"}
+            owner={ClientProfileData?.owner_name ?? "not provided"}
+            phone={ClientProfileData?.phone}
+            industry={ClientProfileData?.industry ?? "not provided"}
+            address={ClientProfileData?.location ?? "not provided"}
           />
         )}
       </div>
