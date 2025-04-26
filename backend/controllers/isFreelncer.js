@@ -2,7 +2,8 @@ const db = require("../config/db");
 
 const isFreelancer_or_client = async (req, res, next) => {
   const { email } = req.body;
-console.log(req.body)
+
+  console.log("this is the body", req.body);
   try {
     if (!email) {
       return res.status(400).json({ message: "Email is required" });
@@ -17,6 +18,7 @@ console.log(req.body)
 
     // If user exists, call next middleware
     req.user_id = result[0].id;
+
     next();
   } catch (error) {
     console.error(error);
