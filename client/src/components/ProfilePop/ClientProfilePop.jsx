@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 
 const profileImageUrl = "https://i.pravatar.cc/150?img=32";
 
-const CL_ProfilePop = ({  isProfileMenu, setProfileMenu }) => {
+const CL_ProfilePop = ({ isProfileMenu, setProfileMenu }) => {
   if (!isProfileMenu) return null;
   const userimg = localStorage.getItem("userImg");
   const userType = localStorage.getItem("userType");
-  const username = localStorage.getItem("username");
+  const username = localStorage.getItem("C_username");
 
   return (
     <div className="profile-pop">
