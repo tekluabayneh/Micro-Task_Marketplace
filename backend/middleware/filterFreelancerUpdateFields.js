@@ -10,6 +10,11 @@ const filterFreelancerUpdateFields = (req, res, next) => {
     "location",
     "availability",
     "work_history",
+    "language",
+    "Education",
+    "Licenses",
+    "isVerified",
+    "overview",
     "earned",
     "image",
   ];
