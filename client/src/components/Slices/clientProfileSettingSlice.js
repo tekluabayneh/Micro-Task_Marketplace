@@ -6,7 +6,7 @@ const clientProfileSettingSlice = createSlice({
   reducers: {
     update: (state, action) => {
       state.CL_slide = action.payload;
-      console.log("this is athe action", action.payload);
+      console.log("this is the action", action.payload);
     },
   },
 });
