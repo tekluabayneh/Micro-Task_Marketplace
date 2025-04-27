@@ -7,6 +7,7 @@ import UpdatePorfile from "../../components/hooks/UpdatePorfile";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import ClientHeader from "../Header/ClientHeader";
+import Loading from "../../components/Loading/Loading";
 
 const ClientProfile = () => {
   const [ClientProfileData, setClientProfileData] = useState(null);
@@ -46,7 +47,12 @@ const ClientProfile = () => {
 
   // Prevent error on first render
   if (loading) {
-    return <div className="mt-20 text-center">Loading profile...</div>;
+    return (
+      <div className="mt-20 text-center">
+        {" "}
+        <Loading />
+      </div>
+    );
   }
 
   if (error) {
