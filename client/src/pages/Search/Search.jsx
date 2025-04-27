@@ -77,8 +77,6 @@ const ClientDashboard = () => {
     FetchFreelancerProfile();
   }, [useSelectorProfile, dispatch]);
 
-  console.log("useSelectorProfile inside useEffect", useSelectorProfile);
-  console.log("useSelectorProfile inside second ", useSelectorProfileStore);
   let data = useSelectorProfileStore;
 
   const handlePrev = () => {
@@ -105,7 +103,7 @@ const ClientDashboard = () => {
                   <div className="flex gap-3 flex-col md:flex-row">
                     <div className="w-16 h-16 rounded-full  ">
                       <img
-                        src="https://randomuser.me/api/portraits/men/1.jpg"
+                        src={freelancer.image}
                         className="w-16 h-16 rounded-full object-cover mt-1 border"
                       />
                     </div>
@@ -115,7 +113,7 @@ const ClientDashboard = () => {
                         {freelancer.name}
                       </h2>
                       <p className="text-lg text-gray-800 leading-3 font-bold">
-                        {freelancer.role}
+                        {freelancer.title}
                       </p>
                       <p className="text-sm text-gray-500 leading-3 text-xs">
                         {freelancer.location}
@@ -131,7 +129,7 @@ const ClientDashboard = () => {
                       </div>
 
                       <div className="flex gap-2 flex-wrap mt-1">
-                        {freelancer.skills.split(",").map((skill, index) => (
+                        {freelancer?.skills?.split(",").map((skill, index) => (
                           <span
                             key={index}
                             className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-md"
@@ -142,7 +140,7 @@ const ClientDashboard = () => {
                       </div>
 
                       <p className="text-xs md:mt-1 text-gray-600 font-medium">
-                        {freelancer.paragraph}...
+                        {freelancer.overview}...
                       </p>
                     </div>
                   </div>
