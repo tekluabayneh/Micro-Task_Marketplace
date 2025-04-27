@@ -2,9 +2,10 @@ import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import DynamicPortal from "../Modal/Modal";
 import { useForm } from "react-hook-form";
+import { update } from "../Slices/FreelancerProfileSettingSlice";
 
 const FR_PortFolio = ({ data }) => {
-  let { Profile } = data[0];
+  let { Profile } = data
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -16,8 +17,7 @@ const FR_PortFolio = ({ data }) => {
   } = useForm();
 
   let onSubmit = (data) => {
-    // dispatch(update(data));
-
+    dispatch(update(data));
     reset();
     setTimeout(() => {
       setIsPortalOpen(false);
