@@ -5,7 +5,7 @@ const filterFreelancerUpdateFields = require("../middleware/filterFreelancerUpda
 
 const updateFreelancerProfileRoute = express.Router();
 
-updateFreelancerProfileRoute.get(
+updateFreelancerProfileRoute.put(
   "/freelancer",
   isFreelancer_or_client,
   filterFreelancerUpdateFields,
