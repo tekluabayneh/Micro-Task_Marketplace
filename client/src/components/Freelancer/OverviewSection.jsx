@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import DynamicPortal from "../Modal/Modal";
+import { update } from "../Slices/FreelancerProfileSettingSlice";
 
 const OverviewSection = ({ data }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const dispatch = useDispatch();
-  let { overview } = data[0];
-  let { skills, bio } = data[0];
+  let { overview } = data
+
 
   const {
     register,
@@ -17,8 +18,7 @@ const OverviewSection = ({ data }) => {
   } = useForm();
 
   let onSubmit = (data) => {
-    // dispatch(update(data));
-
+    dispatch(update(data));
     reset();
     setTimeout(() => {
       setIsPortalOpen(false);
@@ -46,11 +46,11 @@ const OverviewSection = ({ data }) => {
           className="space-y-9 w-[26rem] h-[20rem] p-7"
         >
           <div>
-            <label htmlFor="Overview" className="block">
+            <label htmlFor="overview" className="block">
               Overview:
             </label>
             <textarea
-              {...register("Overview", {
+              {...register("overview", {
                 required: "Overview is required",
               })}
               type="text"
@@ -58,8 +58,8 @@ const OverviewSection = ({ data }) => {
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New Overview"
             />
-            {errors.Overview && (
-              <p className="text-red-500">{errors.Overview.message}</p>
+            {errors.overview && (
+              <p className="text-red-500">{errors.overview.message}</p>
             )}
           </div>
 
