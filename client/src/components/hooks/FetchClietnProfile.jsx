@@ -10,7 +10,7 @@ const FetchCL_Porfile = () => {
   const profileData = useSelector(
     (state) => state.clientProfileSettingSlice.CL_slide
   );
-  console.log(profileData);
+  console.log("this is the data man", profileData);
   const updateClient = (data) => {
     return axios.put("http://localhost:5000/api/update/client", data);
   };
@@ -28,9 +28,6 @@ const FetchCL_Porfile = () => {
     },
   });
 
-  // useEffect(() => {
-  //   mutate.mutate({ email: userEmail, ...profileData });
-  // }, [profileData]);
   const prevProfileData = useRef(profileData);
 
   useEffect(() => {
@@ -39,7 +36,7 @@ const FetchCL_Porfile = () => {
       JSON.stringify(prevProfileData.current) !== JSON.stringify(profileData)
     ) {
       mutate.mutate({ email: userEmail, ...profileData });
-      prevProfileData.current = profileData; // Update the ref with the latest data
+      prevProfileData.current = profileData;
     }
   }, [profileData, userEmail, mutate]);
 
