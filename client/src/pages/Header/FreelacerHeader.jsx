@@ -63,6 +63,9 @@ const FreelancerHeader = ({ image, username }) => {
             <li className="text-xs cursor-pointer">
               <Link to="Freelancer/JobBidding">JobBidding</Link>
             </li>
+            <li className="text-xs cursor-pointer">
+              <Link to="Freelancer/Earnings">Earnings</Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -100,16 +103,10 @@ const FreelancerHeader = ({ image, username }) => {
           >
             MYJob
           </Link>
-          <Link
-            onClick={() => setIsMenuOpen(false)}
-            className="cursor-pointer capitalize text-sm text-gray-500 hover:text-[var(--primary-color)]"
-            to="/Client/JobPost"
-          >
-            PostJob
-          </Link>
+
           <li>
             <Link
-              to={"/login"}
+              to={"/"}
               className="text-sm cursor-pointer rounded-lg bg-[var(--secondary-dark-green)] hover:bg-[var(--Dark-color)] px-5 py-2 text-white w-full"
             >
               Logout
