@@ -8,6 +8,7 @@ import ReviewsSection from "../../components/Freelancer/ReviewsSection";
 import FreelancerSidebar from "../../components/Freelancer/FreelancerSidebar";
 import FR_PortFolio from "../../components/Freelancer/Portfolio";
 import UpdateFreelancerPorfile from "../../components/hooks/UpdatefreelancerProfile";
+import Loading from "../../components/Loading/Loading";
 const Profile = () => {
   const [FreelancerProfileData, setFreelancerProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -42,7 +43,11 @@ const Profile = () => {
 
   // Prevent error on first render
   if (loading) {
-    return <div className="mt-20 text-center">Loading profile...</div>;
+    return (
+      <div className="mt-20 text-center">
+        <Loading />
+      </div>
+    );
   }
 
   if (error) {
@@ -70,7 +75,7 @@ const Profile = () => {
           {/* Work History Section */}
           <WorkHistorySection data={userData ?? "not provided"} />
 
-          <FR_PortFolio data={userData ?? "not provided"} />
+          <FR_PortFolio />
 
           {/* Reviews Section */}
           <ReviewsSection data={userData ?? "not provided"} />
