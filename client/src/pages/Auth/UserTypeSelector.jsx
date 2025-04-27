@@ -34,7 +34,7 @@ const UserTypeSelector = () => {
                 <input
                   type="checkbox"
                   value="client"
-                  onChange={() => setUserType("client")}
+                  onChange={() => setUserType("Client")}
                 />
                 <span>Client</span>
               </label>
@@ -44,7 +44,7 @@ const UserTypeSelector = () => {
                 <input
                   type="checkbox"
                   value="freelancer"
-                  onChange={() => setUserType("freelancer")}
+                  onChange={() => setUserType("Freelancer")}
                 />
                 <span>Freelancer</span>
               </label>
