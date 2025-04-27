@@ -2,6 +2,7 @@ import { useState } from "react";
 import DynamicPortal from "../Modal/Modal";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { update } from "../Slices/FreelancerProfileSettingSlice";
 
 const ProfileHeader = ({ data }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
@@ -15,14 +16,13 @@ const ProfileHeader = ({ data }) => {
   } = useForm();
 
   let onSubmit = (data) => {
-    // dispatch(update(data));
-
+    dispatch(update(data));
     reset();
     setTimeout(() => {
       setIsPortalOpen(false);
     }, 2000);
   };
-  let { location } = data[0];
+  let { location } = data;
   let img = localStorage.getItem("f_userImg");
   let username = localStorage.getItem("F_username");
 
@@ -85,12 +85,12 @@ const ProfileHeader = ({ data }) => {
           </p>
 
           <div>
-            <label htmlFor="username" className="block">
+            <label htmlFor="name" className="block">
               Name:
             </label>
 
             <input
-              {...register("username", {
+              {...register("name", {
                 required: "username  is required",
               })}
               type="text"
@@ -98,8 +98,8 @@ const ProfileHeader = ({ data }) => {
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New username"
             />
-            {errors.username && (
-              <p className="text-red-500">{errors.username.message}</p>
+            {errors.name && (
+              <p className="text-red-500">{errors.name.message}</p>
             )}
           </div>
           <div>
