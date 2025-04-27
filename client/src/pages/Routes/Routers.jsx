@@ -53,7 +53,6 @@ const Routers = () => {
   let location = useLocation();
 
   const userType = localStorage.getItem("userType");
-  console.log("this is the suer type", userType);
   const publicRoutes = ["/", "/login", "/register", "/UserTypeSelector"];
   const isPublic = publicRoutes.includes(location.pathname);
 
