@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import DynamicPortal from "../Modal/Modal";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { update } from "../Slices/FreelancerProfileSettingSlice";
 
 const Language = ({ data }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const dispatch = useDispatch();
-  let { language } = data[0];
+  let { language } = data
 
   const {
     register,
@@ -16,19 +17,14 @@ const Language = ({ data }) => {
   } = useForm();
 
   let onSubmit = (data) => {
-    // dispatch(update(data));
-
+    dispatch(update(data));
+    console.log("lang", data);
     reset();
     setTimeout(() => {
       setIsPortalOpen(false);
     }, 2000);
   };
-  const profileData = {
-    languages: [
-      { name: "English", proficiency: "Fluent" },
-      { name: "Amharic", proficiency: "Native or Bilingual" },
-    ],
-  };
+
   return (
     <div>
       {/* Languages */}
@@ -42,13 +38,7 @@ const Language = ({ data }) => {
           edit
         </span>
         <h2 className="text-lg font-semibold text-gray-800 mb-2">Languages</h2>
-        <ul className="space-y-1 text-gray-700">
-          {profileData.languages.map((language, index) => (
-            <li key={index}>
-              <strong>{language.name}:</strong> {language.proficiency}
-            </li>
-          ))}
-        </ul>
+        {language ?? "not provided"}
       </div>
 
       <DynamicPortal
@@ -65,7 +55,7 @@ const Language = ({ data }) => {
               Language:
             </label>
             <input
-              {...register("Language", {
+              {...register("language", {
                 required: "Language is required",
               })}
               type="text"
@@ -73,8 +63,8 @@ const Language = ({ data }) => {
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New language"
             />
-            {errors.Language && (
-              <p className="text-red-500">{errors.Language.message}</p>
+            {errors.language && (
+              <p className="text-red-500">{errors.language.message}</p>
             )}
           </div>
 
