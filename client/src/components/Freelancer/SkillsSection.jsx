@@ -2,11 +2,11 @@ import { useDispatch } from "react-redux";
 import DynamicPortal from "../Modal/Modal";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import { update } from "../Slices/FreelancerProfileSettingSlice";
 const SkillsSection = ({ data }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const dispatch = useDispatch();
-  let { skills, bio } = data[0];
+  let { skills, bio } = data
 
   const {
     register,
@@ -16,8 +16,8 @@ const SkillsSection = ({ data }) => {
   } = useForm();
 
   let onSubmit = (data) => {
-    // dispatch(update(data));
-
+    dispatch(update(data));
+    console.log(data);
     reset();
     setTimeout(() => {
       setIsPortalOpen(false);
@@ -36,7 +36,7 @@ const SkillsSection = ({ data }) => {
         </span>
         <h2 className="text-lg font-semibold text-gray-800 mb-2">Skills</h2>
         <div className="flex flex-wrap gap-1">
-          {skills.split(",").map((skill, index) => (
+          {skills?.split(",").map((skill, index) => (
             <span
               key={index}
               className="px-2 py-1 rounded-full  font-medium text-xl text-gray-600"
@@ -63,12 +63,12 @@ const SkillsSection = ({ data }) => {
           className="space-y-9 w-[26rem] h-[28rem] p-7"
         >
           <div>
-            <label htmlFor="username" className="block">
+            <label htmlFor="skills" className="block">
               Skills:
             </label>
 
             <textarea
-              {...register("Skills", {
+              {...register("skills", {
                 required: "Skills  is required",
               })}
               type="text"
@@ -76,16 +76,16 @@ const SkillsSection = ({ data }) => {
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New OwnerName"
             />
-            {errors.Skills && (
-              <p className="text-red-500">{errors.Skills.message}</p>
+            {errors.skills && (
+              <p className="text-red-500">{errors.skills.message}</p>
             )}
           </div>
           <div>
-            <label htmlFor="Overview" className="block">
+            <label htmlFor="overview" className="block">
               Overview:
             </label>
             <textarea
-              {...register("Overview", {
+              {...register("overview", {
                 required: "Overview is required",
               })}
               type="text"
@@ -93,8 +93,8 @@ const SkillsSection = ({ data }) => {
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New OwnerName"
             />
-            {errors.Overview && (
-              <p className="text-red-500">{errors.Overview.message}</p>
+            {errors.overview && (
+              <p className="text-red-500">{errors.overview.message}</p>
             )}
           </div>
 
