@@ -1,12 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import DynamicPortal from "../Modal/Modal";
 import { useForm } from "react-hook-form";
-import { update } from "../Slices/FreelancerProfileSettingSlice";
-
-const FR_PortFolio = ({ data }) => {
-  let { Profile } = data
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+const FR_PortFolio = () => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
+  const [ProfileData, setProfileData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const scrollRef = useRef();
+
   const dispatch = useDispatch();
 
   const {
@@ -16,52 +20,57 @@ const FR_PortFolio = ({ data }) => {
     formState: { errors },
   } = useForm();
 
+  const updateFreelancer = (data) => {
+    return axios.put("http://localhost:5000/api/applicant/update", data);
+  };
+
+  const mutate = useMutation({
+    mutationFn: updateFreelancer,
+    onSuccess: (response) => {
+      toast.success("Success!");
+    },
+
+    onError: (err) => {
+      console.log(err);
+      toast.error("Something went wrong!");
+    },
+  });
+
   let onSubmit = (data) => {
-    dispatch(update(data));
+    let email = localStorage.getItem("userEmail");
+    mutate.mutate({ email, ...data });
+
     reset();
     setTimeout(() => {
       setIsPortalOpen(false);
     }, 2000);
   };
-  // Sample portfolio data - in a real app this would come from a database
-  const portfolioItems = [
-    {
-      id: 1,
-      title: "E-commerce Website",
-      description: "A modern online shopping platform",
-      imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-      projectUrl: "https://example.com/project1",
-    },
-    {
-      id: 2,
-      title: "Portfolio Website",
-      description: "Personal portfolio showcase",
-      imageUrl: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
-      projectUrl: "https://example.com/project2",
-    },
-    {
-      id: 3,
-      title: "Mobile App UI",
-      description: "User interface design for mobile application",
-      imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-      projectUrl: "https://example.com/project3",
-    },
-    {
-      id: 4,
-      title: "Blog Platform",
-      description: "Modern blogging platform design",
-      imageUrl: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
-      projectUrl: "https://example.com/project4",
-    },
-    {
-      id: 5,
-      title: "Blog Platform",
-      description: "Modern blogging platform design",
-      imageUrl: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
-      projectUrl: "https://example.com/project4",
-    },
-  ];
-  const scrollRef = useRef();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let userEmail = localStorage.getItem("userEmail");
+        let response = await axios.get(
+          "http://localhost:5000/api/applicant/get",
+          {
+            params: { userEmail },
+          }
+        );
+        setProfileData(response.data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+  if (loading) {
+    return <div className="mt-20 text-center text-red-500">Loading...</div>;
+  }
+
+  const userData = ProfileData?.data ?? {};
 
   const scrollLeft = () => {
     scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
@@ -87,35 +96,46 @@ const FR_PortFolio = ({ data }) => {
 
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-scroll overflow-y-hidden    custom-ScrollTum_1"
+          className="flex gap-4 overflow-x-scroll overflow-y-hidden  custom-ScrollTum_1"
         >
-          {portfolioItems.map((item) => (
-            <div
-              key={item.id}
-              className="group relative bg-white rounded-xl  shrink-0  shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer ScrollTum_1"
-            >
-              <div className="aspect-w-16 aspect-h-9 relative">
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity duration-300" />
-              </div>
+          {userData.length > 0 ? (
+            userData.map((item) => (
+              <div
+                key={item.id}
+                className="group relative bg-white rounded-xl  shrink-0  shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer ScrollTum_1"
+              >
+                <div className="aspect-w-16 aspect-h-9 relative">
+                  <img
+                    src={item.image_url}
+                    alt={item.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  {/* <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-opacity duration-300" /> */}
+                </div>
 
-              <div className="p-4">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
-                  {item.title}
-                </h3>
-              </div>
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                </div>
+                <div className="p-1">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
+                    {item.subtitle}
+                  </h3>
+                </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="text-blue-600 font-medium">
-                  Click to view project →
-                </span>
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-blue-600 font-medium">
+                    Click to view project →
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <h1 className="text-2xl text-center w-full pt-4 capitalize">
+              you don't have portfolio yet
+            </h1>
+          )}
 
           <span
             onClick={scrollLeft}
@@ -179,11 +199,11 @@ const FR_PortFolio = ({ data }) => {
             )}
           </div>
           <div>
-            <label htmlFor="img" className="block">
+            <label htmlFor="image_url" className="block">
               img_url:
             </label>
             <input
-              {...register("img", {
+              {...register("image_url", {
                 required: "img is required",
               })}
               type="text"
@@ -191,7 +211,9 @@ const FR_PortFolio = ({ data }) => {
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New img"
             />
-            {errors.img && <p className="text-red-500">{errors.img.message}</p>}
+            {errors.image_url && (
+              <p className="text-red-500">{errors.image_url.message}</p>
+            )}
           </div>
           <div className="w-full flex gap-1 flex-col md:flex-row">
             <button
