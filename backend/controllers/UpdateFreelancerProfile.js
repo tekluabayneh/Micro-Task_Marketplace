@@ -12,9 +12,7 @@ const UpdateFreelancerProfile = async (req, res) => {
 
     // Dynamically generate the SET part of the SQL query
     const fields = Object.keys(fieldsToUpdate);
-    const values = Object.values(fieldsToUpdate).filter(
-      (value) => value !== ""
-    );
+    const values = Object.values(fieldsToUpdate);
 
     let query = "";
     let result;
@@ -37,6 +35,8 @@ const UpdateFreelancerProfile = async (req, res) => {
       [result] = await db.execute(query, values);
     }
 
+    console.log("this are the values", values);
+    console.log("this are the values", fields);
     res.json({ message: "Client profile saved successfully" });
   } catch (error) {
     console.error(error);
