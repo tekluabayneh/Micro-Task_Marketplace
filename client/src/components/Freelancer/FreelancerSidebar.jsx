@@ -4,27 +4,11 @@ import Education from "./Education";
 import DynamicPortal from "../Modal/Modal";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { update } from "../Slices/FreelancerProfileSettingSlice";
 
 const FreelancerSidebar = ({ data }) => {
-  let { language, education, Licenses, isVerified } = data[0];
+  let { education, Licenses, isVerified } = data
   const [isPortalOpen, setIsPortalOpen] = useState(false);
-  const dispatch = useDispatch();
-
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  let onSubmit = (data) => {
-    // dispatch(update(data));
-
-    reset();
-    setTimeout(() => {
-      setIsPortalOpen(false);
-    }, 2000);
-  };
 
   return (
     <div className="md:w-96 max-w-full p-4 bg-white custom-shadow rounded-lg">
