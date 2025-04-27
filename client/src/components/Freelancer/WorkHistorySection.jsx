@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import DynamicPortal from "../Modal/Modal";
+import { update } from "../Slices/FreelancerProfileSettingSlice";
 
 const WorkHistorySection = ({ data }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const dispatch = useDispatch();
-  let { work_history } = data[0];
+  let { work_history } = data
 
   const {
     register,
@@ -16,8 +17,7 @@ const WorkHistorySection = ({ data }) => {
   } = useForm();
 
   let onSubmit = (data) => {
-    // dispatch(update(data));
-
+    dispatch(update(data));
     reset();
     setTimeout(() => {
       setIsPortalOpen(false);
@@ -45,11 +45,11 @@ const WorkHistorySection = ({ data }) => {
           className="space-y-9 w-[26rem] h-[20rem] p-7"
         >
           <div>
-            <label htmlFor="WorkHistory" className="block">
+            <label htmlFor="work_history" className="block">
               WorkHistory:
             </label>
             <textarea
-              {...register("WorkHistory", {
+              {...register("work_history", {
                 required: "WorkHistory is required",
               })}
               type="text"
@@ -57,8 +57,8 @@ const WorkHistorySection = ({ data }) => {
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New OwnerName"
             />
-            {errors.WorkHistory && (
-              <p className="text-red-500">{errors.WorkHistory.message}</p>
+            {errors.work_history && (
+              <p className="text-red-500">{errors.work_history.message}</p>
             )}
           </div>
 
