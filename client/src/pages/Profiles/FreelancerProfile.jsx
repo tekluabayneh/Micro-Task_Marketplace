@@ -7,6 +7,7 @@ import WorkHistorySection from "../../components/Freelancer/WorkHistorySection";
 import ReviewsSection from "../../components/Freelancer/ReviewsSection";
 import FreelancerSidebar from "../../components/Freelancer/FreelancerSidebar";
 import FR_PortFolio from "../../components/Freelancer/Portfolio";
+import UpdateFreelancerPorfile from "../../components/hooks/UpdatefreelancerProfile";
 const Profile = () => {
   const [FreelancerProfileData, setFreelancerProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -48,35 +49,31 @@ const Profile = () => {
     return <div className="mt-20 text-center text-red-500">{error}</div>;
   }
 
-  localStorage.setItem(
-    "f_userImg",
-    FreelancerProfileData[0]?.image ?? "not provided"
-  );
-  localStorage.setItem(
-    "F_username",
-    FreelancerProfileData[0]?.name ?? "not provided"
-  );
+  const userData = FreelancerProfileData?.[0] ?? {};
+  localStorage.setItem("f_userImg", userData.image ?? "not provided");
+  localStorage.setItem("F_username", userData.name ?? "not provided");
+
   return (
     <main className="p-5  mt-12">
       {/* Profile Header */}
       <ProfileHeader data={FreelancerProfileData ?? "not provided"} />
-
+      <UpdateFreelancerPorfile />
       <div className="flex flex-col md:flex-row gap-2">
-        <FreelancerSidebar data={FreelancerProfileData ?? "not provided"} />
+        <FreelancerSidebar data={userData ?? "not provided"} />
         <div>
           {/* Skills Section */}
-          <SkillsSection data={FreelancerProfileData ?? "not provided"} />
+          <SkillsSection data={userData ?? "not provided"} />
 
           {/* Overview Section */}
-          <OverviewSection data={FreelancerProfileData ?? "not provided"} />
+          <OverviewSection data={userData ?? "not provided"} />
 
           {/* Work History Section */}
-          <WorkHistorySection data={FreelancerProfileData ?? "not provided"} />
+          <WorkHistorySection data={userData ?? "not provided"} />
 
-          <FR_PortFolio data={FreelancerProfileData ?? "not provided"} />
+          <FR_PortFolio data={userData ?? "not provided"} />
 
           {/* Reviews Section */}
-          <ReviewsSection data={FreelancerProfileData ?? "not provided"} />
+          <ReviewsSection data={userData ?? "not provided"} />
         </div>
       </div>
     </main>
