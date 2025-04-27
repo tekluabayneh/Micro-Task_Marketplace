@@ -2,8 +2,7 @@ const db = require("../config/db");
 
 const isFreelancer_or_client = async (req, res, next) => {
   const { email } = req.body;
-
-  console.log("this is the body", req.body);
+  console.log(email);
   try {
     if (!email) {
       return res.status(400).json({ message: "Email is required" });
