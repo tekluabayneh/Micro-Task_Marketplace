@@ -6,8 +6,8 @@ const StepIndicator = ({ steps, currentStep }) => {
     <div className="w-full">
       <div className="flex justify-between items-center">
         {steps.map((step, index) => (
-          <>
-            <div key={step} className="flex flex-col items-center">
+          <React.Fragment key={step}>
+            <div className="flex flex-col items-center">
               <div
                 className={`
                 w-10 h-10 rounded-full flex items-center justify-center
@@ -45,7 +45,7 @@ const StepIndicator = ({ steps, currentStep }) => {
               `}
               />
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>
