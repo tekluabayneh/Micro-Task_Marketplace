@@ -1,40 +1,23 @@
 import React, { useState } from "react";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
-import PersonalInfo from "./PersonalInfo";
-import Experience from "./Experience";
-import Skills from "./Skills";
 import CoverLetter from "./CoverLetter";
 import ReviewSubmit from "./ReviewSubmit";
 import StepIndicator from "./StepIndicator";
+import Attachment_urlPage from "./Attachment_urlPage";
 
 const INITIAL_DATA = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  phone: "",
-  location: "",
-  jobTitle: "",
-  company: "",
-  startDate: "",
-  endDate: "",
-  description: "",
-  skills: [],
   coverLetter: "",
+  Attachment_url: [],
+  urlsStore: [],
 };
 
-const steps = [
-  "Personal Info",
-  "Experience",
-  "Skills",
-  "Cover Letter",
-  "Review & Submit",
-];
+const steps = ["Cover_Letter", "Attachment_url", "Review_&_Submit"];
 
 const ApplicationForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState(INITIAL_DATA);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  console.log(formData);
   const handleNext = () => {
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
   };
@@ -49,27 +32,20 @@ const ApplicationForm = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-
-    // Simulate API submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    ({
-      title: "Application Submitted!",
-      description: "Your job application has been successfully submitted.",
-      duration: 3000,
-    });
-
+    console.log("this is the formData from the for Submit", formData);
     // Redirect to success page
-    window.location.href = "/FreelancerDashboard";
+    window.location.href = "/Freelancer/Dashboard";
 
     setIsSubmitting(false);
   };
 
   const stepComponents = [
-    <PersonalInfo key="personal" {...formData} updateFields={updateFields} />,
-    <Experience key="experience" {...formData} updateFields={updateFields} />,
-    <Skills key="skills" {...formData} updateFields={updateFields} />,
     <CoverLetter key="cover" {...formData} updateFields={updateFields} />,
+    <Attachment_urlPage
+      key="Attachment"
+      {...formData}
+      updateFields={updateFields}
+    />,
     <ReviewSubmit
       key="review"
       formData={formData}
