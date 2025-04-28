@@ -4,8 +4,13 @@ import Separator from "../../Separator";
 
 const ReviewSubmit = ({ formData, onSubmit, isSubmitting }) => {
   const { coverLetter, Attachment_url, urlsStore } = formData;
-  console.log("this ish the attachment", Attachment_url);
-  console.log("this is the url man", urlsStore);
+  console.log(Attachment_url);
+
+  // const firstFileItem =
+  //   Attachment_url.find((arr) => arr.length > 0)?.[0] ??
+  //   "you Didn't upload image";
+  const firstUrlItem = urlsStore.find((arr) => arr.length > 0)?.[0];
+
   return (
     <div className="space-y-6 animate-slide-in">
       <h2 className="text-2xl font-bold text-gray-800">Review & Submit</h2>
@@ -28,10 +33,32 @@ const ReviewSubmit = ({ formData, onSubmit, isSubmitting }) => {
             Attachment_url
           </h3>
           <Separator className="my-2" />
-          <div className="mt-3 w-full overflow-scroll h-32">
+          <div className="mt-3 w-full overflow-scroll h-72">
             <p className="whitespace-pre-wrap">
-              {/* {Attachment_url || "No cover letter provided"} */}
+              <img
+                src={Attachment_url.preview}
+                alt="preview"
+                width={100}
+                className="w-96 rounded-sm mx-auto"
+              />
             </p>
+          </div>
+        </section>
+        <section>
+          <h3 className="text-lg font-semibold text-gray-700">urls</h3>
+          <Separator className="my-2" />
+          <div className="mt-3 w-full overflow-scroll h-72">
+            {firstUrlItem && (
+              <div key={firstUrlItem.id}>
+                <a
+                  href={firstUrlItem.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {firstUrlItem.url}
+                </a>
+              </div>
+            )}
           </div>
         </section>
 
