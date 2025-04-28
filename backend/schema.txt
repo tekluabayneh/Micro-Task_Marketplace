@@ -57,19 +57,20 @@ CREATE TABLE `portfolio` (
 
 
 
-CREATE TABLE applications ( 
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  job_id INT NOT NULL,
-  freelancer_id INT NOT NULL,
-  cover_letter TEXT,
-  proposed_rate DECIMAL(10, 2),
-  time_estimate VARCHAR(100),
-  applied_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
-  FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE,
-  FOREIGN KEY (freelancer_id) REFERENCES freelancers(id) ON DELETE CASCADE
+CREATE TABLE applications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    job_id INT NOT NULL,
+    freelancer_id INT NOT NULL,
+    client_id INT NOT NULL,
+    cover_letter TEXT,
+    attachment_url VARCHAR(255),
+    status ENUM('pending', 'accepted', 'rejected', 'withdrawn') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (job_id) REFERENCES jobs(id),
+    FOREIGN KEY (freelancer_id) REFERENCES users(id),
+    FOREIGN KEY (client_id) REFERENCES users(id)
 );
-
 
 
 CREATE TABLE jobs (
