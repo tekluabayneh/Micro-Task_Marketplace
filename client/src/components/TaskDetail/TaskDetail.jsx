@@ -31,7 +31,8 @@ const TaskDetailsPage = ({ isApplied, setIsApplied, SingleJobDescription }) => {
   } = SingleJobDescription;
 
   const parsedSkills = skills ? JSON.parse(skills) : [];
-
+  localStorage.setItem("job_id", id);
+  localStorage.setItem("client_id", clientId);
   // Format date to be more readable
   const formattedDate = new Date(created_at).toLocaleDateString("en-US", {
     year: "numeric",
