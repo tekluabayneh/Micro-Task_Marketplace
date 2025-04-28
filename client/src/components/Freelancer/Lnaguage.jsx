@@ -7,7 +7,7 @@ import { update } from "../Slices/FreelancerProfileSettingSlice";
 const Language = ({ data }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const dispatch = useDispatch();
-  let { language } = data
+  let { language } = data;
 
   const {
     register,
@@ -31,7 +31,7 @@ const Language = ({ data }) => {
       <div className="mb-6 relative">
         <span
           onClick={() => setIsPortalOpen(true)}
-          className="material-symbols-outlined absolute top-3 left-27
+          className="material-symbols-outlined absolute top-1 left-23
            border-1 cursor-pointer  border-green-600  bg-white shadow-2xl rounded-full text-green-600 text-sm"
           style={{ fontSize: "18px" }}
         >
