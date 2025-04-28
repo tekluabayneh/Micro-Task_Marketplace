@@ -85,23 +85,23 @@ const FreelancerHeader = ({ image, username }) => {
           <Link
             onClick={() => setIsMenuOpen(false)}
             className="cursor-pointer capitalize text-sm text-gray-500 hover:text-[var(--primary-color)]"
-            to="/Client/Dashboard"
+            to="/Freelancer/Dashboard"
           >
             Dashboard
           </Link>
           <Link
             onClick={() => setIsMenuOpen(false)}
             className="cursor-pointer capitalize text-sm text-gray-500 hover:text-[var(--primary-color)]"
-            to="/Client/ClientProfile"
+            to="Freelancer/FreelancerProfile"
           >
             Profile
           </Link>
           <Link
+            to="Freelancer/JobBidding"
             onClick={() => setIsMenuOpen(false)}
             className="cursor-pointer capitalize text-sm text-gray-500 hover:text-[var(--primary-color)]"
-            to="/Client/MyPostJobs"
           >
-            MYJob
+            JobBidding
           </Link>
 
           <li>
