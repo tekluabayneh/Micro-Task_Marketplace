@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CheckCircle } from "lucide-react";
 
 const CoverLetter = ({ coverLetter, updateFields }) => {
