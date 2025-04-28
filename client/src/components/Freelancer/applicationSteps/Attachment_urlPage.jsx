@@ -21,18 +21,16 @@ const Attachment_urlPage = ({ Attachment_url, urlsStore }) => {
   const [url, setUrl] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
-  console.log("this are the file man", files);
-  console.log("this are the ursl man", urls);
-  // Simplified file icon selector
+
   const getFileIcon = (mimeType) => {
     if (mimeType.startsWith("image/")) return FileImage;
     return File;
   };
 
   useEffect(() => {
-    Attachment_url.push(files);
+    Attachment_url.push(files[0]);
     urlsStore.push(urls);
-  }, [files, urls]);
+  }, [files, url]);
 
   // Handle file drop event
   const handleDrop = (e) => {
