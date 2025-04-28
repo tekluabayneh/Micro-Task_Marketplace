@@ -25,7 +25,7 @@ const OverviewSection = ({ data }) => {
     }, 2000);
   };
   return (
-    <div className="bg-white rounded-lg custom-shadow p-6 mb-8 relative">
+    <div className="bg-white rounded-lg custom-shadow p-6 mb-8 relative overflow-hidden">
       <span
         onClick={() => setIsPortalOpen(true)}
         className="material-symbols-outlined absolute top-6 left-27
