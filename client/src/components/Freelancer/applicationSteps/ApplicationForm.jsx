@@ -4,6 +4,9 @@ import CoverLetter from "./CoverLetter";
 import ReviewSubmit from "./ReviewSubmit";
 import StepIndicator from "./StepIndicator";
 import Attachment_urlPage from "./Attachment_urlPage";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const INITIAL_DATA = {
   coverLetter: "",
@@ -17,7 +20,7 @@ const ApplicationForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState(INITIAL_DATA);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  console.log(formData);
+
   const handleNext = () => {
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
   };
@@ -30,15 +33,74 @@ const ApplicationForm = () => {
     setFormData((prev) => ({ ...prev, ...fields }));
   };
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    console.log("this is the formData from the for Submit", formData);
-    // Redirect to success page
-    window.location.href = "/Freelancer/Dashboard";
-
-    setIsSubmitting(false);
+  const applyJob = async (data) => {
+    let response = await axios.post(
+      "http://localhost:5000/api/jobs/apply",
+      data
+    );
+    return response;
   };
 
+  const mutate = useMutation({
+    mutationFn: applyJob,
+    onSuccess: (response) => {
+      toast.success("You have applied for the job successfully!");
+      // Redirect to dashboard after success
+      window.location.href = "/Freelancer/Dashboard";
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("Something went wrong while applying for the job.");
+      // setIsSubmitting(false);
+    },
+  });
+
+  const handleSubmit = async () => {
+    // setIsSubmitting(true);
+    try {
+      // const firstFileItem =
+      //   formData.Attachment_url.find((arr) => arr.length > 0)?.[0] ?? [];
+
+      // const firstUrlItem =
+      //   formData.urlsStore.find((arr) => arr.length > 0)?.[0] ?? [];
+      let UserEmail = localStorage.getItem("userEmail");
+      let jobId = localStorage.getItem("job_id");
+      let clientId = localStorage.getItem("client_id");
+      console.log({
+        email: UserEmail,
+        attachment_url: formData,
+        client_id: clientId,
+        job_id: jobId,
+        cover_letter: formData.coverLetter,
+      });
+      return;
+      if (
+        !UserEmail ||
+        !firstFileItem.preview ||
+        !jobId ||
+        !formData.coverLetter ||
+        !clientId
+      ) {
+        toast.error("you to fill of fields to applying for the job.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      await mutate.mutateAsync({
+        email: UserEmail,
+        attachment_url: firstFileItem.preview ?? "",
+        client_id: clientId,
+        job_id: jobId,
+        cover_letter: formData.coverLetter,
+      });
+
+      setIsSubmitting(false);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong while submitting.");
+      setIsSubmitting(false);
+    }
+  };
   const stepComponents = [
     <CoverLetter key="cover" {...formData} updateFields={updateFields} />,
     <Attachment_urlPage
