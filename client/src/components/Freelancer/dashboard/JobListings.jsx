@@ -1,230 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdSearch } from "react-icons/md";
 import { Link } from "react-router-dom";
 import LoadMore from "../../LoadMoreButton/LoadMore";
-import TaskDetailsPage from "../../../components/TaskDetail/TaskDetail";
+const TaskDetailsPage = React.lazy(() =>
+  import("../../../components/TaskDetail/TaskDetail")
+);
+import axios from "axios";
 const JobListings = () => {
+  const [Jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [CurrentJob, setCurrentJob] = useState(null);
+  const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [isApplied, setIsApplied] = useState(false);
-  const jobs = [
-    {
-      title: "Build a React App",
-      budget: "$500",
-      posted: "2 days ago",
-      isPixPrice: "PixPrice",
-      skill: [
-        "node",
-        "css",
-        "html",
-        "Java",
-        "JavaScript",
-        "React",
-        "css",
-        "html",
-        "Java",
-        "JavaScript",
-        "React",
-      ],
-      payment: "verified",
-      proposal: "Less than 5",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration into a Shopify website. The menu will be visually engaging, lightweight, and responsive across devices. Scope of work includes: lean, reusable code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Design a Logo",
-      budget: "$100",
-      posted: "1 day ago",
-      payment: "verified",
-      proposal: "Less than 5",
-      isPixPrice: "PixPrice",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
 
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration nto guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      budget: "$200",
-      payment: "verified",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      isPixPrice: "PixPrice",
-      proposal: "Less than 5",
-      posted: "3 days ago",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration into a Shopify website. The menu will be visually engaging, lightweight, and responsive across devices. Scope of work includes: livering clean, reusable code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      budget: "$200",
-      proposal: "Less than 5",
-      isPixPrice: "PixPrice",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      posted: "3 days ago",
-      payment: "verified",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration mentation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      budget: "$200",
-      payment: "verified",
-      proposal: "Less than 5",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      posted: "3 days ago",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration r smooth transitions - Ensuring full compatibility with Shopify’s theme structure -Delivering clean, reusable code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      budget: "$200",
-      proposal: "Less than 5",
-      isPixPrice: "PixPrice",
-      payment: "verified",
-      posted: "3 days ago",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration  and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      budget: "$200",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      isPixPrice: "PixPrice",
-      proposal: "Less than 5",
-      payment: "verified",
-      posted: "3 days ago",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration tions - Ensuring full compatibility with Shopify’s theme structure -Delivering clean, reusable code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      budget: "$200",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      isPixPrice: "PixPrice",
-      payment: "verified",
-      posted: "3 days ago",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration r smooth transitions - Ensuring full compatibility with Shopify’s theme structure -Delivering clean, reusable code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
+  //
 
-      isPixPrice: "PixPrice",
-      proposal: "Less than 5",
-      budget: "$200",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      posted: "3 days ago",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration into a Shopify website. The menu will be visually engaging, lightweight, and responsive across devices. Scope of work includes: - Desigt aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      isPixPrice: "PixPrice",
-      proposal: "Less than 5",
-      payment: "verified",
-      budget: "$200",
-      posted: "3 days ago",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integrationinto a Shopify website. The menu will be visually engaging, lightweight, and responsive across devices. Scope of work includes: - Designing the menu layout ms to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      budget: "$200",
-      isPixPrice: "PixPrice",
-      payment: "verified",
-      proposal: "Less than 5",
-      posted: "3 days ago",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration into a Shopify website. The menu will be visually engaging, lightweight, and responsive across devices. Scope of work includes: le code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      budget: "$200",
-      payment: "verified",
-      proposal: "Less than 5",
-      posted: "3 days ago",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration into a Shopify website. The menu will be visually engaging, lightweight, and responsive across devices. Scope of work includes: project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      budget: "$200",
-      isPixPrice: "PixPrice",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      posted: "3 days ago",
-      proposal: "Less than 5",
-      payment: "verified",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration  Ensuring full compatibility with Shopify’s theme structure -Delivering clean, reusable code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      budget: "$200",
-      payment: "verified",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      isPixPrice: "PixPrice",
-      proposal: "Less than 5",
-      posted: "3 days ago",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration h transitions - Ensuring full compatibility with Shopify’s theme structure -Delivering clean, reusable code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      isPixPrice: "PixPrice",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      budget: "$200",
-      payment: "verified",
-      proposal: "Less than 5",
-      posted: "3 days ago",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration sitions - Ensuring full compatibility with Shopify’s theme structure -Delivering clean, reusable code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      isPixPrice: "PixPrice",
-      payment: "verified",
-      budget: "$200",
-      proposal: "Less than 5",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      posted: "3 days ago",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration into a Shopify website. The menu will be visually engaging, lightweight, and responsive across devices. Scope of work includes:  Ensuring full compatibility with Shopify’s theme structure -Delivering clean, reusable code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      isPixPrice: "PixPrice",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      budget: "$200",
-      payment: "verified",
-      posted: "3 days ago",
-      proposal: "Less than 5",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration i full compatibility with Shopify’s theme structure -Delivering clean, reusable code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      isPixPrice: "PixPrice",
-      title: "Write Blog Articles",
-      budget: "$200",
-      payment: "verified",
-      proposal: "Less than 5",
-      posted: "3 days ago",
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration ir smooth transitions - Ensuring full compatibility with Shopify’s theme structure -Delivering clean, reusable code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-    {
-      title: "Write Blog Articles",
-      budget: "$200",
-      payment: "verified",
-      proposal: "Less than 5",
-      posted: "3 days ago",
-      skill: ["node", "css", "html", "Java", "JavaScript", "React"],
-      description:
-        "Design and implement a custom SVG-based animated menu using Figma and JavaScript, fully optimized for seamless integration into code and implementation guidance This project aims to elevate the site's user experience with a modern, visually dynamic navigation element. See the examples below.moreaboute",
-    },
-  ];
+  useEffect(() => {
+    const FetchFreelancerProfile = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/jobs/GetAll"
+        );
+        console.log(response);
+        setJobs(response.data.response || []);
+      } catch (error) {
+        console.error("❌ Error fetching client profile:", error);
+        setError("Failed to fetch profile. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    FetchFreelancerProfile();
+  }, []);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   const handlePrev = () => {
     if (page > 1) setPage((prev) => prev - 1);
@@ -234,15 +45,20 @@ const JobListings = () => {
     setPage((prev) => prev + 1);
   };
 
-  const handman = () => {
-    setIsApplied((prev) => prev + 1);
+  const HandeleisApplied = (job) => {
+    setIsApplied((prev) => !prev);
+    setCurrentJob(job);
   };
-
   return (
     <div className="p-1">
-      <TaskDetailsPage isApplied={isApplied} setIsApplied={setIsApplied} />
-      <h2 className="text-2xl font-semibold m-1 pl-3">Jobs you might like</h2>
-
+      <h2 className="text-2xl font-semibold m-1 pl-3 capitalize">
+        Jobs you might like
+      </h2>
+      <TaskDetailsPage
+        SingleJobDescription={CurrentJob ?? ""}
+        isApplied={isApplied}
+        setIsApplied={setIsApplied}
+      />
       <div className="w-full relative flex items-center">
         <div
           className="absolute top-1.5 left-1 cursor-pointer"
@@ -258,30 +74,39 @@ const JobListings = () => {
       </div>
 
       <ul className="space-y-1">
-        {jobs.map((job, index) => (
+        {Jobs.map((job) => (
           <li
-            key={index}
+            key={job.id}
             className="p-2 group bg-gray-50 custom-shadow cursor-pointer h-64 hover:bg-gray-100 overflow-hidden"
           >
             <div
-              onClick={handman}
+              onClick={() => HandeleisApplied(job)}
               className="w-full h-full z-40 flex flex-col justify-start gap-1 md:gap-2"
             >
-              <p className="text-gray-500 text-xs">Posted: {job.posted}</p>
+              <p className="text-gray-500 text-xs">
+                Posted: {new Date(job.created_at).toLocaleString()}
+              </p>
               <h1 className="text-lg group-hover:text-green-500 font-medium hover:underline">
-                {job.title}
+                {job.jobTitle}
               </h1>
               <div className="flex gap-5">
-                <p className="text-xs">{job.isPixPrice}</p>
+                <p className="text-xs">{job.isPixPrice ?? "Not specified"}</p>
+                <p className="text-xs">jobSize: {job.jobSize}</p>
+                <p className="text-xs ">
+                  status: <span className="text-green-500">{job.status}</span>
+                </p>
                 <p className="text-gray-600 flex gap-1 text-nowrap text-xs">
                   <span>Budget:</span>
-                  <span>{job.budget}</span>
+                  <span>${job.budget}</span>
                 </p>
               </div>
 
-              <p className="text-gray-500 text-xs">Posted: {job.description}</p>
+              <p className="text-xs">experience: {job.experience}</p>
+              <p className="text-gray-500 text-xs">
+                description: {job.description}
+              </p>
               <div className="flex gap-3 overflow-x-auto custom-ScrollTum">
-                {job.skill?.map((skill, index) => (
+                {JSON.parse(job.skills)?.map((skill, index) => (
                   <span
                     key={index}
                     className="bg-gray-300 text-gray-600 rounded-lg px-3 -pt-8 text-xs text-center"
@@ -290,7 +115,9 @@ const JobListings = () => {
                   </span>
                 ))}
               </div>
-              <p className="text-xs">Payment: {job.payment}</p>
+              <p className="text-xs ">
+                Payment: <span className="text-green-700">{job.payment}</span>
+              </p>
               <p className="text-xs">proposal: {job.proposal}</p>
             </div>
           </li>
