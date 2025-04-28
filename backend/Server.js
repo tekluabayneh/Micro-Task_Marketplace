@@ -19,6 +19,7 @@ const passport = require("passport");
 const express = require("express");
 const db = require("./config/db");
 const cors = require("cors");
+const GetAllJobsRoute = require("./routes/GetAllJobsRoute");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -97,6 +98,12 @@ app.use("/api", fetchFreelancerProfileRoute);
 
 // applicant route
 app.use("/api/applicant", ApplicantPortFolioRoute);
+
+
+// get all posted jobs
+app.use("/api/jobs", GetAllJobsRoute);
+
+
 
 app.get("/", (req, res) => {
   res.send("Job Platform API is running...");
