@@ -20,6 +20,7 @@ const express = require("express");
 const db = require("./config/db");
 const cors = require("cors");
 const GetAllJobsRoute = require("./routes/GetAllJobsRoute");
+const ApplicantRoute = require("./routes/ApplicantRoute");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -47,7 +48,6 @@ configureGitHubStrategy(passport);
 configureGoogleAuth(passport);
 
 passport.serializeUser((user, done) => {
-  console.log("this is the user id", user.id);
   done(null, user.id);
 });
 
@@ -99,11 +99,11 @@ app.use("/api", fetchFreelancerProfileRoute);
 // applicant route
 app.use("/api/applicant", ApplicantPortFolioRoute);
 
-
 // get all posted jobs
 app.use("/api/jobs", GetAllJobsRoute);
 
-
+// apply for job route
+app.use("/api/jobs", ApplicantRoute);
 
 app.get("/", (req, res) => {
   res.send("Job Platform API is running...");
