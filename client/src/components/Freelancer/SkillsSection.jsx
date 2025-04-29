@@ -6,7 +6,7 @@ import { update } from "../Slices/FreelancerProfileSettingSlice";
 const SkillsSection = ({ data }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const dispatch = useDispatch();
-  let { skills, bio } = data
+  let { skills, bio } = data;
 
   const {
     register,
@@ -17,7 +17,6 @@ const SkillsSection = ({ data }) => {
 
   let onSubmit = (data) => {
     dispatch(update(data));
-    console.log(data);
     reset();
     setTimeout(() => {
       setIsPortalOpen(false);
@@ -60,8 +59,26 @@ const SkillsSection = ({ data }) => {
         {" "}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="space-y-9 w-[26rem] h-[28rem] p-7"
+          className="space-y-9 w-[26rem] h-[37rem] p-7"
         >
+          <div>
+            <label htmlFor="skills" className="block">
+              Title:
+            </label>
+
+            <input
+              {...register("title", {
+                required: "title  is required",
+              })}
+              type="text"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
+               focus:ring-2 focus:ring-primary/40 transition"
+              placeholder="Enter New title"
+            />
+            {errors.title && (
+              <p className="text-red-500">{errors.title.message}</p>
+            )}
+          </div>
           <div>
             <label htmlFor="skills" className="block">
               Skills:
@@ -74,7 +91,7 @@ const SkillsSection = ({ data }) => {
               type="text"
               className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
                focus:ring-2 focus:ring-primary/40 transition"
-              placeholder="Enter New OwnerName"
+              placeholder="Enter New skill"
             />
             {errors.skills && (
               <p className="text-red-500">{errors.skills.message}</p>
