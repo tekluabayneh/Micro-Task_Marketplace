@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import React from "react";
 
 const clientSearchSlice = createSlice({
   name: "clientSearchSlice",
@@ -11,7 +10,6 @@ const clientSearchSlice = createSlice({
     },
     storeResponse: (state, action) => {
       let { response } = action.payload;
-      console.log("from slice", response);
       state.SearchStore = response;
     },
   },
