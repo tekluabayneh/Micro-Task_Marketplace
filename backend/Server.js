@@ -21,6 +21,7 @@ const db = require("./config/db");
 const cors = require("cors");
 const GetAllJobsRoute = require("./routes/GetAllJobsRoute");
 const ApplicantRoute = require("./routes/ApplicantRoute");
+const SearchJobRoute = require("./routes/SearchJobRoute");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -82,7 +83,10 @@ app.use("/auth", AuthRoute);
 // client job
 app.use("/myJobs", MyJobsRouter);
 
+/// filter or search job route
 app.use("/api/search", SearchFreelancerRoute);
+
+app.use("/api/searchJob", SearchJobRoute);
 
 // update the client profile
 app.use("/api/update", updateClientProfileRoute);
