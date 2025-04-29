@@ -8,46 +8,6 @@ import useFetch from "../../components/hooks/Fetch";
 import axios from "axios";
 import { storeResponse } from "../../components/Slices/clientSearchSlice";
 import Loading from "../../components/Loading/Loading";
-const freelancers = [
-  {
-    id: 1,
-    name: "Sara Daniel",
-    location: "Ethiopia",
-    paragraph:
-      "I am a qualified,talented co-operative and self-motivated Graphic designer. I have over 13 years of experience in Advertising & Direct Marketing. I am very familiar with Graphic Design, as I have done many creative projects for clients in",
-    role: "Frontend Developer",
-    skills: ["React", "JavaScript", "Tailwind"],
-    earned: "12$",
-    rate: "$25/hr",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
-    work_history: "",
-  },
-
-  {
-    id: 2,
-    name: "Samuel Bekele",
-    role: "UI/UX Designer",
-    location: "USA",
-    earned: "12$",
-    paragraph:
-      "I am a qualified,talented co-operative and self-motivated Graphic designer. I have over 13 years of experience in Advertising & Direct Marketing. I am very familiar with Graphic Design, as I have done many creative projects for clients in",
-    skills: ["Figma", "UX Research", "Design Systems"],
-    rate: "$20/hr",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
-  },
-  {
-    id: 3,
-    earned: "12$",
-    name: "Hanna Getachew",
-    role: "Backend Developer",
-    skills: ["Node.js", "MongoDB", "API"],
-    rate: "$30/hr",
-    location: "Canada",
-    paragraph:
-      "I am a qualified,talented co-operative and self-motivated Graphic designer. I have over 13 years of experience in Advertising & Direct Marketing. I am very familiar with Graphic Design, as I have done many creative projects for clients in",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
-  },
-];
 
 const ClientDashboard = () => {
   const [page, setPage] = useState(1);
@@ -98,7 +58,7 @@ const ClientDashboard = () => {
         <ul className="space-y-1">
           {Array.isArray(data) &&
             data.map((freelancer) => (
-              <li key={freelancer.id}>
+              <li key={freelancer.id} className="relative overflow-hidden">
                 <Link className="bg-white h-auto md:h-52 custom-shadow p-4 rounded-sm hover:bg-gray-50 cursor-pointer flex flex-col md:flex-row items-start gap-4">
                   <div className="flex gap-3 flex-col md:flex-row">
                     <div className="w-16 h-16 rounded-full  ">
@@ -146,7 +106,7 @@ const ClientDashboard = () => {
                   </div>
 
                   {/*  */}
-                  <button className="md:mt-2 w-full md:w-auto text-nowrap self-start bg-[var(--primary-color)] text-white md:px-4 py-1.5 text-sm rounded-lg hover:bg-black cursor-pointer transition">
+                  <button className="md:absolute right-2 top-0 capitalize md:mt-2 w-full md:w-auto text-nowrap self-start bg-[var(--primary-color)] text-white md:px-4 py-1.5 text-sm rounded-lg hover:bg-black cursor-pointer transition">
                     Invite to Job
                   </button>
 
