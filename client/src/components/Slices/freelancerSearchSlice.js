@@ -2,10 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const freelancerSearchSlice = createSlice({
   name: "freelancerSearchSlice",
-  initialState: { SearchFreelancer: [] },
+  initialState: { SearchFreelancer: "", SearchStore: {} },
   reducers: {
-    freelancerSearch: () => {},
+    freelancerSearch: (state, action) => {
+      let { Search } = action.payload;
+      state.SearchFreelancer = Search;
+    },
+
+    StoreResult: (state, action) => {
+      console.log(action.payload);
+      let { response } = action.payload;
+      state.SearchStore = response;
+    },
   },
 });
-export const { freelancerSearch } = freelancerSearchSlice.actions;
-export default freelancerSearchSlice.reducer
+export const { freelancerSearch, StoreResult } = freelancerSearchSlice.actions;
+export default freelancerSearchSlice.reducer;
