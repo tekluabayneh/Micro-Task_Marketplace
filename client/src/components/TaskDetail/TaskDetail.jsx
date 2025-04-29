@@ -152,7 +152,7 @@ const TaskDetailsPage = ({ isApplied, setIsApplied, SingleJobDescription }) => {
               </div>
             </Card>
 
-            <Card className="p-6">
+            <Card className="p-6 mb-12">
               <h2 className="text-xl font-semibold mb-4">Project Details</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
