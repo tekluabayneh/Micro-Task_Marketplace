@@ -4,8 +4,8 @@ import AiImage from "../../assets/ai.png";
 import profile from "../../assets/profile.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clientSearch } from "../../components/Slices/clientSearchSlice";
 import FR_ProfilePop from "../../components/ProfilePop/FreelancerProfilePop";
+import { freelancerSearch } from "../../components/Slices/freelancerSearchSlice";
 
 const FreelancerHeader = ({ image, username }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,10 +14,11 @@ const FreelancerHeader = ({ image, username }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSerach = () => {
-    dispatch(clientSearch({ Search: Search }));
+    dispatch(freelancerSearch({ Search: Search }));
     navigate("/Freelancer/search");
     setSearch("");
   };
+  
   const userimg = localStorage.getItem("f_userImg");
   return (
     <div className="w-full fixed shadow-md top-0 left-0 h-12 z-50 p-5 py-6 flex justify-between items-center bg-white">
@@ -118,7 +119,7 @@ const FreelancerHeader = ({ image, username }) => {
       {/*  */}
       <div className="flex items-center w-80 md:w-96  ml-2 hidden md:block ">
         <div className="w-full max-w-md hidden md:block relative">
-          <Link to={"/Client/Search"}>
+          <Link to={"/Freelancer/Search"}>
             <MdSearch
               size={24}
               onClick={handleSerach}
