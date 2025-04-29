@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import Loading from "../../components/Loading/Loading";
 import ClientHeader from "../Header/ClientHeader";
 import FreelancerHeader from "../Header/FreelacerHeader";
+import FreelancerSearch from "../Search/FreelancerSearch";
 
 const FreelancerEarnings = lazy(() =>
   import("../../components/Freelancer/Earnings.JSX")
@@ -84,7 +85,7 @@ const Routers = () => {
           element={<FreelancerProfile />}
         />
         <Route path="/Freelancer/JobBidding" element={<ApplicationForm />} />
-        <Route path="/Freelancer/Search" element={<Search />} />
+        <Route path="/Freelancer/Search" element={<FreelancerSearch />} />
         <Route path="/Freelancer/Earnings" element={<FreelancerEarnings />} />
         <Route path="/Freelancer/MyJobs" element={<FR_MyJobs />} />
 
