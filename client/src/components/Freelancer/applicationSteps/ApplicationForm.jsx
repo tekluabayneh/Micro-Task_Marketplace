@@ -56,27 +56,15 @@ const ApplicationForm = () => {
   });
 
   const handleSubmit = async () => {
-    // setIsSubmitting(true);
+    setIsSubmitting(true);
     try {
-      // const firstFileItem =
-      //   formData.Attachment_url.find((arr) => arr.length > 0)?.[0] ?? [];
-
-      // const firstUrlItem =
-      //   formData.urlsStore.find((arr) => arr.length > 0)?.[0] ?? [];
       let UserEmail = localStorage.getItem("userEmail");
       let jobId = localStorage.getItem("job_id");
       let clientId = localStorage.getItem("client_id");
-      console.log({
-        email: UserEmail,
-        attachment_url: formData,
-        client_id: clientId,
-        job_id: jobId,
-        cover_letter: formData.coverLetter,
-      });
-      return;
+
       if (
         !UserEmail ||
-        !firstFileItem.preview ||
+        !formData.Attachment_url[formData.Attachment_url.length - 1].preview ||
         !jobId ||
         !formData.coverLetter ||
         !clientId
@@ -88,12 +76,20 @@ const ApplicationForm = () => {
 
       await mutate.mutateAsync({
         email: UserEmail,
-        attachment_url: firstFileItem.preview ?? "",
+        attachment_url:
+          formData.Attachment_url[formData.Attachment_url.length - 1].preview,
         client_id: clientId,
         job_id: jobId,
         cover_letter: formData.coverLetter,
       });
-
+      console.log({
+        email: UserEmail,
+        attachment_url:
+          formData.Attachment_url[formData.Attachment_url.length - 1].preview,
+        client_id: clientId,
+        job_id: jobId,
+        cover_letter: formData.coverLetter,
+      });
       setIsSubmitting(false);
     } catch (error) {
       console.log(error);
