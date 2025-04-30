@@ -75,11 +75,12 @@ const CL_ProfilePop = ({ isProfileMenu, setProfileMenu }) => {
         </nav>
 
         <Separator className="my-3" />
-
-        <button className="logout-button cursor-pointer">
-          <LogOut size={16} />
-          <span>Log out</span>
-        </button>
+        <Link to={"/"}>
+          <button className="logout-button cursor-pointer">
+            <LogOut size={16} />
+            Log out
+          </button>
+        </Link>
       </div>
     </div>
   );
