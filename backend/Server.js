@@ -1,5 +1,6 @@
 require("dotenv").config();
 const updateFreelancerProfileRoute = require("./routes/updateFreelancerProfileRoute");
+const GetFreelancerBiddingJobRoute = require("./routes/GetFreeancerBiddingJobRoute");
 const fetchFreelancerProfileRoute = require("./routes/fetchFreelancerProfileRoute");
 const updateClientProfileRoute = require("./routes/updateclientProfileRoute");
 const fetchClientProfileRoute = require("./routes/fetchClientProfileRoute");
@@ -8,7 +9,10 @@ const SearchFreelancerRoute = require("./routes/SearchFreelancerRouter");
 const configureGitHubStrategy = require("./controllers/GithubAuth");
 const configureGoogleAuth = require("./controllers/GoogleAuth");
 const fetchJobController = require("./controllers/FetchJobs");
+const GetAllJobsRoute = require("./routes/GetAllJobsRoute");
 const FetchJobsRoute = require("./routes/FetchJobsRoute");
+const SearchJobRoute = require("./routes/SearchJobRoute");
+const ApplicantRoute = require("./routes/ApplicantRoute");
 const JobPostRouter = require("./routes/JobPostRouter");
 const MyJobsRouter = require("./routes/MyJobsRoute");
 const OauthRoute = require("./routes/OAuthRouter");
@@ -19,9 +23,6 @@ const passport = require("passport");
 const express = require("express");
 const db = require("./config/db");
 const cors = require("cors");
-const GetAllJobsRoute = require("./routes/GetAllJobsRoute");
-const ApplicantRoute = require("./routes/ApplicantRoute");
-const SearchJobRoute = require("./routes/SearchJobRoute");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -108,6 +109,9 @@ app.use("/api/jobs", GetAllJobsRoute);
 
 // apply for job route
 app.use("/api/jobs", ApplicantRoute);
+
+//get freelancer applayd job from the applicant table
+app.use("/api/freelancer", GetFreelancerBiddingJobRoute);
 
 app.get("/", (req, res) => {
   res.send("Job Platform API is running...");
