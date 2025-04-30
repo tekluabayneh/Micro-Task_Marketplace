@@ -2,8 +2,6 @@ const db = require("../config/db");
 
 const GetAllJobs = async (req, res) => {
   try {
-    console.log("this is working man");
-
     // Get the client ID based on their email
     const GetallJobs = "SELECT * FROM jobs limit 50";
     const [result] = await db.execute(GetallJobs);
