@@ -48,9 +48,9 @@ const Language = ({ data }) => {
         {" "}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="space-y-9 w-[26rem] h-[25rem] p-4"
+          className="space-y-9 w-[26rem] h-auto p-4"
         >
-          <div>
+          <div className="-mb-1">
             <label htmlFor="Language" className="block">
               Language:
             </label>
@@ -68,7 +68,63 @@ const Language = ({ data }) => {
             )}
           </div>
 
-          <div>
+          <div className="-mb-1">
+            <label htmlFor="hourly_rate" className="block">
+              hourly_rate:
+            </label>
+            <input
+              {...register("hourly_rate", {
+                required: "hourly_rate is required",
+              })}
+              type="text"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
+               focus:ring-2 focus:ring-primary/40 transition"
+              placeholder="Enter New language"
+            />
+            {errors.hourly_rate && (
+              <p className="text-red-500">{errors.hourly_rate.message}</p>
+            )}
+          </div>
+
+          <div className="-mb-1">
+            <label htmlFor="experience_level" className="block">
+              Experience Level:
+            </label>
+            <select
+              {...register("experience_level", {
+                required: "Experience level is required",
+              })}
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/40 transition"
+            >
+              <option value="">Select level</option>
+              <option value="Junior">Junior</option>
+              <option value="Expert">Expert</option>
+              <option value="Senior">Senior</option>
+            </select>
+            {errors.experience_level && (
+              <p className="text-red-500">{errors.experience_level.message}</p>
+            )}
+          </div>
+
+          <div className="-mb-1">
+            <label htmlFor="location" className="block">
+              location:
+            </label>
+            <input
+              {...register("location", {
+                required: "location is required",
+              })}
+              type="text"
+              className="glass w-full max-w-md px-5 py-3 rounded-md border border-white/20 custom-shadow bg-white/20 backdrop-blur-md text-lg text-gray-800  placeholder-gray-400 focus:outline-none
+               focus:ring-2 focus:ring-primary/40 transition"
+              placeholder="Enter New language"
+            />
+            {errors.location && (
+              <p className="text-red-500">{errors.location.message}</p>
+            )}
+          </div>
+
+          <div className="-mb-1">
             <label htmlFor="Education" className="block">
               Education:
             </label>
