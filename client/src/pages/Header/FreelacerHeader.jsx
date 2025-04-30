@@ -18,7 +18,7 @@ const FreelancerHeader = ({ image, username }) => {
     navigate("/Freelancer/search");
     setSearch("");
   };
-  
+
   const userimg = localStorage.getItem("f_userImg");
   return (
     <div className="w-full fixed shadow-md top-0 left-0 h-12 z-50 p-5 py-6 flex justify-between items-center bg-white">
@@ -62,7 +62,7 @@ const FreelancerHeader = ({ image, username }) => {
               <Link to="Freelancer/FreelancerProfile">Profile</Link>
             </li>
             <li className="text-xs cursor-pointer">
-              <Link to="Freelancer/JobBidding">JobBidding</Link>
+              <Link to="Freelancer/MyJobs">MyJobs</Link>
             </li>
             <li className="text-xs cursor-pointer">
               <Link to="Freelancer/Earnings">Earnings</Link>
