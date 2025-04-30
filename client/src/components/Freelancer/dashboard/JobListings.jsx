@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { MdSearch } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoadMore from "../../LoadMoreButton/LoadMore";
 const TaskDetailsPage = React.lazy(() =>
   import("../../../components/TaskDetail/TaskDetail")
 );
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { freelancerSearch } from "../../Slices/freelancerSearchSlice";
 const JobListings = () => {
-  const [Jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [CurrentJob, setCurrentJob] = useState(null);
-  const [error, setError] = useState(null);
-  const [page, setPage] = useState(1);
   const [isApplied, setIsApplied] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [Search, setSearch] = useState("");
+  const [error, setError] = useState(null);
+  const [Jobs, setJobs] = useState([]);
+  const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const FetchFreelancerProfile = async () => {
@@ -46,6 +51,12 @@ const JobListings = () => {
     setIsApplied((prev) => !prev);
     setCurrentJob(job);
   };
+
+  const handleSerach = () => {
+    dispatch(freelancerSearch({ Search: Search }));
+    navigate("/Freelancer/search");
+    setSearch("");
+  };
   return (
     <div className="p-1">
       <h2 className="text-2xl font-semibold m-1 pl-3 capitalize">
@@ -59,7 +70,7 @@ const JobListings = () => {
       <div className="w-full relative flex items-center">
         <div
           className="absolute top-1.5 left-1 cursor-pointer"
-          onClick={() => alert("as")}
+          onClick={handleSerach}
         >
           <MdSearch size={26} />
         </div>
