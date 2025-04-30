@@ -4,6 +4,21 @@
 @theme {
   --breakpoint-xs: 405px;
 }
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("assets/Poppins/Poppins-Bold.ttf") format("woff2"),
+    url("assets/Poppins/Poppins-Bold.ttf") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "Neue Montreal", sans-serif;
+  color: #1f1f1f;
+  text-transform: capitalize;
+}
+
 html {
   scroll-behavior: smooth;
 }
