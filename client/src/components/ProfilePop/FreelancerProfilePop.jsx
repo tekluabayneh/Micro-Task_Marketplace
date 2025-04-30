@@ -1,6 +1,6 @@
 import { User, Settings, Briefcase, FilePlus, LogOut } from "lucide-react";
 import Separator from "../Separator";
-import { Link } from "react-router-dom";
+import { Link, Links } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const profileImageUrl = "https://i.pravatar.cc/150?img=32";
@@ -76,10 +76,12 @@ const FR_ProfilePop = ({ isProfileMenu, setProfileMenu }) => {
 
         <Separator className="my-3" />
 
-        <button className="logout-button cursor-pointer">
-          <LogOut size={16} />
-          <span>Log out</span>
-        </button>
+        <Link to={"/"}>
+          <button className="logout-button cursor-pointer">
+            <LogOut size={16} />
+            Log out
+          </button>
+        </Link>
       </div>
     </div>
   );
