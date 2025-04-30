@@ -1,5 +1,6 @@
 import React from "react";
 import ProfileImg from "../../assets/profile.jpg";
+import { Link } from "react-router-dom";
 const ProfilePop = ({}) => {
   return (
     <div
@@ -43,7 +44,7 @@ const ProfilePop = ({}) => {
         </ul>
         <hr className="py-3" />
         <button className="bg-[var(--primary-color)] text-white rounded-sm p-0.5 text-sm mx-auto w-full">
-          Log out
+          <Link className="/">Log out</Link>
         </button>
       </div>
     </div>
