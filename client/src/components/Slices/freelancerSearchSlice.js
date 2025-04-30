@@ -10,7 +10,6 @@ const freelancerSearchSlice = createSlice({
     },
 
     StoreResult: (state, action) => {
-      console.log(action.payload);
       let { response } = action.payload;
       state.SearchStore = response;
     },
