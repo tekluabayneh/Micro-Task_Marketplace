@@ -8,6 +8,7 @@ import useFetch from "../../components/hooks/Fetch";
 import axios from "axios";
 import { storeResponse } from "../../components/Slices/clientSearchSlice";
 import Loading from "../../components/Loading/Loading";
+import { toast } from "react-toastify";
 
 const ClientDashboard = () => {
   const [page, setPage] = useState(1);
@@ -45,6 +46,15 @@ const ClientDashboard = () => {
 
   const handleNext = () => {
     setPage((prev) => prev + 1);
+  };
+
+  const handleInvite = () => {
+    // Assume invite logic here, e.g., API call
+
+    // Show toast on success
+    toast.success(
+      "✅ Invitation sent successfully! The freelancer has been notified."
+    );
   };
 
   return (
@@ -106,7 +116,10 @@ const ClientDashboard = () => {
                   </div>
 
                   {/*  */}
-                  <button className="md:absolute right-2 top-0 capitalize md:mt-2 w-full md:w-auto text-nowrap self-start bg-[var(--primary-color)] text-white md:px-4 py-1.5 text-sm rounded-lg hover:bg-black cursor-pointer transition">
+                  <button
+                    onClick={handleInvite}
+                    className="md:absolute right-2 top-0 capitalize md:mt-2 w-full md:w-auto text-nowrap self-start bg-[var(--primary-color)] text-white md:px-4 py-1.5 text-sm rounded-lg hover:bg-black cursor-pointer transition"
+                  >
                     Invite to Job
                   </button>
 
