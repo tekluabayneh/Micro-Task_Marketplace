@@ -2,8 +2,7 @@ const db = require("../config/db");
 
 const ApplicantPortFolio = async (req, res) => {
   let { userEmail } = req.query;
-  console.log(userEmail);
-  // Validate the input email
+
   if (!userEmail) {
     return res.status(400).json({ message: "email is required." });
   }
