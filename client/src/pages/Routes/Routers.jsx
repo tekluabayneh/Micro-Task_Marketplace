@@ -23,9 +23,7 @@ const ClientSetting = lazy(() => import("../SettingsPage/ClientSettingsPage "));
 const FreelancerSetting = lazy(() =>
   import("../SettingsPage/FreelancerSettingsPage ")
 );
-const Dashborad = lazy(() =>
-  import("../../components/Client/DashBoardComponent/Dashborad")
-);
+const Dashborad = lazy(() => import("../Dashboard/Dashborad"));
 const JobPostForm = lazy(() => import("../PostJob/JobPostForm"));
 
 // Lazy load components
