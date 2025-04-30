@@ -6,7 +6,7 @@ import { update } from "../Slices/FreelancerProfileSettingSlice";
 const SkillsSection = ({ data }) => {
   const [isPortalOpen, setIsPortalOpen] = useState(false);
   const dispatch = useDispatch();
-  let { skills, bio } = data;
+  let { skills, paragraph } = data;
 
   const {
     register,
@@ -35,18 +35,22 @@ const SkillsSection = ({ data }) => {
         </span>
         <h2 className="text-lg font-semibold text-gray-800 mb-2">Skills</h2>
         <div className="flex flex-wrap gap-1">
-          {skills?.split(",").map((skill, index) => (
-            <span
-              key={index}
-              className="px-2 py-1 rounded-full  font-medium text-xl text-gray-600"
-            >
-              {skill}
-            </span>
-          ))}
+          {skills?.length == 0
+            ? "you don't yet edit it"
+            : skills?.split(",").map((skill, index) => (
+                <span
+                  key={index}
+                  className="px-2 py-1 rounded-full  font-medium text-xl text-gray-600"
+                >
+                  {skill}
+                </span>
+              ))}
         </div>
       </div>
       <div className="">
-        <p className="text-xs text-gray-600">{bio}</p>
+        <p className="text-xs text-gray-600">
+          {paragraph ?? <h1 className="text-center">you don't yet edit it</h1>}
+        </p>
 
         <button className="underline text-green-500 text-sm cursor-pointer">
           More..
@@ -59,7 +63,7 @@ const SkillsSection = ({ data }) => {
         {" "}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="space-y-9 w-[26rem] h-[37rem] p-7"
+          className="space-y-9 w-[26rem] h-auto p-7"
         >
           <div>
             <label htmlFor="skills" className="block">
@@ -98,11 +102,11 @@ const SkillsSection = ({ data }) => {
             )}
           </div>
           <div>
-            <label htmlFor="overview" className="block">
-              Overview:
+            <label htmlFor="paragraph" className="block">
+              paragraph:
             </label>
             <textarea
-              {...register("overview", {
+              {...register("paragraph", {
                 required: "Overview is required",
               })}
               type="text"
@@ -110,8 +114,8 @@ const SkillsSection = ({ data }) => {
                focus:ring-2 focus:ring-primary/40 transition"
               placeholder="Enter New OwnerName"
             />
-            {errors.overview && (
-              <p className="text-red-500">{errors.overview.message}</p>
+            {errors.paragraph && (
+              <p className="text-red-500">{errors.paragraph.message}</p>
             )}
           </div>
 
