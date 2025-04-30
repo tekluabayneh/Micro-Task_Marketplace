@@ -6,6 +6,8 @@ import Loading from "../../components/Loading/Loading";
 import ClientHeader from "../Header/ClientHeader";
 import FreelancerHeader from "../Header/FreelacerHeader";
 import FreelancerSearch from "../Search/FreelancerSearch";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FreelancerEarnings = lazy(() =>
   import("../../components/Freelancer/Earnings.JSX")
@@ -31,7 +33,9 @@ const Header = lazy(() => import("../Header/Header"));
 const FreelancerDashboardPage = lazy(() =>
   import("../Dashboard/FreelancerDashboardPage")
 );
+const ClientProfile = lazy(() => import("../Profiles/ClientProfile"));
 const ResetPassword = lazy(() => import("../Auth/ForgotPassword"));
+const LandingPage = React.lazy(() => import("../Landing/Landing"));
 const ResetConfirm = lazy(() => import("../Auth/ResetConfirm"));
 const MyJobs = lazy(() => import("../Jobs/MYPostedProjects"));
 const Search = lazy(() => import("../Search/Search"));
@@ -39,11 +43,9 @@ const Privacy = lazy(() => import("../Privacy/Privacy"));
 const Terms = lazy(() => import("../Terms/Terms"));
 const Login = lazy(() => import("../Auth/login"));
 const Register = lazy(() => import("../Auth/signUp"));
-const ClientProfile = lazy(() => import("../Profiles/ClientProfile"));
 const Footer = lazy(() =>
   import("../../components/LandingPageComponents/Footer")
 );
-const LandingPage = React.lazy(() => import("../Landing/Landing"));
 const FreelancerProfile = React.lazy(() =>
   import("../Profiles/FreelancerProfile")
 );
@@ -69,7 +71,7 @@ const Routers = () => {
         ""
       )}
       <Toaster />
-
+      <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
         {/* FREELANCER ROUTE */}
         <Route path="/" element={<LandingPage />} />
