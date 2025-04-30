@@ -7,8 +7,41 @@ import {
   Calendar,
   Clock,
 } from "lucide-react";
-
-const StatsCard = ({ title, value, change, icon, color ,trend}) => {
+export const statsData = [
+  {
+    title: "Total Jobs",
+    value: "12",
+    icon: "briefcase",
+    change: "+5%",
+    trend: "up",
+    color: "blue",
+  },
+  {
+    title: "Applications",
+    value: "156",
+    icon: "users",
+    change: "+12%",
+    color: "green",
+    trend: "up",
+  },
+  {
+    title: "Interviews",
+    value: "38",
+    icon: "calendar",
+    color: "green",
+    change: "+2%",
+    trend: "up",
+  },
+  {
+    title: "Avg. Response",
+    value: "4h",
+    icon: "clock",
+    change: "-10%",
+    color: "red",
+    trend: "down",
+  },
+];
+const StatsCard = ({ title, value, change, icon, color, trend }) => {
   const getIcon = () => {
     const iconMap = {
       briefcase: <Briefcase size={24} />,
@@ -62,9 +95,7 @@ const StatsCard = ({ title, value, change, icon, color ,trend}) => {
                 )}
                 <span
                   className={`text-sm ${
-                    trend === "up"
-                      ? "text-green-600"
-                      : "text-red-600"
+                    trend === "up" ? "text-green-600" : "text-red-600"
                   }`}
                 >
                   {change}%
