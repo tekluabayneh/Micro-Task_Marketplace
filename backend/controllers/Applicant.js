@@ -11,7 +11,7 @@ const Applicant = async (req, res) => {
 
     // Find freelancer ID based on email
     const findFreelancerQuery = `
-      SELECT freelancer_profiles.user_id 
+      SELECT freelancer_profiles.user_id, freelancer_profiles.proposal_count
       FROM users 
       INNER JOIN freelancer_profiles 
       ON freelancer_profiles.user_id = users.id 
@@ -53,6 +53,10 @@ const Applicant = async (req, res) => {
     // ✅ Now update proposal_count for the job
     const updateJobProposalQuery = `UPDATE jobs SET proposal = proposal + 1 WHERE id = ?`;
     await db.execute(updateJobProposalQuery, [job_id]);
+
+    // ✅ Now update proposal_count for the job
+    const updateJobProposalCountQuery = `UPDATE freelancer_profiles SET  proposal_count = proposal_count + 1 WHERE  user_id = ?`;
+    await db.execute(updateJobProposalCountQuery, [freelancerId]);
 
     return res.status(201).json({
       message: "Application submitted successfully!",
