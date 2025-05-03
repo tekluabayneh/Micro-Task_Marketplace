@@ -8,6 +8,7 @@ import FreelancerHeader from "../Header/FreelacerHeader";
 import FreelancerSearch from "../Search/FreelancerSearch";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ChatBot from "../ChatBot/Chatbot";
 
 const FreelancerEarnings = lazy(() =>
   import("../../components/Freelancer/Earnings.JSX")
@@ -52,7 +53,7 @@ const NotFound = React.lazy(() => import("../NotFound/NotFound"));
 
 const Routers = () => {
   let location = useLocation();
-
+  const [isOpen, setIsOpen] = useState(false);
   const userType = localStorage.getItem("userType");
   const publicRoutes = ["/", "/login", "/register", "/UserTypeSelector"];
   const isPublic = publicRoutes.includes(location.pathname);
@@ -62,12 +63,14 @@ const Routers = () => {
       {isPublic ? (
         <Header />
       ) : userType === "Freelancer" ? (
-        <FreelancerHeader />
+        <FreelancerHeader isOpen={isOpen} setIsOpen={setIsOpen} />
       ) : userType === "Client" ? (
-        <ClientHeader />
+        <ClientHeader isOpen={isOpen} setIsOpen={setIsOpen} />
       ) : (
         ""
       )}
+
+      <ChatBot isOpen={isOpen} setIsOpen={setIsOpen} />
       <Toaster />
       <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
