@@ -6,8 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clientSearch } from "../../components/Slices/clientSearchSlice";
 import CL_ProfilePop from "../../components/ProfilePop/ClientProfilePop";
+import { MessageCircle } from "lucide-react";
 
-const ClientHeader = ({ image, username }) => {
+const ClientHeader = ({ image, username, isOpen, setIsOpen }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileMenu, setProfileMenu] = useState(false);
   const [Search, setSearch] = useState("");
@@ -143,12 +144,13 @@ const ClientHeader = ({ image, username }) => {
       </div>
       {/*  */}
       <div className="flex gap-4 items-center cursor-pointer">
-        <div className="shadow-sm rounded-full cursor-pointer">
-          <img
-            className="w-7 h-7 rounded-full border border-black"
-            src={AiImage}
-            alt=""
-          />
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          className="shadow-sm rounded-full cursor-pointer"
+        >
+          <button className="bg-emerald-600 cursor-pointer  hover:bg-emerald-700 w-8 h-8 rounded-full flex justify-center items-center text-white shadow-xl transition-all duration-300 ease-in-out hover:scale-110">
+            <MessageCircle size={28} />
+          </button>
         </div>
         <div className="relative hidden md:block">
           <img
