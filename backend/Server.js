@@ -1,6 +1,7 @@
 require("dotenv").config();
 const updateFreelancerProfileRoute = require("./routes/updateFreelancerProfileRoute");
 const GetFreelancerBiddingJobRoute = require("./routes/GetFreeancerBiddingJobRoute");
+const freelancer_client_data = require("./AiRecommandation/RecommandationResponse");
 const fetchFreelancerProfileRoute = require("./routes/fetchFreelancerProfileRoute");
 const updateClientProfileRoute = require("./routes/updateclientProfileRoute");
 const fetchClientProfileRoute = require("./routes/fetchClientProfileRoute");
@@ -14,6 +15,7 @@ const FetchJobsRoute = require("./routes/FetchJobsRoute");
 const SearchJobRoute = require("./routes/SearchJobRoute");
 const ApplicantRoute = require("./routes/ApplicantRoute");
 const JobPostRouter = require("./routes/JobPostRouter");
+const userInput = require("./ChatBot/userChatMessge");
 const MyJobsRouter = require("./routes/MyJobsRoute");
 const OauthRoute = require("./routes/OAuthRouter");
 const AuthRoute = require("./routes/authRoutes");
@@ -112,6 +114,12 @@ app.use("/api/jobs", ApplicantRoute);
 
 //get freelancer applayd job from the applicant table
 app.use("/api/freelancer", GetFreelancerBiddingJobRoute);
+
+//this is the chatbot ai route the tell about micro work
+app.use("/api/chatbot", userInput);
+
+//this is the reout for client to freelancer match ai route
+app.use("/api/recommendation", freelancer_client_data);
 
 app.get("/", (req, res) => {
   res.send("Job Platform API is running...");
