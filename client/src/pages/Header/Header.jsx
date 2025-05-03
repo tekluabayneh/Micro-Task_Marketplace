@@ -73,13 +73,19 @@ const MobileNav = () => {
             </a>
           ))}
           <li>
-            <button className="text-sm cursor-pointer text-nowrap w-full text-left py-2">
-              Log in
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="text-sm cursor-pointer text-nowrap w-full text-left py-2"
+            >
+              <Link to={"/login"}> Log in</Link>
             </button>
           </li>
           <li>
-            <button className="text-sm cursor-pointer rounded-lg bg-[var(--secondary-dark-green)] hover:bg-[var(--Dark-color)] px-5 py-2 text-white w-full">
-              Signup
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="text-sm cursor-pointer rounded-lg bg-[var(--secondary-dark-green)] hover:bg-[var(--Dark-color)] px-5 py-2 text-white w-full"
+            >
+              <Link to={"/UserTypeSelector"}>Signup</Link>
             </button>
           </li>
         </ul>
