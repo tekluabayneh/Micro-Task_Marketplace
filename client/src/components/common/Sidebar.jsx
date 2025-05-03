@@ -18,7 +18,6 @@ const Sidebar = () => {
             params: { email },
           }
         );
-        console.log(response.data);
         // Make sure we got valid data before setting
         if (response.data && response.data.length > 0) {
           setFreelancerProfileData(response.data);
