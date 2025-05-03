@@ -35,8 +35,6 @@ const UpdateFreelancerProfile = async (req, res) => {
       [result] = await db.execute(query, values);
     }
 
-    console.log("this are the values", values);
-    console.log("this are the values", fields);
     res.json({ message: "Client profile saved successfully" });
   } catch (error) {
     console.error(error);
