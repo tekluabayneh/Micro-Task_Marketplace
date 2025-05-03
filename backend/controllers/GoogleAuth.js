@@ -1,4 +1,3 @@
-const e = require("express");
 const db = require("../config/db");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
