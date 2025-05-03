@@ -1,8 +1,8 @@
 const JobPost = require("../controllers/JobPost");
 const JobMiddle = require("../middleware/JobMiddleware");
-const postJobmiddleware = require("../middleware/PostjobMiddleware");
+const PostJobmiddleware = require("../middleware/PostJobmiddleware");
 const JobPostRouter = require("express").Router();
 
-JobPostRouter.post("/postJob", JobMiddle, postJobmiddleware, JobPost);
+JobPostRouter.post("/postJob", JobMiddle, PostJobmiddleware, JobPost);
 
 module.exports = JobPostRouter;
