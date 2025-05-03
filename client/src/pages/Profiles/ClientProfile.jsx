@@ -80,23 +80,21 @@ const ClientProfile = () => {
         <MyInfo />
 
         {/* Account Section */}
-        {ClientProfileData && (
-          <AccountSection
-            username={ClientProfileData?.owner_name ?? "not provided"}
-            companyname={ClientProfileData?.company_name ?? "not provided"}
-          />
-        )}
+
+        <AccountSection
+          username={ClientProfileData?.owner_name ?? "not provided"}
+          companyname={ClientProfileData?.company_name ?? "not provided"}
+        />
 
         {/* Company Details */}
-        {ClientProfileData && (
-          <CompanyDetails
-            companyName={ClientProfileData?.company_name ?? "not provided"}
-            owner={ClientProfileData?.owner_name ?? "not provided"}
-            phone={ClientProfileData?.phone}
-            industry={ClientProfileData?.industry ?? "not provided"}
-            address={ClientProfileData?.location ?? "not provided"}
-          />
-        )}
+
+        <CompanyDetails
+          companyName={ClientProfileData?.company_name ?? "not provided"}
+          owner={ClientProfileData?.owner_name ?? "not provided"}
+          phone={ClientProfileData?.phone}
+          industry={ClientProfileData?.industry ?? "not provided"}
+          address={ClientProfileData?.location ?? "not provided"}
+        />
       </div>
     </main>
   );
