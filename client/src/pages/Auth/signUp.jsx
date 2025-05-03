@@ -25,11 +25,11 @@ function Register() {
   const { mutate, isLoading, isError, isSuccess, error } = useMutation({
     mutationFn: registerUser,
     onSuccess: (response) => {
-      console.log(response);
       let role = localStorage.getItem("userType");
-      toast.success(response.data.message);
-
-      if (role == "freelancer") {
+      toast.success(response.data.message, {
+        duration: 3000,
+      });
+      if (role == "Freelancer") {
         navigate("/Freelancer/Dashboard");
       } else {
         navigate("/Client/Dashboard");
@@ -37,9 +37,10 @@ function Register() {
     },
 
     onError: (err) => {
-      console.log(err);
       setError(err.response.data.message);
-      toast.error(err.response?.data?.message || "Something went wrong!");
+      toast.error(err.response?.data?.message || "Something went wrong!", {
+        duration: 3000,
+      });
     },
   });
 
@@ -47,7 +48,9 @@ function Register() {
     let role = localStorage.getItem("userType");
 
     if (!role) {
-      toast.error("User type is missing. Please select user type first.");
+      toast.error("User type is missing. Please select user type first.", {
+        duration: 3000,
+      });
       return;
     }
     let user = { ...data, role };
