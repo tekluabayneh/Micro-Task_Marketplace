@@ -56,7 +56,7 @@ const FilterBar = () => {
         <option value="All">All Roles</option>
         <option value="Frontend Developer">Frontend Developer</option>
         <option value="Backend Developer">Backend Developer</option>
-        <option value="Full Stack Developer">Full Stack Developer</option>
+        <option value="FullStack Developer">Full Stack Developer</option>
         <option value="UI/UX Designer">UI/UX Designer</option>
         <option value="Mobile App Developer">Mobile App Developer</option>
         <option value="DevOps Engineer">DevOps Engineer</option>
