@@ -1,5 +1,5 @@
 import React from "react";
-import Loadingimg from "../../assets/Loading.Gif";
+import Loadingimg from "../../assets/Loading.gif";
 const Loading = () => {
   return (
     <div className="flex items-center justify-center h-screen">
