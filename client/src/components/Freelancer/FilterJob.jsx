@@ -47,7 +47,7 @@ const FilterJob = ({ setTriggerSearch }) => {
         <option value="All">All Job Titles</option>
         <option value="Frontend Developer">Frontend Developer</option>
         <option value="Backend Developer">Backend Developer</option>
-        <option value="Full Stack Developer">Full Stack Developer</option>
+        <option value="FullStack Developer">Full Stack Developer</option>
         <option value="UI/UX Designer">UI/UX Designer</option>
         <option value="Mobile App Developer">Mobile App Developer</option>
         <option value="React Developer">React Developer</option>
