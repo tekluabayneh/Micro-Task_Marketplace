@@ -9,7 +9,6 @@ const ApplicantPortFolioRoute = require("./routes/AplicantPortFolioRoute");
 const SearchFreelancerRoute = require("./routes/SearchFreelancerRouter");
 const configureGitHubStrategy = require("./controllers/GithubAuth");
 const configureGoogleAuth = require("./controllers/GoogleAuth");
-const fetchJobController = require("./controllers/FetchJobs");
 const GetAllJobsRoute = require("./routes/GetAllJobsRoute");
 const FetchJobsRoute = require("./routes/FetchJobsRoute");
 const SearchJobRoute = require("./routes/SearchJobRoute");
@@ -23,8 +22,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 const express = require("express");
-const db = require("./config/db");
 const cors = require("cors");
+const db = require("./config/db");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
