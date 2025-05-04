@@ -1,63 +1,6 @@
-app.get("/create", async (req, res) => {
-  let createTable = `CREATE TABLE freelancer_profiles (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id INT NOT NULL,
-  title VARCHAR(255),
-  bio TEXT,
-  skills TEXT,
-  experience_level ENUM('junior', 'mid', 'expert'),
-  hourly_rate DECIMAL(10, 2),
-  location VARCHAR(100),
-  availability BOOLEAN DEFAULT false,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-)`;
-
-  try {
-    let [result] = await db.execute(createTable);
-    console.log(result);
-    res.json(result);
-  } catch (err) {
-    console.error("Table creation failed:", err.message);
-    res.status(500).json({ error: err.message });
-  }
-});
-
-let createTable = `CREATE TABLE users (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  firstName VARCHAR(100),
-  lastName VARCHAR(100),
-  email VARCHAR(100) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  role ENUM('freelancer', 'client') NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)`;
-
-
-CREATE TABLE proposals (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  job_id INT NOT NULL,
-  freelancer_id INT NOT NULL,
-  cover_letter TEXT,
-  proposed_rate DECIMAL(10, 2),
-  status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE,
-  FOREIGN KEY (freelancer_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
-
-CREATE TABLE `portfolio` (
-  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `freelancer_id` int DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `subtitle` varchar(255) DEFAULT NULL,
-   FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer_profiles` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-
-CREATE TABLE applications (
+//
+app.get("/create-applications", async (req, res) => {
+  let createTable = `CREATE TABLE applications (
     id INT AUTO_INCREMENT PRIMARY KEY,
     job_id INT NOT NULL,
     freelancer_id INT NOT NULL,
@@ -70,26 +13,20 @@ CREATE TABLE applications (
     FOREIGN KEY (job_id) REFERENCES jobs(id),
     FOREIGN KEY (freelancer_id) REFERENCES users(id),
     FOREIGN KEY (client_id) REFERENCES users(id)
-);
+)`;
+
+  try {
+    const [result] = await db.execute(createTable);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 
-CREATE TABLE jobs (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  client_id INT NOT NULL,
-  title VARCHAR(255),
-  description TEXT,
-  jobSize TEXT,
-  budget DECIMAL(10, 2),
-  experience ENUM('junior', 'mid', 'expert'),
-  skills TEXT,
-  status ENUM('open', 'in_progress', 'completed') DEFAULT 'open',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (client_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
-
-
-CREATE TABLE client_profiles (
+////////////////////
+app.get("/create-client-profiles", async (req, res) => {
+  let createTable = `CREATE TABLE client_profiles (
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
   company_name VARCHAR(255),
@@ -103,23 +40,564 @@ CREATE TABLE client_profiles (
   Social VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
+)`
 
+  try {
+    let [result] = await db.execute(createTable);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+//////
+app.get("/create-freelancer-profiles", async (req, res) => {
+  let createTable = `CREATE TABLE freelancer_profiles (
+  id INT(11)   PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  user_id INT(11) NOT NULL,
+  name VARCHAR(255) DEFAULT NULL,
+  title VARCHAR(255) DEFAULT NULL,
+  bio TEXT DEFAULT NULL,
+  paragraph TEXT DEFAULT NULL,
+  skills TEXT DEFAULT NULL,
+  experience_level ENUM('junior','mid','expert') DEFAULT NULL,
+  hourly_rate DECIMAL(10,2) DEFAULT NULL,
+  location VARCHAR(100) DEFAULT NULL,
+  availability VARCHAR(255) NOT NULL DEFAULT '0',
+  work_history TEXT DEFAULT NULL,
+  earned DECIMAL(10,2) DEFAULT NULL,
+  role VARCHAR(100) DEFAULT NULL,
+  image VARCHAR(255) DEFAULT NULL,
+  Profile VARCHAR(500) DEFAULT NULL,
+  language VARCHAR(255) DEFAULT NULL,
+  Education VARCHAR(255) DEFAULT NULL,
+  overview VARCHAR(1255) DEFAULT NULL,
+  Licenses VARCHAR(2505) DEFAULT NULL,
+  isVerified ENUM('verified','not_verified') DEFAULT 'verified',
+  proposal_count INT(11) DEFAULT 0,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY user_id (user_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+)`;
+
+  try {
+    let [result] = await db.execute(createTable);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/////
+app.get("/create-jobs", async (req, res) => {
+  let createTable = `CREATE TABLE `jobs` (
+  `id` INT  PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `clientId` INT NOT NULL,
+  `jobTitle` VARCHAR(255) DEFAULT NULL,
+  `description` TEXT DEFAULT NULL,
+  `jobSize` TEXT DEFAULT NULL,
+  `budget` TEXT DEFAULT NULL,
+  `experience` ENUM('junior', 'mid', 'expert') DEFAULT NULL,
+  `skills` TEXT DEFAULT NULL,
+  `status` ENUM('open', 'in_progress', 'completed') DEFAULT 'open',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `proposal` INT(11) DEFAULT 0,
+  `payment` VARCHAR(20) DEFAULT 'verified',
+  FOREIGN KEY (`clientId`) REFERENCES `users`(`id`) ON DELETE CASCADE
+)
+  `;
+
+  try {
+    const [result] = await db.execute(createTable);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+///////////
+app.get("/create-portfolio", async (req, res) => {
+  let createTable = ` CREATE TABLE portfolio (
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  freelancer_id int DEFAULT NULL,
+  image_url varchar(255) DEFAULT NULL,
+  title varchar(255) DEFAULT NULL,
+  subtitle varchar(255) DEFAULT NULL,
+   FOREIGN KEY (freelancer_id) REFERENCES freelancer_profiles (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `;
+
+  try {
+    const [result] = await db.execute(createTable);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+//
+app.get("/create-users", async (req, res) => {
+  let createTable =`CREATE TABLE users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  firstName VARCHAR(100),
+  lastName VARCHAR(100),
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('freelancer', 'client') NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)`;
+
+  try {
+    let [result] = await db.execute(createTable);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/alter-users-table", async (req, res) => {
+  const alterQueries = [
+    `ALTER TABLE users MODIFY email VARCHAR(100);`,
+    `ALTER TABLE users MODIFY password VARCHAR(255);`,
+    `ALTER TABLE users MODIFY role ENUM('Freelancer', 'Client') NOT NULL;`,
+  ];
+
+  try {
+    for (const query of alterQueries) {
+      await db.execute(query);
+    }
+    res.json({
+      message:
+        "Table altered successfully with updated NULL constraints and capitalized ENUM values.",
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// THIS IS OEN THE LOCAL ONE 
+CREATE TABLE applications (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  job_id int(11) NOT NULL,
+  freelancer_id int(11) NOT NULL,
+  client_id int(11) NOT NULL,
+  cover_letter text,
+  attachment_url varchar(255) DEFAULT NULL,
+  status enum('pending','accepted','rejected','withdrawn') DEFAULT 'pending',
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY job_id (job_id),
+  KEY freelancer_id (freelancer_id),
+  KEY client_id (client_id),
+  CONSTRAINT applications_ibfk_1 FOREIGN KEY (job_id) REFERENCES jobs (id),
+  CONSTRAINT applications_ibfk_2 FOREIGN KEY (freelancer_id) REFERENCES users (id),
+  CONSTRAINT applications_ibfk_3 FOREIGN KEY (client_id) REFERENCES users (id)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
+CREATE TABLE client_profiles (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  company_name varchar(255) DEFAULT NULL,
+  owner_name varchar(255) DEFAULT NULL,
+  phone varchar(20) DEFAULT NULL,
+  website varchar(255) DEFAULT NULL,
+  industry varchar(100) DEFAULT NULL,
+  location varchar(100) DEFAULT NULL,
+  image varchar(255) DEFAULT NULL,
+  description text,
+  Social varchar(200) DEFAULT NULL,
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY user_id (user_id),
+  CONSTRAINT client_profiles_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 CREATE TABLE freelancer_profiles (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id INT NOT NULL,
-  title VARCHAR(255),
-  name:"",
-  bio TEXT,
-  skills TEXT,
-  paragraph:"",
-  experience_level ENUM('junior', 'mid', 'expert'),
-  hourly_rate DECIMAL(10, 2),
-  location VARCHAR(100),
-  availability BOOLEAN DEFAULT false,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE 
-  work_history
-  earned
-  role:""
-);
+  id int(11) NOT NULL AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  name varchar(255) DEFAULT NULL,
+  title varchar(255) DEFAULT NULL,
+  bio text,
+  paragraph text,
+  skills text,
+  experience_level enum('junior','mid','expert') DEFAULT NULL,
+  hourly_rate decimal(10,2) DEFAULT NULL,
+  location varchar(100) DEFAULT NULL,
+  availability varchar(255) NOT NULL DEFAULT '0',
+  work_history text,
+  earned decimal(10,2) DEFAULT NULL,
+  role varchar(100) DEFAULT NULL,
+  image varchar(255) DEFAULT NULL,
+  Profile varchar(500) DEFAULT NULL,
+  language varchar(255) DEFAULT NULL,
+  Education varchar(255) DEFAULT NULL,
+  overview varchar(1255) DEFAULT NULL,
+  Licenses varchar(2505) DEFAULT NULL,
+  isVerified enum('verified','not_verified') DEFAULT 'verified',
+  proposal_count int(11) DEFAULT '0',
+  PRIMARY KEY (id),
+  KEY user_id (user_id),
+  CONSTRAINT freelancer_profiles_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+CREATE TABLE jobs (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  clientId int(11) NOT NULL,
+  jobTitle varchar(255) DEFAULT NULL,
+  description text,
+  jobSize text,
+  budget text,
+  experience enum('junior','mid','expert') DEFAULT NULL,
+  skills text,
+  status enum('open','in_progress','completed') DEFAULT 'open',
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  proposal int(11) DEFAULT '0',
+  payment varchar(20) DEFAULT 'verified',
+  PRIMARY KEY (id),
+  KEY clientId (clientId),
+  CONSTRAINT jobs_ibfk_1 FOREIGN KEY (clientId) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
+CREATE TABLE portfolio (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  freelancer_id int(11) DEFAULT NULL,
+  image_url varchar(255) DEFAULT NULL,
+  title varchar(255) DEFAULT NULL,
+  subtitle varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY freelancer_id (freelancer_id),
+  CONSTRAINT portfolio_ibfk_1 FOREIGN KEY (freelancer_id) REFERENCES freelancer_profiles (user_id)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE users (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  firstName varchar(100) DEFAULT NULL,
+  lastName varchar(100) DEFAULT NULL,
+  email varchar(100) NOT NULL,
+  password varchar(255) DEFAULT NULL,
+  role enum('freelancer','client') NOT NULL,
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY email (email)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+app.get("/create", async (req, res) => {
+  const queries = [
+    `DROP TABLE IF EXISTS users`,
+    `CREATE TABLE users (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  firstName varchar(100) DEFAULT NULL,
+  lastName varchar(100) DEFAULT NULL,
+  email varchar(100) NOT NULL,
+  password varchar(255) DEFAULT NULL,
+  role enum('freelancer','client') NOT NULL,
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY email (email)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8`,
+  ];
+
+  try {
+    for (const query of queries) {
+      await db.execute(query);
+    }
+    res.json({
+      message:
+        "Table users dropped and created successfully with updated NULL constraints and capitalized ENUM values.",
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/create_freelancer_profiles", async (req, res) => {
+  const queries = [
+    `SET FOREIGN_KEY_CHECKS = 0`,
+    `DROP TABLE IF EXISTS freelancer_profiles`,
+    `CREATE TABLE freelancer_profiles (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  name varchar(255) DEFAULT NULL,
+  title varchar(255) DEFAULT NULL,
+  bio text,
+  paragraph text,
+  skills text,
+  experience_level enum('junior','mid','expert') DEFAULT NULL,
+  hourly_rate decimal(10,2) DEFAULT NULL,
+  location varchar(100) DEFAULT NULL,
+  availability varchar(255) NOT NULL DEFAULT '0',
+  work_history text,
+  earned decimal(10,2) DEFAULT NULL,
+  role varchar(100) DEFAULT NULL,
+  image varchar(255) DEFAULT NULL,
+  Profile varchar(500) DEFAULT NULL,
+  language varchar(255) DEFAULT NULL,
+  Education varchar(255) DEFAULT NULL,
+  overview varchar(1255) DEFAULT NULL,
+  Licenses varchar(2505) DEFAULT NULL,
+  isVerified enum('verified','not_verified') DEFAULT 'verified',
+  proposal_count int(11) DEFAULT '0',
+  PRIMARY KEY (id),
+  KEY user_id (user_id),
+  CONSTRAINT freelancer_profiles_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8`,
+    `SET FOREIGN_KEY_CHECKS = 1`,
+  ];
+
+  try {
+    for (const query of queries) {
+      await db.execute(query);
+    }
+    res.json({
+      message: "Table freelancer_profiles dropped and created successfully.",
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/create_client_profiles", async (req, res) => {
+  const queries = [
+    `SET FOREIGN_KEY_CHECKS = 0`,
+    `DROP TABLE IF EXISTS client_profiles`,
+    `CREATE TABLE client_profiles (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  company_name varchar(255) DEFAULT NULL,
+  owner_name varchar(255) DEFAULT NULL,
+  phone varchar(20) DEFAULT NULL,
+  website varchar(255) DEFAULT NULL,
+  industry varchar(100) DEFAULT NULL,
+  location varchar(100) DEFAULT NULL,
+  image varchar(255) DEFAULT NULL,
+  description text,
+  Social varchar(200) DEFAULT NULL,
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY user_id (user_id),
+  CONSTRAINT client_profiles_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8`,
+    `SET FOREIGN_KEY_CHECKS = 1`
+  ];
+
+  try {
+    for (const query of queries) {
+      await db.execute(query);
+    }
+    res.json({
+      message: "Table client_profiles dropped and created successfully."
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/create_jobs", async (req, res) => {
+  const queries = [
+    `SET FOREIGN_KEY_CHECKS = 0`,
+    `DROP TABLE IF EXISTS jobs`,
+    `CREATE TABLE jobs (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  clientId int(11) NOT NULL,
+  jobTitle varchar(255) DEFAULT NULL,
+  description text,
+  jobSize text,
+  budget text,
+  experience enum('junior','mid','expert') DEFAULT NULL,
+  skills text,
+  status enum('open','in_progress','completed') DEFAULT 'open',
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  proposal int(11) DEFAULT '0',
+  payment varchar(20) DEFAULT 'verified',
+  PRIMARY KEY (id),
+  KEY clientId (clientId),
+  CONSTRAINT jobs_ibfk_1 FOREIGN KEY (clientId) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8`,
+    `SET FOREIGN_KEY_CHECKS = 1`
+  ];
+
+  try {
+    for (const query of queries) {
+      await db.execute(query);
+    }
+    res.json({
+      message: "Table jobs dropped and created successfully."
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/create_portfolio", async (req, res) => {
+  const queries = [
+    `SET FOREIGN_KEY_CHECKS = 0`,
+    `DROP TABLE IF EXISTS portfolio`,
+    `CREATE TABLE portfolio (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  freelancer_id int(11) DEFAULT NULL,
+  image_url varchar(255) DEFAULT NULL,
+  title varchar(255) DEFAULT NULL,
+  subtitle varchar(255) DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY freelancer_id (freelancer_id),
+  CONSTRAINT portfolio_ibfk_1 FOREIGN KEY (freelancer_id) REFERENCES freelancer_profiles (user_id)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4`,
+    `SET FOREIGN_KEY_CHECKS = 1`
+  ];
+
+  try {
+    for (const query of queries) {
+      await db.execute(query);
+    }
+    res.json({
+      message: "Table portfolio dropped and created successfully."
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/create_applications", async (req, res) => {
+  const queries = [
+    `SET FOREIGN_KEY_CHECKS = 0`,
+    `DROP TABLE IF EXISTS applications`,
+    `CREATE TABLE applications (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  job_id int(11) NOT NULL,
+  freelancer_id int(11) NOT NULL,
+  client_id int(11) NOT NULL,
+  cover_letter text,
+  attachment_url varchar(255) DEFAULT NULL,
+  status enum('pending','accepted','rejected','withdrawn') DEFAULT 'pending',
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY job_id (job_id),
+  KEY freelancer_id (freelancer_id),
+  KEY client_id (client_id),
+  CONSTRAINT applications_ibfk_1 FOREIGN KEY (job_id) REFERENCES jobs (id),
+  CONSTRAINT applications_ibfk_2 FOREIGN KEY (freelancer_id) REFERENCES users (id),
+  CONSTRAINT applications_ibfk_3 FOREIGN KEY (client_id) REFERENCES users (id)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8`,
+    `SET FOREIGN_KEY_CHECKS = 1`
+  ];
+
+  try {
+    for (const query of queries) {
+      await db.execute(query);
+    }
+    res.json({
+      message: "Table applications dropped and created successfully."
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+app.get("/create_applications", async (req, res) => {
+  const queries = [
+    `SET FOREIGN_KEY_CHECKS = 0`,
+    `DROP TABLE IF EXISTS applications`,
+    `CREATE TABLE applications (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  job_id int(11) NOT NULL,
+  freelancer_id int(11) NOT NULL,
+  client_id int(11) NOT NULL,
+  cover_letter text,
+  attachment_url varchar(255) DEFAULT NULL,
+  status enum('pending','accepted','rejected','withdrawn') DEFAULT 'pending',
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY job_id (job_id),
+  KEY freelancer_id (freelancer_id),
+  KEY client_id (client_id),
+  CONSTRAINT applications_ibfk_1 FOREIGN KEY (job_id) REFERENCES jobs (id),
+  CONSTRAINT applications_ibfk_2 FOREIGN KEY (freelancer_id) REFERENCES users (id),
+  CONSTRAINT applications_ibfk_3 FOREIGN KEY (client_id) REFERENCES users (id)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8`,
+    `SET FOREIGN_KEY_CHECKS = 1`,
+  ];
+
+  try {
+    for (const query of queries) {
+      await db.execute(query);
+    }
+    res.json({
+      message: "Table applications dropped and created successfully.",
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/create_jobs", async (req, res) => {
+  const queries = [
+    `SET FOREIGN_KEY_CHECKS = 0`,
+    `DROP TABLE IF EXISTS jobs`,
+    `CREATE TABLE jobs (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  clientId int(11) NOT NULL,
+  jobTitle varchar(255) DEFAULT NULL,
+  description text,
+  jobSize text,
+  budget text,
+  experience enum('junior','mid','expert') DEFAULT NULL,
+  skills text,
+  status enum('open','in_progress','completed') DEFAULT 'open',
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  proposal int(11) DEFAULT '0',
+  payment varchar(20) DEFAULT 'verified',
+  PRIMARY KEY (id),
+  KEY clientId (clientId),
+  CONSTRAINT jobs_ibfk_1 FOREIGN KEY (clientId) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8`,
+    `SET FOREIGN_KEY_CHECKS = 1`,
+  ];
+
+  try {
+    for (const query of queries) {
+      await db.execute(query);
+    }
+    res.json({
+      message: "Table jobs dropped and created successfully.",
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/create_users", async (req, res) => {
+  const queries = [
+    `SET FOREIGN_KEY_CHECKS = 0`,
+    `DROP TABLE IF EXISTS users`,
+    `CREATE TABLE users (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  firstName varchar(100) DEFAULT NULL,
+  lastName varchar(100) DEFAULT NULL,
+  email varchar(100) NOT NULL,
+  password varchar(255) DEFAULT NULL,
+  role enum('freelancer','client') NOT NULL,
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY email (email)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8`,
+    `SET FOREIGN_KEY_CHECKS = 1`,
+  ];
+
+  try {
+    for (const query of queries) {
+      await db.execute(query);
+    }
+    res.json({
+      message: "Table users dropped and created successfully.",
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
