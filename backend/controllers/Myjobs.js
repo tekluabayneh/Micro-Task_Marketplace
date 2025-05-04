@@ -15,7 +15,7 @@ const getClientJobs = async (req, res) => {
     const clientId = userRows[0].id;
 
     // Get jobs posted by this client
-    const getJobsByClientQuery = "SELECT * FROM jobs WHERE clientid = ?";
+    const getJobsByClientQuery = "SELECT * FROM jobs WHERE clientId = ?";
     const [jobRows] = await db.execute(getJobsByClientQuery, [clientId]);
 
     return res.status(200).json(jobRows);
