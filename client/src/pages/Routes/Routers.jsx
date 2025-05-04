@@ -9,7 +9,6 @@ import FreelancerSearch from "../Search/FreelancerSearch";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ChatBot from "../ChatBot/Chatbot";
-
 const FreelancerEarnings = lazy(() =>
   import("../../components/Freelancer/Earnings.JSX")
 );
