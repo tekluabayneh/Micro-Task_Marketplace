@@ -15,7 +15,7 @@ const DashboardTabs = ({ tab1, tab2 }) => {
       try {
         let email = localStorage.getItem("userEmail");
         const response = await axios.get(
-          "http://localhost:5000/api/ClientProfileData",
+          "https://micro-task-marketplace.onrender.com/api/ClientProfileData",
           {
             params: { email },
           }

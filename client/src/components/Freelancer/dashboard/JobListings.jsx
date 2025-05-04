@@ -23,7 +23,7 @@ const JobListings = () => {
     const FetchFreelancerProfile = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/jobs/GetAll"
+          "https://micro-task-marketplace.onrender.com/api/jobs/GetAll"
         );
         setJobs(response.data.response || []);
       } catch (error) {

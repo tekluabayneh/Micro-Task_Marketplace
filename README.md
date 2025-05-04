@@ -18,7 +18,7 @@ FreelanceHub is a full-stack freelancing platform inspired by Upwork, designed t
 - Review freelancer profiles
 - Get matched with freelancer level using AI
 
-### 💡 Smart Add-ons (Coming Soon)
+### 💡 Smart Add-ons
 
 - 🤖 **AI Chatbot**: In-app assistant to guide users through the platform
 - 🧠 **AI Matching**: Automatically suggest freelancers to clients based on project needs

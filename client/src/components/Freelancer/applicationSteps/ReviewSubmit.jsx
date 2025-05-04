@@ -4,11 +4,7 @@ import Separator from "../../Separator";
 
 const ReviewSubmit = ({ formData, onSubmit, isSubmitting }) => {
   const { coverLetter, Attachment_url, urlsStore } = formData;
-  console.log(Attachment_url);
 
-  // const firstFileItem =
-  //   Attachment_url.find((arr) => arr.length > 0)?.[0] ??
-  //   "you Didn't upload image";
   const firstUrlItem = urlsStore.find((arr) => arr.length > 0)?.[0];
 
   return (

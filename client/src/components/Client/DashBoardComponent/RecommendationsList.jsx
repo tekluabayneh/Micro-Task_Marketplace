@@ -10,38 +10,6 @@ const RecommendationsList = () => {
   const [invitedFreelancers, setInvitedFreelancers] = useState([]);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const aiResponse = [
-    {
-      freelancer: "Backend Developer",
-      score: 9,
-      reason:
-        "A strong candidate for Jobs 1, 5, and 6. Possesses essential skills such as Node, C, and C++. Expert level experience aligns well with the technical requirements, and the hourly rate is reasonable, availability is good.",
-    },
-    {
-      freelancer: "Full Stack Web Developer",
-      score: 8,
-      reason:
-        "Fits Job 2 well. Has React, Node.js. Mid-level experience matches the job requirements, with the reasonable hourly rate of $35.00 and good availability.",
-    },
-    {
-      freelancer: "Node, React, Java, Go, Ai, CharGpt, C, C++",
-      score: 7,
-      reason:
-        "Fits Jobs 1, 3, 4, 5 and 6 well, as they include Node, React, Java, and C. No hourly rate provided but has the right experience. Availability is a problem since it's zero",
-    },
-    {
-      freelancer: "Node, Go, Java, React, Ruby, Flutter",
-      score: 6,
-      reason:
-        "Fits Jobs 1, 3, 4, 5 and 6 well, as they include Node, React, Java, and C. The hourly rate of $30 is fair. Availability is a problem since it's zero",
-    },
-    {
-      freelancer: "Frontend Developer",
-      score: 6,
-      reason:
-        "Fits Job 1 well. Has React, Tailwindcss, Go, Ruby, and Node. No hourly rate provided and availability is zero",
-    },
-  ];
 
   // Function to get color based on score
   const getScoreColor = (score) => {
@@ -67,7 +35,7 @@ const RecommendationsList = () => {
       let email = localStorage.getItem("userEmail");
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/recommendation",
+          "https://micro-task-marketplace.onrender.com/api/recommendation",
           {
             params: {
               email,

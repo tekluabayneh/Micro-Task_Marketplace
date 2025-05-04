@@ -38,7 +38,7 @@ const FreelancerSearch = memo(() => {
     const FetchJobsProfile = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/jobs/GetAll"
+          "https://micro-task-marketplace.onrender.com/api/jobs/GetAll"
         );
         setJobs(response.data.response || []);
       } catch (error) {
@@ -58,7 +58,7 @@ const FreelancerSearch = memo(() => {
   };
 
   const GetFilterJob = async () => {
-    let URL = `http://localhost:5000/api/searchJob/filter?Search=${useSelectorProfile}`;
+    let URL = `https://micro-task-marketplace.onrender.com/api/searchJob/filter?Search=${useSelectorProfile}`;
     let response = await axios.get(URL);
     dispatch(StoreResult({ response: response.data || [] }));
     return response;
@@ -212,4 +212,4 @@ const FreelancerSearch = memo(() => {
 });
 
 export default FreelancerSearch;
-// `http://localhost:5000/api/searchJob/filter?Search=${useSelectorProfile}`;
+

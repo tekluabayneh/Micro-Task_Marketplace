@@ -26,7 +26,7 @@ const ClientDashboard = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/search/filter?Search=${useSelectorProfile}`
+          `https://micro-task-marketplace.onrender.com/api/search/filter?Search=${useSelectorProfile}`
         );
         setLoading(false);
         dispatch(storeResponse({ response: response.data }));

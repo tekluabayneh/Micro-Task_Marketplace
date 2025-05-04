@@ -19,7 +19,7 @@ const Profile = () => {
       try {
         let email = localStorage.getItem("userEmail");
         const response = await axios.get(
-          "http://localhost:5000/api/FreelancerProfileData",
+          "https://micro-task-marketplace.onrender.com/api/FreelancerProfileData",
           {
             params: { email },
           }

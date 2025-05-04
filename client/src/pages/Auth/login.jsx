@@ -16,7 +16,10 @@ const Login = () => {
   } = useForm({});
 
   const LoginUser = async (Userdata) => {
-    return await axios.post("http://localhost:5000/auth/login", Userdata);
+    return await axios.post(
+      "https://micro-task-marketplace.onrender.com/auth/login",
+      Userdata
+    );
   };
 
   const { mutate, isError, isLoading, error } = useMutation({
@@ -46,7 +49,7 @@ const Login = () => {
         </div>
         <div className="flex flex-col gap-2 justify-center mb-3">
           <Link
-            to={`http://localhost:5000/api/oauth/google?type=${localStorage.getItem(
+            to={`https://micro-task-marketplace.onrender.com/api/oauth/google?type=${localStorage.getItem(
               "userType"
             )}`}
             className="bg-blue-500 border-none p-2 cursor-pointer rounded-md text-white capitalize  flex items-center gap-7"
@@ -60,7 +63,7 @@ const Login = () => {
           </Link>
 
           <Link
-            to={`http://localhost:5000/api/oauth/github?type=${localStorage.getItem(
+            to={`https://micro-task-marketplace.onrender.com/api/oauth/github?type=${localStorage.getItem(
               "userType"
             )}`}
             className="p-2 border cursor-pointer border-black rounded-md flex items-center gap-7 capitalize"

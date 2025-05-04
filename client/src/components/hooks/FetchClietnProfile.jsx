@@ -12,7 +12,10 @@ const FetchCL_Porfile = () => {
   );
   console.log("this is the data man", profileData);
   const updateClient = (data) => {
-    return axios.put("http://localhost:5000/api/update/client", data);
+    return axios.put(
+      "https://micro-task-marketplace.onrender.com/api/update/client",
+      data
+    );
   };
 
   const mutate = useMutation({

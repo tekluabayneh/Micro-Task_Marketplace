@@ -10,7 +10,7 @@ const FR_MyJobs = () => {
     const email = localStorage.getItem("userEmail");
     if (!email) throw new Error("No email found in localStorage");
     const response = await axios.get(
-      "http://localhost:5000/api/freelancer/bidding-jobs",
+      "https://micro-task-marketplace.onrender.com/api/freelancer/bidding-jobs",
       { params: { email } }
     );
     setFetchJobs(response.data.response || []);

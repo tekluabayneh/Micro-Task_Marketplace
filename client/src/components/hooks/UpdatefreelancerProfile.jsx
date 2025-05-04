@@ -14,7 +14,10 @@ const UpdateFreelancerPorfile = () => {
   console.log("this is the email F", userEmail);
 
   const updateFreelancer = (data) => {
-    return axios.put("http://localhost:5000/api/update/freelancer", data);
+    return axios.put(
+      "https://micro-task-marketplace.onrender.com/api/update/freelancer",
+      data
+    );
   };
 
   const mutate = useMutation({

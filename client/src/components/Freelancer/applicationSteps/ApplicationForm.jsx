@@ -35,7 +35,7 @@ const ApplicationForm = () => {
 
   const applyJob = async (data) => {
     let response = await axios.post(
-      "http://localhost:5000/api/jobs/apply",
+      "https://micro-task-marketplace.onrender.com/api/jobs/apply",
       data
     );
     return response;
@@ -82,15 +82,7 @@ const ApplicationForm = () => {
         job_id: jobId,
         cover_letter: formData.coverLetter,
       });
-      console.log({
-        email: UserEmail,
-        attachment_url:
-          formData.Attachment_url[formData.Attachment_url.length - 1].preview,
-        client_id: clientId,
-        job_id: jobId,
-        cover_letter: formData.coverLetter,
-      });
-      setIsSubmitting(false);
+           setIsSubmitting(false);
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong while submitting.");

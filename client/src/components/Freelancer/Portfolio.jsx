@@ -21,7 +21,10 @@ const FR_PortFolio = () => {
   } = useForm();
 
   const updateFreelancer = (data) => {
-    return axios.put("http://localhost:5000/api/applicant/update", data);
+    return axios.put(
+      "https://micro-task-marketplace.onrender.com/api/applicant/update",
+      data
+    );
   };
 
   const mutate = useMutation({
@@ -51,7 +54,7 @@ const FR_PortFolio = () => {
       try {
         let userEmail = localStorage.getItem("userEmail");
         let response = await axios.get(
-          "http://localhost:5000/api/applicant/get",
+          "https://micro-task-marketplace.onrender.com/api/applicant/get",
           {
             params: { userEmail },
           }

@@ -4,7 +4,7 @@ const MyJobs = () => {
   const userEmail = localStorage.getItem("userEmail");
 
   const { data, loading, error } = useFetch(
-    `http://localhost:5000/myJobs/myJobs?email=${userEmail}`
+    `https://micro-task-marketplace.onrender.com/myJobs/myJobs?email=${userEmail}`
   );
 
   return (

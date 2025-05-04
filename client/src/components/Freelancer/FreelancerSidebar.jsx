@@ -1,14 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Language from "./Lnaguage";
 import Education from "./Education";
-import DynamicPortal from "../Modal/Modal";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { update } from "../Slices/FreelancerProfileSettingSlice";
 
 const FreelancerSidebar = ({ data }) => {
-  let { education, Licenses, isVerified } = data
-  const [isPortalOpen, setIsPortalOpen] = useState(false);
+  let { education, Licenses, isVerified } = data;
 
   return (
     <div className="md:w-96 max-w-full p-4 bg-white custom-shadow rounded-lg">

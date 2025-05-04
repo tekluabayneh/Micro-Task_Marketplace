@@ -47,7 +47,7 @@ const Dashborad = () => {
   const userEmail = localStorage.getItem("userEmail");
 
   const { data } = useFetch(
-    `http://localhost:5000/myJobs/myJobs?email=${userEmail}`
+    `https://micro-task-marketplace.onrender.com/myJobs/myJobs?email=${userEmail}`
   );
 
   let count = 0;

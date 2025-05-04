@@ -45,7 +45,10 @@ const JobPostForm = () => {
     setFormData((prev) => ({ ...prev, ...fields }));
   };
   const PostJob = async (data) => {
-    let response = await axios.post("http://localhost:5000/api/postJob", data);
+    let response = await axios.post(
+      "https://micro-task-marketplace.onrender.com/api/postJob",
+      data
+    );
     return response;
   };
 

@@ -17,9 +17,12 @@ const ChatBot = ({ isOpen, setIsOpen }) => {
   };
 
   const getAiResponse = async (newMessage) => {
-    const response = await axios.post("http://localhost:5000/api/chatBot", {
-      message: newMessage,
-    });
+    const response = await axios.post(
+      "https://micro-task-marketplace.onrender.com/api/chatBot",
+      {
+        message: newMessage,
+      }
+    );
     return response;
   };
 

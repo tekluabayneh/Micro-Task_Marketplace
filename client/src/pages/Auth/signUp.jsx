@@ -19,7 +19,10 @@ function Register() {
   let navigate = useNavigate();
 
   const registerUser = async (userData) => {
-    return await axios.post("http://localhost:5000/auth/register", userData);
+    return await axios.post(
+      "https://micro-task-marketplace.onrender.com/auth/register",
+      userData
+    );
   };
 
   const { mutate, isLoading, isError, isSuccess, error } = useMutation({
@@ -71,7 +74,7 @@ function Register() {
         </div>
         <div className="flex flex-row gap-2 justify-center mb-3">
           <Link
-            to={`http://localhost:5000/api/oauth/google?type=${localStorage.getItem(
+            to={`https://micro-task-marketplace.onrender.com/api/oauth/google?type=${localStorage.getItem(
               "userType"
             )}`}
             className="bg-blue-500 border-none p-2 cursor-pointer rounded-md text-white capitalize  flex items-center gap-7"
@@ -84,7 +87,7 @@ function Register() {
           </Link>
 
           <Link
-            to={`http://localhost:5000/api/oauth/github?type=${localStorage.getItem(
+            to={`https://micro-task-marketplace.onrender.com/api/oauth/github?type=${localStorage.getItem(
               "userType"
             )}`}
             className="p-2 border cursor-pointer border-black rounded-md flex items-center gap-7 capitalize"

@@ -26,7 +26,7 @@ const FreelancerEarnings = () => {
         const email = localStorage.getItem("userEmail");
         if (!email) throw new Error("No email found in localStorage");
         const response = await axios.get(
-          "http://localhost:5000/api/FreelancerProfileData",
+          "https://micro-task-marketplace.onrender.com/api/FreelancerProfileData",
           { params: { email } }
         );
         if (response.data && response.data.length > 0) {
@@ -49,7 +49,7 @@ const FreelancerEarnings = () => {
     const email = localStorage.getItem("userEmail");
     if (!email) throw new Error("No email found in localStorage");
     const response = await axios.get(
-      "http://localhost:5000/api/freelancer/bidding-jobs",
+      "https://micro-task-marketplace.onrender.com/api/freelancer/bidding-jobs",
       { params: { email } }
     );
     setFetchJobs(response.data.response || []);
