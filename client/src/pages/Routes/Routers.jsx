@@ -5,15 +5,15 @@ import { Toaster } from "react-hot-toast";
 import Loading from "../../components/Loading/Loading";
 import ClientHeader from "../Header/ClientHeader";
 import FreelancerHeader from "../Header/FreelacerHeader";
-import FreelancerSearch from "../Search/FreelancerSearch";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ChatBot from "../ChatBot/Chatbot";
 const FreelancerEarnings = lazy(() =>
-  import("../../components/Freelancer/Earnings.JSX")
+  import("../../components/Freelancer/Earnings.jsx")
 );
 const FR_MyJobs = lazy(() => import("../../components/Freelancer/MyJobs"));
-
+const FreelancerSearch = lazy(() => import("../Search/FreelancerSearch"));
 const UserTypeSelector = lazy(() => import("../Auth/UserTypeSelector"));
 const ApplicationForm = lazy(() =>
   import("../../components/Freelancer/applicationSteps/ApplicationForm")
