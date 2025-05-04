@@ -1,6 +1,6 @@
 const db = require("../config/db");
 
-const PostJobmiddleware = async (req, res, next) => {
+const PostJobMiddleWare = async (req, res, next) => {
   try {
     let clientId = req.userid;
     let { jobTitle, description, jobSize, budget, experience, skills } =
@@ -30,4 +30,4 @@ const PostJobmiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = PostJobmiddleware;
+module.exports = PostJobMiddleWare;
