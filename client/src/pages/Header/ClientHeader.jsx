@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { MdSearch } from "react-icons/md";
-import AiImage from "../../assets/ai.png";
 import profile from "../../assets/profile.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
