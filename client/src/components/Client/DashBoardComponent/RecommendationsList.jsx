@@ -3,6 +3,7 @@ import MyJobs from "../../../pages/Jobs/MYPostedProjects";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Toaster } from "sonner";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Loading from "../../Loading/Loading";
 const RecommendationsList = () => {
@@ -77,7 +78,12 @@ const RecommendationsList = () => {
         const raw = response.data.Ai_response;
         const cleaned =
           typeof raw === "string"
-            ? JSON.parse(raw.replace(/```json|```/g, ""))
+            ? JSON.parse(
+                raw
+                  .replace(/```json/g, "")
+                  .replace(/```/g, "")
+                  .trim()
+              )
             : raw;
 
         setData(cleaned);
@@ -90,10 +96,33 @@ const RecommendationsList = () => {
     handleFetchAiRecomendation();
   }, []);
   if (loading) return <Loading />;
+
+  if (!data) {
+    toast.info(
+      "To start receiving recommendations, make sure to complete your client profile first. Even if you’ve posted a job, you won’t see any recommendations until your profile is fully filled out.",
+      {
+        position: "top-right",
+        autoClose: 60000, // 1 minute
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      }
+    );
+  }
+
   if (!data)
     return (
       <p className="text-center">
         No recommendation found. because you don't have any job posted
+        <p className="text-red-400">
+          To start receiving recommendations, make sure to complete your client
+          profile first. Even if you’ve posted a job, you won’t see any
+          recommendations until your profile is fully filled out.
+          <Link to={"/Client/ClientProfile"} className="text-blue-600">
+            Profile
+          </Link>
+        </p>
       </p>
     );
 
