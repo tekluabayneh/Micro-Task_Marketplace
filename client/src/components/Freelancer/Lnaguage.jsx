@@ -98,8 +98,8 @@ const Language = ({ data }) => {
             >
               <option value="">Select level</option>
               <option value="Junior">Junior</option>
-              <option value="Expert">Expert</option>
-              <option value="Senior">Senior</option>
+              <option value="mid">mid</option>
+              <option value="expert">expert</option>
             </select>
             {errors.experience_level && (
               <p className="text-red-500">{errors.experience_level.message}</p>
