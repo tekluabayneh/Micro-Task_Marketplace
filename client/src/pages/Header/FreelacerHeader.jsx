@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { MdSearch } from "react-icons/md";
-import profile from "../../assets/profile.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import FR_ProfilePop from "../../components/ProfilePop/FreelancerProfilePop";
@@ -80,7 +79,7 @@ const FreelancerHeader = ({ image, username, isOpen, setIsOpen }) => {
           <img
             onClick={() => setProfileMenu(!isProfileMenu)}
             className="w-7 h-7 rounded-full bg-contain bg-center"
-            src={profile}
+            src={image}
             alt=""
           />
           <Link
