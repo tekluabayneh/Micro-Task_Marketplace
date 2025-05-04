@@ -5,6 +5,7 @@ import { data, Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+import BTNloading from "../../components/Loading/BTNloading";
 const Login = () => {
   let [Error, setError] = useState("");
   const navigate = useNavigate();
@@ -123,7 +124,7 @@ const Login = () => {
             type="submit"
             className="w-full cursor-pointer py-2 bg-[var(--primary-color)] text-white rounded-md  focus:outline-none focus:ring focus:border-blue-300"
           >
-            Login
+            {isLoading ? <BTNloading /> : "Login"}
           </button>
         </form>
         <h1 className="text-center py-8 text-sm">

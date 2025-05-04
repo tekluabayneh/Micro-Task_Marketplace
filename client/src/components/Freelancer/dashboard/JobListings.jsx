@@ -113,7 +113,7 @@ const JobListings = () => {
               <p className="text-gray-500 text-xs">
                 description:{" "}
                 {job.description.length > 100
-                  ? job.description.substr(0, 500) + "..."
+                  ? job.description.substr(0, 300) + "..."
                   : job.description}
               </p>
               <div className="flex gap-3 overflow-x-auto custom-ScrollTum">

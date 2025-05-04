@@ -193,7 +193,7 @@ function Register() {
               to={"/login"}
               className="text-blue-500 cursor-pointer hover:underline"
             >
-              Login
+              "Login"
             </Link>
           </div>
         </form>
