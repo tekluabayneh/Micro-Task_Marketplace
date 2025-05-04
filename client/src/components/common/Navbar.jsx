@@ -1,5 +1,5 @@
 import React from "react";
-import DashBoardImg from "../../assets/map.svg";
+import DashBoardImg from "../../assets/Map.svg";
 const Navbar = () => {
   return (
     <nav
