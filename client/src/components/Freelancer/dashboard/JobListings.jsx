@@ -111,7 +111,10 @@ const JobListings = () => {
 
               <p className="text-xs">experience: {job.experience}</p>
               <p className="text-gray-500 text-xs">
-                description: {job.description}
+                description:{" "}
+                {job.description.length > 100
+                  ? job.description.substr(0, 500) + "..."
+                  : job.description}
               </p>
               <div className="flex gap-3 overflow-x-auto custom-ScrollTum">
                 {JSON.parse(job.skills)?.map((skill, index) => (
