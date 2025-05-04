@@ -3,8 +3,6 @@ import { Briefcase } from "lucide-react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-
-
 const FR_MyJobs = () => {
   const [fetchJobs, setFetchJobs] = useState([]);
   // Fetch bidding jobs
@@ -34,7 +32,7 @@ const FR_MyJobs = () => {
             <Briefcase className="w-8 h-8 " />
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold  mb-1">My Jobs</h1>
+            <h1 className="text-3xl md:text-4xl font-bold  mb-1 ">My Jobs</h1>
             <p className="">You have {fetchJobs.length} Active Projects</p>
           </div>
         </div>
