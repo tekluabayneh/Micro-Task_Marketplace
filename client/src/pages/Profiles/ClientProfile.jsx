@@ -14,10 +14,6 @@ const ClientProfile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const profileData = useSelector(
-    (state) => state.clientProfileSettingSlice.CL_slide
-  );
-
   useEffect(() => {
     const FetchClientProfile = async () => {
       try {
@@ -28,7 +24,6 @@ const ClientProfile = () => {
             params: { email },
           }
         );
-        console.log(response);
         // Make sure we got valid data before setting
         if (response.data && response.data.length > 0) {
           setClientProfileData(response.data[0]);
