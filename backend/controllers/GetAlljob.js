@@ -3,7 +3,7 @@ const db = require("../config/db");
 const GetAllJobs = async (req, res) => {
   try {
     // Get the client ID based on their email
-    const GetallJobs = "SELECT * FROM jobs limit 50";
+    const GetallJobs = "SELECT * FROM jobs";
     const [result] = await db.execute(GetallJobs);
 
     if (result.length === 0) {
