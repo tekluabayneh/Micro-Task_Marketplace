@@ -9,7 +9,7 @@ const freelancer_client_data = async (req, res) => {
     }
     // Get all jobs
     let jobQuery =
-      "SELECT jobs.jobTitle, jobs.description, jobs.jobSize, jobs.budget, jobs.experience, jobs.skills FROM jobs INNER JOIN client_profiles ON client_profiles.user_id = jobs.clientid INNER JOIN users  ON users.id = client_profiles.user_id  WHERE users.email = ?";
+      "SELECT jobs.jobTitle, jobs.description, jobs.jobSize, jobs.budget, jobs.experience, jobs.skills FROM jobs INNER JOIN client_profiles ON client_profiles.user_id = jobs.clientId INNER JOIN users  ON users.id = client_profiles.user_id  WHERE users.email = ?";
 
     const [jobQueryResult] = await db.execute(jobQuery, [email]);
     if (jobQueryResult.length === 0) {
