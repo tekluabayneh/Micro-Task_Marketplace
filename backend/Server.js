@@ -127,3 +127,7 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+//https://micro-task-marketplace.onrender.com/api/oauth/google/callback
+
+
+//https://micro-task-marketplace.onrender.com/api/oauth/github/callback
