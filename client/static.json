@@ -1,5 +1,8 @@
 {
-  "routes": {
-    "/**": "index.html"
-  }
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
+  ]
 }
