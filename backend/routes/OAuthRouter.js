@@ -17,27 +17,27 @@ OauthRoute.get("/google", (req, res, next) => {
 OauthRoute.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "https://micro-task-marketplace.onrender.com",
+    failureRedirect: "https://micro-task-marketplace-1.onrender.com",
   }),
   async (req, res) => {
     try {
       // now ths is how we access the user type since we store it in cookies
       let userType = req.cookies.user_type;
       if (!req.user || !userType) {
-        return res.redirect("https://micro-task-marketplace.onrender.com");
+        return res.redirect("https://micro-task-marketplace-1.onrender.com");
       }
 
       if (userType === "freelancer") {
         return res.redirect(
-          "https://micro-task-marketplace.onrender.com/Freelancer/Dashboard"
+          "https://micro-task-marketplace-1.onrender.com/Freelancer/Dashboard"
         );
       } else {
         return res.redirect(
-          "https://micro-task-marketplace.onrender.com/Client/Dashboard"
+          "https://micro-task-marketplace-1.onrender.com/Client/Dashboard"
         );
       }
     } catch (error) {
-      return res.redirect("https://micro-task-marketplace.onrender.com");
+      return res.redirect("https://micro-task-marketplace-1.onrender.com");
     }
   }
 );
@@ -58,7 +58,7 @@ OauthRoute.get("/github", (req, res, next) => {
 OauthRoute.get(
   "/github/callback",
   passport.authenticate("github", {
-    failureRedirect: "https://micro-task-marketplace.onrender.com",
+    failureRedirect: "https://micro-task-marketplace-1.onrender.com",
   }),
   (req, res) => {
     try {
@@ -67,22 +67,22 @@ OauthRoute.get(
 
       // check if there is no user or user type return the user to landing page
       if (!req.user || !userType) {
-        return res.redirect("https://micro-task-marketplace.onrender.com");
+        return res.redirect("https://micro-task-marketplace-1.onrender.com");
       }
 
       // redirect the user based on the type
 
       if (userType === "freelancer") {
         return res.redirect(
-          "https://micro-task-marketplace.onrender.com/Freelancer/Dashboard"
+          "https://micro-task-marketplace-1.onrender.com/Freelancer/Dashboard"
         );
       } else {
         return res.redirect(
-          "https://micro-task-marketplace.onrender.com/Client/Dashboard"
+          "https://micro-task-marketplace-1.onrender.com/Client/Dashboard"
         );
       }
     } catch (error) {
-      return res.redirect("https://micro-task-marketplace.onrender.com");
+      return res.redirect("https://micro-task-marketplace-1.onrender.com");
     }
   }
 );
