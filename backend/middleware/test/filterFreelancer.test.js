@@ -17,9 +17,9 @@ descibe("filterfreelancer middlware", () => {
   test("should return 400 if the Search query is empty", async () => {
     await filterfreelancer(req, res, next);
 
-    expect(req.query.Search).toHaveBeenCalledwith(400);
+    expect(req.query.Search).toHaveBeenCalledWith(400);
 
-    expect(res.status).toHaveBeenCalledwith({ error: "missing search query" });
+    expect(res.status).toHaveBeenCalledWith({ error: "missing search query" });
 
     // since there is Erroe the next shouldn't be called
     expect(next).not.toHaveBeenCalled();
@@ -43,8 +43,8 @@ descibe("filterfreelancer middlware", () => {
     req.query.search = "All";
     db.execute.mockResolvedValueOnce(new Error("Db Error"));
 
-    expect(res.status).toHaveBeenCalledwith(400);
-    expect(res.json).toHaveBeenCalledwith({ error: "Something went Wrong" });
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ error: "Something went Wrong" });
 
     expect(next).not.toHaveBeenCalled();
   });
