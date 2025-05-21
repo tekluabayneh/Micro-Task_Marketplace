@@ -14,7 +14,7 @@ descibe("filterfreelancer middlware", () => {
     next = jest.fn();
   });
 
-  test("should return 400 if the Seach query is empty", async () => {
+  test("should return 400 if the Search query is empty", async () => {
     await filterfreelancer(req, res, next);
 
     expect(req.query.Search).toHaveBeenCalledwith(400);
