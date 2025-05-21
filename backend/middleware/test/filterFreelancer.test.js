@@ -47,10 +47,32 @@ const mockResult =  [{id:1, name:'teklu'}]
 filterfreelancer(req,res, next)
 
 expect(req.SearchResult).toEqual(mockResult)
-  expect(req.)
+  expect(db.execute).toHaveBeenCalled()
+  expect(next).toHaveBeenCalled()
 }
 
 
 })
+
+
+
+
+
+test('should retun internal server error' , async () =>{
+
+  res = {
+  status:jest.fn().mockReturnThis(),
+  json:jest.fn(),
+
+  }
+expect(res.status).toHaveBeenCalledwith({error:'Somthing went Wrong'})
+
+expect(res.json).toHaveBeenCalled()
+
+
+
+
+} 
+
 
 })
