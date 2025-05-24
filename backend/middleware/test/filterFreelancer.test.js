@@ -1,6 +1,7 @@
 const filterfreelancer = require("../filterFreelancer.js");
 
-jest.mock("filterfreelancer.js");
+jest.mock("../filterFreelancer");
+
 descibe("filterfreelancer middlware", () => {
   let req, res, next;
 
