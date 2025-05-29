@@ -79,7 +79,7 @@ describe("job Middlware", () => {
         jobSize: "test",
       },
     };
-    req = jest.fn();
+    req = jestfn();
     next = jest.fn();
     expect(res.result[0]).toBe("freelancer");
     expect(next).not.toHaveBeenCalled();
