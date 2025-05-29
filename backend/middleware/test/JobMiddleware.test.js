@@ -23,7 +23,6 @@ describe("job Middlware", () => {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
-    db.execute.mockResolcedValueOnce([]);
 
     next = jest.fn();
     await JobMiddleware(req, res, next);
@@ -42,12 +41,52 @@ describe("job Middlware", () => {
 
   it("it should return the value from the database", async () => {
     req = {
-      body: {},
+      body: {
+        jobTitle: "test",
+        description: "test",
+        jobSize: "test",
+        budget: "test",
+        experience: "test",
+      },
     };
     res = {
       status: jest.fn(),
       json: jest.fn(),
     };
     next = jest.fn();
+    let mockResult = [{ id: 1, name: "teklu" }];
+    db.execute.mockResolvedValueOnce(mockResult);
+
+    expect(req.body).toEqual({
+      jobTitle: "test",
+      description: "test",
+      jobSize: "test",
+      budget: "test",
+      experience: "test",
+    });
+    expect(next).toHaveBeenCalled();
+    expect(db.execute).toHaveBeenCalledWith(
+      "SELECT * FROM users WHERE email = ?",
+      ["test"]
+    );
+  });
+
+  it("it should return 400 status code if the role is not clinet", () => {
+    req = {
+      body: {
+        jobTitle: "test",
+        description: "test",
+        jobSize: "test",
+      },
+    };
+    req = jest.fn();
+    next = jest.fn();
+    expect(res.result[0]).toBe("freelancer");
+    expect(next).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({
+      message:
+        "Access denied. Please log in with a client account or create one to continue.",
+    });
   });
 });
