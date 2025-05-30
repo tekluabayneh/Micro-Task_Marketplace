@@ -1,45 +1,19 @@
 const JobMiddleware = require("../JobMiddleware");
 const db = require("../../config/db");
 jest.mock("../../config/db.js");
-describe("job Middlware", () => {
+
+describe("JobMiddleware", () => {
   let req, res, next;
 
-  // if one of the field is missing it should return 400 status code
-  // if not it should return the valued from the database and if the batabase response it empty it should return 400 status code
-  // if the user is not a client it should return 400 statsu code
-  /// if it pass all this test and fanally it shoult call the next middleware
-
-  it("should return 400 status code if one of the fields are missing", async () => {
-    req = {
-      body: {
-        jobTitle: "test",
-        description: "test",
-        jobSize: "test",
-        budget: "test",
-        experience: "test",
-      },
-    };
+  beforeEach(() => {
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
-
     next = jest.fn();
-    await JobMiddleware(req, res, next);
-    expect(req.body).not.toEqual({
-      jobTitle: "test",
-      description: "test",
-      jobSize: "test",
-      budget: "test",
-      experience: "test",
-      skills: "test",
-      email: "test",
-    });
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith("All fields are required");
   });
 
-  it("it should return the value from the database", async () => {
+  it("should return 400 if required fields are missing", async () => {
     req = {
       body: {
         jobTitle: "test",
@@ -47,46 +21,101 @@ describe("job Middlware", () => {
         jobSize: "test",
         budget: "test",
         experience: "test",
+        // skills and email missing
       },
     };
-    res = {
-      status: jest.fn(),
-      json: jest.fn(),
-    };
-    next = jest.fn();
-    let mockResult = [{ id: 1, name: "teklu" }];
-    db.execute.mockResolvedValueOnce(mockResult);
 
-    expect(req.body).toEqual({
-      jobTitle: "test",
-      description: "test",
-      jobSize: "test",
-      budget: "test",
-      experience: "test",
-    });
-    expect(next).toHaveBeenCalled();
-    expect(db.execute).toHaveBeenCalledWith(
-      "SELECT * FROM users WHERE email = ?",
-      ["test"]
-    );
+    await JobMiddleware(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith("All fields are required");
+    expect(next).not.toHaveBeenCalled();
   });
 
-  it("it should return 400 status code if the role is not clinet", () => {
+  it("should call next if user is client", async () => {
     req = {
       body: {
         jobTitle: "test",
         description: "test",
         jobSize: "test",
+        budget: "test",
+        experience: "test",
+        skills: "JS",
+        email: "client@test.com",
       },
     };
-    req = jestfn();
-    next = jest.fn();
-    expect(res.result[0]).toBe("freelancer");
-    expect(next).not.toHaveBeenCalled();
+
+    db.execute.mockResolvedValueOnce([[{ id: 1, role: "client" }]]);
+
+    await JobMiddleware(req, res, next);
+
+    expect(db.execute).toHaveBeenCalledWith(
+      "SELECT * FROM users WHERE email = ?",
+      ["client@test.com"]
+    );
+    expect(req.userid).toBe(1);
+    expect(next).toHaveBeenCalled();
+  });
+
+  it("should return 400 if user is freelancer", async () => {
+    req = {
+      body: {
+        jobTitle: "test",
+        description: "test",
+        jobSize: "test",
+        budget: "test",
+        experience: "test",
+        skills: "JS",
+        email: "freelancer@test.com",
+      },
+    };
+
+    db.execute.mockResolvedValueOnce([[{ id: 2, role: "freelancer" }]]);
+
+    await JobMiddleware(req, res, next);
+
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       message:
         "Access denied. Please log in with a client account or create one to continue.",
     });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it("should return 400 if user does not exist", async () => {
+    req = {
+      body: {
+        jobTitle: "test",
+        description: "test",
+        jobSize: "test",
+        budget: "test",
+        experience: "test",
+        skills: "JS",
+        email: "unknown@test.com",
+      },
+    };
+
+    db.execute.mockResolvedValueOnce([[]]);
+
+    await JobMiddleware(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith(
+      "You must have an account to post a job"
+    );
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it("it should return 500 for internal server error", async () => {
+    let next = jest.fn();
+    let req = {};
+    let res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+    await JobMiddleware(req, res, next);
+    expect(res.json).toHaveBeenCalledWith("Internal server error");
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(next).not.toHaveBeenCalled();
   });
 });
