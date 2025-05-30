@@ -36,7 +36,7 @@ const JobMiddle = async (req, res, next) => {
     req.userid = result[0].id;
     next();
   } catch (error) {
-    console.error("Middleware error:", err.message);
+    console.error("Middleware error:", error);
     return res.status(500).json("Internal server error");
   }
 };
