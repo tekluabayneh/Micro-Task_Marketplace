@@ -78,31 +78,41 @@ describe("userexistCheck middleware tst", () => {
     });
     expect(next).not.toHaveBeenCalled();
   });
-
-  it("should return call the next middleware", async () => {
+  it("should call the next middleware when login is successful", async () => {
     const mockUser = {
       email: "example@gmail.com",
       password: "hashedpassword",
     };
+
     let req = {
       body: {
         email: "example@gmail.com",
-        password: "hashedpassword",
+        password: "123456",
       },
     };
+
     let res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
 
     let next = jest.fn();
-    db.execute.mockResolvedValueOnce([mockUser]);
+
+    //  Mock DB to return user
+    db.execute.mockResolvedValueOnce([[mockUser]]);
+
+    // Mock bcrypt to say passwords match
+    bcrypt.compare.mockResolvedValueOnce(true);
 
     await CheckUserExistLogin(req, res, next);
-    bcrypt.compare.mockResolvedValue(true);
-    expect(req.body).toEqual(mockUser);
+
+    //check that user info was set on req
+    expect(req.userInfoFromDB).toEqual([mockUser]);
 
     expect(next).toHaveBeenCalled();
+
+    expect(res.status).not.toHaveBeenCalled();
+    expect(res.json).not.toHaveBeenCalled();
   });
 });
 
