@@ -4,9 +4,9 @@ FreelanceHub is a full-stack freelancing platform inspired by Upwork, designed t
 
 ---
 
-## 🚀 Features
+ ## 🚀 Features
 
-### 👨‍💻 For Freelancers
+ ### 👨‍💻 For Freelancers
 
 - Create and update profiles
 - Browse job listings and apply
