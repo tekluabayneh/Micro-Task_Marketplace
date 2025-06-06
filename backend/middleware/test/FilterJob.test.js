@@ -24,7 +24,7 @@ describe("filterJob", () => {
     });
     expect(next).not.toHaveBeenCalled();
   });
-  it("it should return all the job if the serach is all", async () => {
+  it("it should return all the job if the Search is all", async () => {
     let req = {
       query: "All",
     };
