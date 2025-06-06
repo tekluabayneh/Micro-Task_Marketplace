@@ -4,8 +4,6 @@ const {
 } = require("../userexistCheck");
 const bcrypt = require("bcryptjs");
 const db = require("../../config/db");
-const { JsonContains } = require("typeorm");
-const { json } = require("express");
 jest.mock("bcryptjs");
 jest.mock("../../config/db", () => ({
     execute: jest.fn(),
