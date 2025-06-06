@@ -25,7 +25,6 @@ const PostJobMiddleWare = async (req, res, next) => {
     }
     next();
   } catch (error) {
-    console.error("Insert Job Error:", error.message);
     return res.status(500).json({ error: "Failed to post job" });
   }
 };
