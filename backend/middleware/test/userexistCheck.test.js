@@ -1,147 +1,127 @@
+// userexistCheck.test.js
 const {
-    CheckUserExistLogin,
-    CheckUserExistRegister,
+  CheckUserExistLogin,
+  CheckUserExistRegister,
 } = require("../userexistCheck");
+
 const bcrypt = require("bcryptjs");
 const db = require("../../config/db");
+
 jest.mock("bcryptjs");
 jest.mock("../../config/db", () => ({
-    execute: jest.fn(),
+  execute: jest.fn(),
 }));
 
+const mockRes = {
+  status: jest.fn().mockReturnThis(),
+  json: jest.fn(),
+};
 
-const MockReponse = {
-    status: jest.fn().mockReturnThis(),
-    json: jest.fn(),
-}
-const MockRequest = {
-    body: {
-        email: 'example@gmail.com',
-        password: '12345'
-    }
+const mockNext = jest.fn();
 
-}
-const MockNext = jest.fn()
+describe("CheckUserExistLogin", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-describe("userexistCheck middleware tst", () => {
-    it("should return 400 if the email and password are not grater than 6 length", async () => {
+  it("should return 400 for short password", async () => {
+    const req = { body: { email: "a@b.com", password: "12345" } };
 
+    await CheckUserExistLogin(req, mockRes, mockNext);
 
-        let req = {
-            body: {
-                password: "12345",
-                email: "example@gmail.com",
-            },
-        };
-
-
-        await CheckUserExistLogin(req, MockReponse, MockNext);
-
-
-        expect(req.body.password.length).not.toBe(6);
-        expect(MockReponse.status).toHaveBeenCalledWith(400);
-        expect(MockReponse.json).toHaveBeenCalledWith({
-            message: "Password must be at least 6 characters",
-        });
-        expect(MockNext).not.toHaveBeenCalled();
+    expect(mockRes.status).toHaveBeenCalledWith(400);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Password must be at least 6 characters",
     });
+    expect(mockNext).not.toHaveBeenCalled();
+  });
 
-    it("it should return 401 if the user does not exist in the db", async () => {
-        db.execute.mockResolvedValueOnce([[]]);
+  it("should return 401 if user not found", async () => {
+    const req = { body: { email: "a@b.com", password: "123456" } };
 
-        await CheckUserExistLogin(MockRequest, MockReponse, MockNext);
+    db.execute.mockResolvedValueOnce([[]]);
 
-        expect(MockReponse.status).toHaveBeenCalledWith(401);
-        expect(MockReponse.json).toHaveBeenCalledWith({
-            message: "Invalid email or password",
-        });
-        expect(MockNext).not.toHaveBeenCalled();
+    await CheckUserExistLogin(req, mockRes, mockNext);
+
+    expect(mockRes.status).toHaveBeenCalledWith(401);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Invalid email or password",
     });
+    expect(mockNext).not.toHaveBeenCalled();
+  });
 
-    it("should return 401 if the password are not the same", async () => {
-        db.execute.mockResolvedValueOnce([
-            [{ email: "example@gmail.com", password: "hashedpassword" }],
-        ]);
-        let req = {
-            body: {
-                password: "wrongPassword",
-                email: "example@gmail.com",
-            },
-        };
+  it("should return 401 if password does not match", async () => {
+    const req = { body: { email: "a@b.com", password: "wrongpass" } };
+    db.execute.mockResolvedValueOnce([
+      [{ email: "a@b.com", password: "hashedpass" }],
+    ]);
+    bcrypt.compare.mockResolvedValueOnce(false);
 
-        await CheckUserExistLogin(req, MockReponse, MockNext);
+    await CheckUserExistLogin(req, mockRes, mockNext);
 
-        expect(MockReponse.status).toHaveBeenCalledWith(401);
-        expect(MockReponse.json).toHaveBeenCalledWith({
-            message: "password is Invalid",
-        });
-        expect(MockNext).not.toHaveBeenCalled();
+    expect(mockRes.status).toHaveBeenCalledWith(401);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "password is Invalid",
     });
-    it("should call the next middleware when login is successful", async () => {
-        const mockUser = {
-            email: "example@gmail.com",
-            password: "hashedpassword",
-        };
+    expect(mockNext).not.toHaveBeenCalled();
+  });
 
-        let req = {
-            body: {
-                email: "example@gmail.com",
-                password: "123456",
-            },
-        };
+  it("should call next() if login is successful", async () => {
+    const req = { body: { email: "a@b.com", password: "123456" } };
+    const user = { email: "a@b.com", password: "hashedpass" };
 
-        //  Mock DB to return user
-        db.execute.mockResolvedValueOnce([[mockUser]]);
+    db.execute.mockResolvedValueOnce([[user]]);
+    bcrypt.compare.mockResolvedValueOnce(true);
 
-        // Mock bcrypt to say passwords match
-        bcrypt.compare.mockResolvedValueOnce(true);
+    await CheckUserExistLogin(req, mockRes, mockNext);
 
-        await CheckUserExistLogin(MockRequest, MockReponse, MockNext);
-
-        //check that user info was set on req
-        expect(req.userInfoFromDB).toEqual([mockUser]);
-
-        expect(MockNext).toHaveBeenCalled();
-
-        expect(MockReponse.status).not.toHaveBeenCalled();
-        expect(MockReponse.json).not.toHaveBeenCalled();
-    });
-
-
-
-    // this CheckUserExistRegister test 
-
-
-    it('should reuurn 400 if the password length is less than 6', async () => {
-
-        const req = {
-            body: {
-                email: 'example@gmail.com',
-                password: '12345'
-            }
-        }
-
-        await CheckUserExistRegister(req, MockReponse, MockNext)
-
-        expect(req.body.password.length).not.toBe(6)
-        expect(MockReponse.status).toHaveBeenCalledWith(400)
-        expect(MockReponse.json).toHaveBeenCalledWith({ message: "Password must be at least 6 characters" })
-        expect(MockNext).not.toHaveBeenCalled()
-
-    })
-
-
-    it('should  return 400 if the user alredy exist ', async () => {
-
-        // const res = {
-        //     status: jest.fn().mockReturnThis(),
-        //     json: jest.fn(),
-        // }
-        //
-
-
-
-    })
-
+    expect(req.userInfoFromDB).toEqual([user]);
+    expect(mockNext).toHaveBeenCalled();
+    expect(mockRes.status).not.toHaveBeenCalled();
+    expect(mockRes.json).not.toHaveBeenCalled();
+  });
 });
 
+describe("CheckUserExistRegister", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should return 400 for short password", async () => {
+    const req = { body: { email: "a@b.com", password: "123" } };
+
+    await CheckUserExistRegister(req, mockRes, mockNext);
+
+    expect(mockRes.status).toHaveBeenCalledWith(400);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "Password must be at least 6 characters",
+    });
+    expect(mockNext).not.toHaveBeenCalled();
+  });
+
+  it("should return 401 if user already exists", async () => {
+    const req = { body: { email: "a@b.com", password: "123456" } };
+
+    db.execute.mockResolvedValueOnce([[{ email: "a@b.com" }]]);
+
+    await CheckUserExistRegister(req, mockRes, mockNext);
+
+    expect(mockRes.status).toHaveBeenCalledWith(401);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      message: "user already exist",
+    });
+    expect(mockNext).not.toHaveBeenCalled();
+  });
+
+  it("should call next() if registration is valid", async () => {
+    const req = { body: { email: "a@b.com", password: "123456" } };
+
+    db.execute.mockResolvedValueOnce([[]]);
+
+    await CheckUserExistRegister(req, mockRes, mockNext);
+
+    expect(req.userInfoFromDB).toEqual([]);
+    expect(mockNext).toHaveBeenCalled();
+    expect(mockRes.status).not.toHaveBeenCalled();
+  });
+});
