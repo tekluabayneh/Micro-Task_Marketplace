@@ -1,3 +1,4 @@
+const { execute } = require("../../config/db")
 const Applicant = require("../Applicant.js")
 
 jest.mock("../../config/db.js", () => {
@@ -41,7 +42,14 @@ describe("Applicant test", () => {
 
     })
 
+    it('should return 400 if the user is not found ', async () => {
+        execute.jest.mockResolvedValue([])
+        await Applicant(req, res, next)
 
+
+
+
+    })
 
 
 
