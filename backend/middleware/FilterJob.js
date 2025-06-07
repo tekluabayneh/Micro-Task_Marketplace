@@ -1,5 +1,4 @@
 const db = require("../config/db");
-
 const FilterJob = async (req, res, next) => {
     let { Search } = req.query;
     try {
