@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "tst": "jest --coverage",
+	 "test": "vitest",
+    "test:ui":"vitest --ui",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -47,6 +48,7 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/ui": "^3.2.2",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
