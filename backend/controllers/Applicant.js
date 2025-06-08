@@ -25,6 +25,8 @@ const Applicant = async (req, res) => {
             return res.status(404).json({
                 message:
                     "Freelancer profile not found. Please create your profile before applying.",
+
+
             });
         }
 
