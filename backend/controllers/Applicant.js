@@ -1,5 +1,4 @@
 const db = require("../config/db");
-const { reqest, response } = require("supertest")
 
 const Applicant = async (req, res) => {
     const { email, attachment_url, client_id, job_id, cover_letter } = req.body;
@@ -54,11 +53,11 @@ const Applicant = async (req, res) => {
                 message: "Failed to submit application. Please try again later.",
             });
         }
-        // ✅ Now update proposal_count for the job
+        //  update proposal_count for the job
         const updateJobProposalQuery = `UPDATE jobs SET proposal = proposal + 1 WHERE id = ?`;
         await db.execute(updateJobProposalQuery, [job_id]);
 
-        // ✅ Now update proposal_count for the job
+        //  update proposal_count for the job
         const updateJobProposalCountQuery = `UPDATE freelancer_profiles SET  proposal_count = proposal_count + 1 WHERE  user_id = ?`;
         await db.execute(updateJobProposalCountQuery, [freelancerId]);
 
