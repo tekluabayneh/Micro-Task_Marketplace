@@ -13,18 +13,13 @@ describe('testing if testing is working ', () => {
    expect(headingElement).toBeInTheDocument()
    expect(headingElement).toHaveTextContent("we loave Testing")
 
-	  const  getElementCalss  = screen.getByTestId("dash-class")
+	   const  getElementCalss  = screen.getByTestId("dash-class")
 	   expect(getElementCalss).toBeInTheDocument()
-	  expect(getElementCalss).toHaveClass("mb-8")
+	   expect(getElementCalss).toHaveClass("mb-8")
 
-
-		const getRgitElement = screen.getByTestId("right-testid")
-		expect(getRgitElement).toBeInTheDocument()
-		expect(getRgitElement).toHaveTextContent("rightContent")
-
-
-
-
+	const getRgitElement = screen.getByTestId("right-testid")
+	expect(getRgitElement).toBeInTheDocument()
+	expect(getRgitElement).toHaveTextContent("rightContent")
 
   })
 
