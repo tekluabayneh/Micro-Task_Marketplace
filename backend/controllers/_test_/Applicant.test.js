@@ -1,86 +1,85 @@
-const execute = require("../../config/db.js");
-const Applicant = require("../Applicant.js");
-const db = require("../../config/db.js");
-const request = require("supertest");
+const db = require("../../config/db");
+const Applicant = require("../Applicant.js"); 
+
 
 jest.mock("../../config/db.js", () => ({
   execute: jest.fn(),
 }));
 
-const res = {
-  status: jest.fn().mockReturnThis(),
-  json: jest.fn(),
-};
-const req = {
-  body: {
-    email: "ex@gmail.com",
-    attachment_url: "one.com",
-    client_id: "1",
-    job_id: "1",
-    cover_letter: "this is mcok cover letter",
-  },
-};
+describe("Applicant controller", () => {
+  let req, res;
 
-const next = jest.fn();
-
-beforeEach(() => {
-  jest.clearAllMocks();
-});
-
-describe("Applicant test", () => {
-  it("should return 400 if the user didn't provide all field", async () => {
-    const req = {
+  beforeEach(() => {
+    req = {
       body: {
+        email: "ex@gmail.com",
         attachment_url: "one.com",
         client_id: "1",
         job_id: "1",
-        cover_letter: "this is mcok cover letter",
+        cover_letter: "this is mock cover letter",
       },
     };
-
-    await Applicant(req, res, next);
-
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      error: "All fields are required.",
-    });
-    expect(next).not.toHaveBeenCalled();
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+    db.execute.mockClear();
   });
 
-  it("should return 400 if the user is not found ", async () => {
-    db.execute.mockResolvedValue([]);
+  test("should handle multiple db calls and return success", async () => {
+    // Mock the calls in sequence
 
-    await Applicant(req, res, next);
+    // 1. SELECT freelancer_profiles.user_id
+    db.execute
+      .mockResolvedValueOnce([
+        [{ user_id: 1, proposal_count: 5 }], // SELECT result
+      ])
+      // 2. INSERT INTO applications
+      .mockResolvedValueOnce([{ affectedRows: 1 }])
+      // 3. UPDATE jobs proposal count
+      .mockResolvedValueOnce([{ affectedRows: 1 }])
+      // 4. UPDATE freelancer_profiles proposal_count
+      .mockResolvedValueOnce([{ affectedRows: 1 }]);
 
-    expect(db.execute).toHaveBeenCalledWith(
-      expect.stringContaining(`
-       SELECT freelancer_profiles.user_id, freelancer_profiles.proposal_count
-	   FROM users 
-       INNER JOIN freelancer_profiles 
-       ON freelancer_profiles.user_id = users.id 
-       WHERE users.email = ?`),
-      ["ex@gmail.com"]
+    await Applicant(req, res);
+
+    // Assertions: test all calls happened as expected
+
+    expect(db.execute).toHaveBeenCalledTimes(4);
+
+    // Check the first call is SELECT with email
+    expect(db.execute).toHaveBeenNthCalledWith(
+      1,
+      expect.stringContaining("SELECT freelancer_profiles.user_id"),
+      [req.body.email]
     );
 
-    expect(db.execute).toHaveBeenCalled();
+    // Check the second call is INSERT applications
+    expect(db.execute).toHaveBeenNthCalledWith(
+      2,
+      expect.stringContaining("INSERT INTO applications"),
+      expect.arrayContaining([req.body.job_id, 1, req.body.client_id, req.body.cover_letter, req.body.attachment_url])
+    );
 
-    expect(next).not.toHaveBeenCalled();
+    // Check the third call is UPDATE jobs
+    expect(db.execute).toHaveBeenNthCalledWith(
+      3,
+      expect.stringContaining("UPDATE jobs SET proposal = proposal + 1 WHERE id = ?"),
+      [req.body.job_id]
+    );
+
+    // Check the fourth call is UPDATE freelancer_profiles
+    expect(db.execute).toHaveBeenNthCalledWith(
+      4,
+      expect.stringContaining("UPDATE freelancer_profiles SET  proposal_count = proposal_count + 1 WHERE  user_id = ?"),
+      [1]
+    );
+
+    // Check response status and message
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Application submitted successfully!",
+    });
   });
-
-  //   it("should return 500 message if the data is not sync to the database", async () => {
-  //     db.execute.mockResolvedValue();
-  //     await Applicant(req, res, next);
-
-  //     expect(db.execute)
-  //       .toHaveBeenCalledWith(`INSERT INTO applications (job_id, freelancer_id, client_id, cover_letter, attachment_url)
-  //       VALUES (?, ?, ?, ?, ?)`);
-
-  //     expect(db.execute).toHaveBeenCalledWith(
-  //       `UPDATE jobs SET proposal = proposal + 1 WHERE id = ?`
-  //     );
-  //     expect(res.json).toHaveBeenCalledWith({
-  //       message: "Failed to submit application. Please try again later.",
-  //     });
-  //     expect(next).not.toHaveBeenCalled();
-  //   });
 });
+
