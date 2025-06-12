@@ -1,3 +1,4 @@
+
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 import Loading from "../../Loading/Loading";
@@ -11,6 +12,7 @@ const DashboardTabs = ({ tab1, tab2 }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+
     useEffect(() => {
         const FetchClientProfile = async () => {
             try {
