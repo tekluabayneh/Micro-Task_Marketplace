@@ -1,23 +1,36 @@
 
 import DashboardTabs from "../../../../components/Client/DashBoardComponent/DashboardTabs";
-import { screen, render } from "@testing-library/react";
 import axios from "axios";
-import {it, vi, describe, expect, beforEach} from "vitest"
+import { it, vi, describe, expect, beforEach } from "vitest"
 import MockAddapter from "axios-mock-adapter"
+import React from "react";
+import { render, waitFor } from "@testing-library/react";
 
+vi.mock('axios');
 
 const mcok = new MockAddapter(axios)
 
 describe("DashboadTabs test", () => {
-    const tabs = {
-        tab1: "this is tab one ", tab2: "this is tab tow"
-    }
 
-    it('it should fetch the client profile data', async () => {
-        render(
-            <DashboardTabs {...tabs} />)
 
-    })
+    it("calls API with email from localStorage", async () => {
+        localStorage.setItem("userEmail", "client@example.com");
+
+        axios.get.mockResolvedValue({ data: [{ name: "John Doe" }] });
+
+        render(<DashboardTabs />);
+
+        await waitFor(() => {
+            expect(axios.get).toHaveBeenCalledWith(
+                "https://micro-task-marketplace.onrender.com/api/ClientProfileData",
+                {
+                    params: { email: "client@example.com" },
+                }
+            );
+        });
+
+
+    });
 
 })
 
