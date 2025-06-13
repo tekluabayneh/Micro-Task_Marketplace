@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
 import Loading from "../../Loading/Loading";
 import axios from "axios";
+import '@testing-library/jest-dom';
 
 
 import { useNavigate } from "react-router-dom";
@@ -42,8 +43,7 @@ const DashboardTabs = ({ tab1, tab2 }) => {
     // Prevent error on first render
     if (loading) {
         return (
-            <div className="mt-20 text-center">
-                {" "}
+            <div data-testid="loading_testid" className="mt-20 text-center">
                 <Loading />
             </div>
         );
