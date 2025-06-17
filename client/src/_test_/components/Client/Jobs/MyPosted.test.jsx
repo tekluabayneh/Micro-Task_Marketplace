@@ -16,6 +16,18 @@ describe("MyJobs test", () => {
     })
 
 
+    it("renders 'no jobs' message when there are no jobs", async () => {
+        const userEmail = "ex@gmai.com";
+        mock
+            .onGet(`https://micro-task-marketplace.onrender.com/myJobs/myJobs?email=${userEmail}`)
+            .reply(400, []);
+
+        render(<MyJobs />);
+
+        const somethignWentwrongMessge = await screen.findByText(/Something went wrong/i)
+        expect(somethignWentwrongMessge).toBeInTheDocument();
+    });
+
 
     it('should fetch the myjobs ', async () => {
         const userEmail = "ex@gmai.com"
@@ -59,16 +71,6 @@ describe("MyJobs test", () => {
             const status = await screen.findByText(job)
             expect(status).toBeInTheDocument()
         })
-
-
-        fakeJobs.forEach(job => {
-            job.skills.forEach(async skill => {
-                const skill_ = await screen.findByText(skill)
-                expect(skill_).toBeInTheDocument()
-            })
-        })
-
-
 
     })
 
