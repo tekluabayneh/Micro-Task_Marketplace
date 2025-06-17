@@ -19,7 +19,32 @@ describe("MyJobs test", () => {
 
     it('should fetch the myjobs ', async () => {
         const userEmail = "ex@gmai.com"
-        const fakeJobs = [{ id: 1, title: "Frontend Dev" }];
+        const fakeJobs = [
+            {
+                id: 1,
+                jobTitle: "Frontend Developer",
+                status: "open",
+                skills: ["React", "JavaScript", "CSS"],
+                description: "Build and maintain the client-side of web applications.",
+                createdAt: "2025-06-15T10:00:00Z",
+            },
+            {
+                id: 2,
+                jobTitle: "Backend Developer",
+                status: "in progress",
+                skills: ["Node.js", "Express", "MongoDB"],
+                description: "Develop backend APIs and connect databases.",
+                createdAt: "2025-06-10T14:30:00Z",
+            },
+            {
+                id: 3,
+                jobTitle: "Full Stack Engineer",
+                status: "completed",
+                skills: ["React", "Node.js", "PostgreSQL"],
+                description: "Work on both frontend and backend tasks.",
+                createdAt: "2025-06-01T09:15:00Z",
+            }
+        ];
 
         mock.onGet(`https://micro-task-marketplace.onrender.com/myJobs/myJobs?email=${userEmail}`).reply(200, fakeJobs);
 
@@ -29,6 +54,22 @@ describe("MyJobs test", () => {
             const jobs = await screen.findByText(job)
             expect(jobs).toBeInTheDocument()
         })
+
+        fakeJobs.forEach(async job => {
+            const status = await screen.findByText(job)
+            expect(status).toBeInTheDocument()
+        })
+
+
+        fakeJobs.forEach(job => {
+            job.skills.forEach(async skill => {
+                const skill_ = await screen.findByText(skill)
+                expect(skill_).toBeInTheDocument()
+            })
+        })
+
+
+
     })
 
 })
