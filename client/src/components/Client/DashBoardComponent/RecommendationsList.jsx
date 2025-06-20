@@ -30,6 +30,7 @@ const RecommendationsList = () => {
     setInvitedFreelancers([...invitedFreelancers, freelancer]);
     toast.success(`Invitation sent to ${freelancer}`);
   };
+  
   useEffect(() => {
     const handleFetchAiRecomendation = async () => {
       let email = localStorage.getItem("userEmail");
