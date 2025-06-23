@@ -1,12 +1,16 @@
 const db = require("../config/db");
 
 const ApplicantPortFolioUpdate = async (req, res) => {
+
     try {
         const { image_url, title, subtitle, email } = req.body;
+
 
         if (!image_url || !title || !subtitle || !email) {
             return res.status(400).json({ message: "All fields are required." });
         }
+
+
 
         // First, find the freelancer ID using the email
         const findFreelancerQuery = `
@@ -15,6 +19,7 @@ const ApplicantPortFolioUpdate = async (req, res) => {
       INNER JOIN freelancer_profiles ON freelancer_profiles.user_id = users.id
       WHERE users.email = ?
     `;
+
         const [freelancerResult] = await db.execute(findFreelancerQuery, [email]);
 
         if (freelancerResult.length === 0) {
