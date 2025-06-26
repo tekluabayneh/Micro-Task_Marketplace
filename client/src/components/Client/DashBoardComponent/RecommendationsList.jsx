@@ -69,6 +69,7 @@ const RecommendationsList = () => {
   if (!data) {
     toast.info(
       "To start receiving recommendations, make sure to complete your client profile first. Even if you’ve posted a job, you won’t see any recommendations until your profile is fully filled out.",
+
       {
         position: "top-right",
         autoClose: 60000, // 1 minute
@@ -137,7 +138,9 @@ const RecommendationsList = () => {
                     <h2 className="text-xl font-bold text-gray-900">
                       {item.freelancer}
                     </h2>
+
                     <button
+		     data-testid="invite-button"
                       onClick={() => handleInvite(item.freelancer)}
                       className={`ml-4 px-4 py-2 rounded-lg text-sm font-medium transition duration-200 transform hover:scale-105 cursor-pointer shadow-md ${
                         invitedFreelancers.includes(item.freelancer)
