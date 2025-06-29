@@ -152,6 +152,7 @@ const RecommendationsList = () => {
                         ? "Invited"
                         : "Invite for Job"}
                     </button>
+
                   </div>
 
                   <div className="bg-gray-50 rounded-lg p-4 mt-4 text-gray-700 shadow-sm">
