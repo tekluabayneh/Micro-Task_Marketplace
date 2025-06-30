@@ -1,6 +1,8 @@
 const db = require("../config/db");
 
 const getClientJobs = async (req, res) => {
+
+
     try {
         const { email } = req.query;
 
