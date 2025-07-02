@@ -1,5 +1,5 @@
 const SearchJobs = (req, res) => {
-  res.status(200).json(req.SearchResult);
+    res.status(200).json(req.SearchResult);
 };
 
 module.exports = SearchJobs;
