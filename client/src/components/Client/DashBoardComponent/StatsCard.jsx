@@ -71,7 +71,6 @@ const StatsCard = ({ title, value, change, icon, color, trend }) => {
         bg: "bg-purple-100",
         text: "text-purple-600",
       },
-      // Add more if needed
     };
 
     return colorMap[color] || colorMap.blue;
@@ -89,11 +88,11 @@ const StatsCard = ({ title, value, change, icon, color, trend }) => {
             {change && (
               <div className="flex items-center mt-2">
                 {trend === "up" ? (
-                  <ArrowUpRight className="text-green-500 mr-1" size={16} />
+                  <ArrowUpRight data-testid="up_arrow" className="text-green-500 mr-1" size={16} />
                 ) : (
-                  <ArrowDownRight className="text-red-500 mr-1" size={16} />
+                  <ArrowDownRight  data-testid="down_arrow" className="text-red-500 mr-1" size={16} />
                 )}
-                <span
+                <span data-testid="span_testid"
                   className={`text-sm ${
                     trend === "up" ? "text-green-600" : "text-red-600"
                   }`}
@@ -106,9 +105,7 @@ const StatsCard = ({ title, value, change, icon, color, trend }) => {
               </div>
             )}
           </div>
-          <div
-            className={`p-3 rounded-full ${colorClasses.bg} ${colorClasses.text}`}
-          >
+          <div className={`p-3 rounded-full ${colorClasses.bg} ${colorClasses.text}`}>
             {getIcon()}
           </div>
         </div>
