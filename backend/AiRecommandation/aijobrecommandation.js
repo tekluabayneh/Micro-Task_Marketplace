@@ -6,9 +6,9 @@ const genAI = new GoogleGenerativeAI(process.env.HF_API_TOKEN);
 
 // This is your structured prompt logic
 const buildPrompt = (jobQueryResult, freelanceProfileQueryResultInput) => {
-  const freelancerList = freelanceProfileQueryResultInput
-    .map(
-      (freelancer, i) => `
+    const freelancerList = freelanceProfileQueryResultInput
+        .map(
+            (freelancer, i) => `
 ${i + 1}.
 - Title: ${freelancer.title}
 - Skills: ${freelancer.skills}
@@ -16,12 +16,12 @@ ${i + 1}.
 - Hourly Rate: $${freelancer.hourly_rate}
 - Availability: ${freelancer.availability}
 `
-    )
-    .join("\n");
+        )
+        .join("\n");
 
-  const jobsList = jobQueryResult
-    .map(
-      (job, i) => `
+    const jobsList = jobQueryResult
+        .map(
+            (job, i) => `
 ${i + 1}.
 - Title: ${job.jobTitle}
 - Description: ${job.description}
@@ -30,10 +30,10 @@ ${i + 1}.
 - Job Size: ${job.jobSize}
 - Budget: ${job.budget}
 `
-    )
-    .join("\n");
+        )
+        .join("\n");
 
-  return `
+    return `
 You are an intelligent matching assistant. Match the following job(s) with the most relevant freelancers based on skills, experience level, hourly rate, and availability.
 
 For each match, return a JSON object with:
@@ -67,20 +67,20 @@ For each freelancer, respond with a score (1–10) and a short reason why they a
 };
 
 const AiJobRecommandationResponse = async (jobData, freelancerData) => {
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-  const prompt = buildPrompt(jobData, freelancerData);
+    const prompt = buildPrompt(jobData, freelancerData);
 
-  try {
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+    try {
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
 
-    return text;
-  } catch (err) {
-    console.error("Error:", err.message);
-    return "An error occurred while generating AI recommendations.";
-  }
+        return text;
+    } catch (err) {
+        console.error("Error:", err.message);
+        return "An error occurred while generating AI recommendations.";
+    }
 };
 
 module.exports = AiJobRecommandationResponse;

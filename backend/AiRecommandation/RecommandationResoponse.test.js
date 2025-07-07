@@ -1,9 +1,11 @@
 const freelancer_client_data = require("./RecommandationResponse.js")
 const db = require("../config/db.js")
-
+const AiJobRecommandationResponse = require("./aijobrecommandation");
 jest.mock("../config/db.js", () => ({
     execute: jest.fn()
 }))
+
+jest.mock("./aijobrecommandation.js")
 
 const req = {
     query: {
@@ -39,14 +41,16 @@ describe(" freelancer_client_data test ", () => {
         if (!fakeResult) {
             expect(res.status).toHaveBeenCalledWith(400)
             expect(res.json).toHaveBeenCalledWith({ message: "No job listings available for AI recommendation." })
+            return
         }
     })
 
 
     it('should return message that the database has not data for the ai to feed', async () => {
         const fakeResult = []
-        db.execute.mockReturnValueOnce(Promise.resolve(fakeResult, []))
+        db.execute.mockReturnValueOnce(Promise.resolve([{ title: "frontend Dev", name: "jone", age: 12, idActive: false }], []))
             .mockReturnValueOnce(Promise.resolve(fakeResult, []))
+
         await freelancer_client_data(req, res)
         expect(db.execute).toHaveBeenCalledWith(
             expect.stringContaining("SELECT title ,skills ,experience_level ,hourly_rate ,availability FROM freelancer_profiles"))
@@ -54,6 +58,34 @@ describe(" freelancer_client_data test ", () => {
             expect(res.status).toHaveBeenCalledWith(400)
             expect(res.json).toHaveBeenCalledWith({ message: "No job listings available for AI recommendation." })
         }
+
     })
 
+    it('should return the 200 success message if the ai response', async () => {
+        const fakeResult1 = [{ title: "frotnend", skills: { 'd': "man" }, hourly_rate: 12, availability: true, experience_level: "mid" }]
+        const fakeResult2 = [{ jobTitle: "frotnend", description: "backend", experience: "mid", jobSize: "mid", budget: 100 }]
+
+
+        db.execute.mockReturnValueOnce(Promise.resolve(fakeResult2, []))
+            .mockReturnValueOnce(Promise.resolve(fakeResult1, []));
+
+        const AiResponse = await AiJobRecommandationResponse.mockImplementation(() => {
+            return { result: { text: "this is the txt" } }
+        })
+
+        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.json).toHaveBeenCalledWith({ Ai_response: AiResponse })
+    })
+
+
+
 })
+
+
+
+
+
+
+
+
+
