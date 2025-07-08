@@ -6,7 +6,6 @@ FreelanceHub is a full-stack freelancing platform inspired by Upwork, designed t
 
  ## 🚀 Features
 
- ### 👨‍💻 For Freelancers
 
 - Create and update profiles
 - Browse job listings and apply
@@ -46,8 +45,14 @@ node server
 
 ### 📦 client
 
+
 ```bash
 cd client
 npm install
 npm run dev
 ```
+
+
+## backend test
+ ### 👨‍💻 For Freelancers![Screenshot from 2025-07-07 10-37-42](https://github.com/user-attachments/assets/2e6eaa0e-c0fa-4c41-95bf-108a84f1e3e5)
+
