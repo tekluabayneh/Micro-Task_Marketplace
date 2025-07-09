@@ -33,12 +33,12 @@ app.use(cookieParser());
 
 // session
 app.use(
-  session({
-    secret: "my-secret",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false },
-  })
+    session({
+        secret: "my-secret",
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: false },
+    })
 );
 
 app.use(passport.initialize());
@@ -51,23 +51,23 @@ configureGitHubStrategy(passport);
 configureGoogleAuth(passport);
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+    done(null, user.id);
 });
 
 passport.deserializeUser(async (user, done) => {
-  try {
-    // let CheckQuery = "SELECT * FROM users WHERE email = ? ";
-    // let [result] = await db.execute(CheckQuery, [user.email]);
-    let result = 1;
-    if (result.length > 0) {
-      // If user already exists, handle it appropriately
-      return done(null, result[0]);
-    } else {
-      return done(null, false);
+    try {
+        // let CheckQuery = "SELECT * FROM users WHERE email = ? ";
+        // let [result] = await db.execute(CheckQuery, [user.email]);
+        let result = 1;
+        if (result.length > 0) {
+            // If user already exists, handle it appropriately
+            return done(null, result[0]);
+        } else {
+            return done(null, false);
+        }
+    } catch (err) {
+        return done(err);
     }
-  } catch (err) {
-    return done(err);
-  }
 });
 
 // fetch jobs route
@@ -121,13 +121,12 @@ app.use("/api/chatbot", userInput);
 app.use("/api/recommendation", freelancer_client_data);
 
 app.get("/", (req, res) => {
-  res.send("Job Platform API is running...");
+    res.send("Job Platform API is running...");
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
 //https://micro-task-marketplace.onrender.com/api/oauth/google/callback
-
 
 //https://micro-task-marketplace.onrender.com/api/oauth/github/callback
