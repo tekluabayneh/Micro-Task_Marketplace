@@ -6,7 +6,7 @@ const updateSkills = vi.fn()
 describe("skills test", () => {
     const skills = ["js", "react", "nextjs", "nodejs"]
     const Props = { skills: skills, updateSkill: updateSkills }
-
+    const mockUpdateSkills = vi.fn()
 
     it('should render skills that are mapped', async () => {
         render(<Skills {...Props} />)
@@ -20,7 +20,7 @@ describe("skills test", () => {
 
     it('should not show message if the skill are not provided yet', async () => {
         const Props = { skills: [], updateSkill: updateSkills }
-        render(<Skills {...Props} />)
+        render(<Skills {...Props} updateFields={mockUpdateSkills} />)
 
         const messageElement = screen.getByText("No skills added yet")
         expect(messageElement).toBeInTheDocument()
@@ -49,10 +49,8 @@ describe("skills test", () => {
         Props.skills.push(fakeSkill)
         fireEvent.click(buttonElement)
         expect(Props.skills.length).toBe(6)
+        expect(mockUpdateSkills).toHaveBeenCalled()
     })
-
-
-
 
 
 })
