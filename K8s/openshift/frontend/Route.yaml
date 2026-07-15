@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: microtask-backend-route
+  namespace: teklu-soft-dev
+spec:
+  path: /api
+  to:
+    kind: Service
+    name: backend-service
+  port:
+    targetPort: 5000
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

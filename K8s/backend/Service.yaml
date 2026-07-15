@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service # this is what your Ingress backend.service.name must match exactly
+  namespace: microtask-app
+  labels:
+    svcidentifyer: service-label
+  annotations:
+    svcidentifyername: service-annotation
+spec:
+  type: ClusterIP # internal-only virtual IP, reachable inside the cluster — correct choice since only the Ingress controller needs to reach it, not the public internet
+  selector:
+    app: microtask-backend # THE critical line — must exactly match a label on your backend Pods (from Deployment's spec.template.metadata.labels), or Endpoints will be empty
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000

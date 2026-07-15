@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microtask-backend
+  namespace: microtask-app
+  labels:
+    app: microtask-app-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microtask-backend # only manage this pods 
+  template:
+    metadata:
+      labels:
+        app: microtask-backend # this is the pod labels that let's us to connect to services  like clusterIP and so on
+    spec:
+      containers:
+        - name: microtask-backend-continer
+          image: tekluman/colab-backend:v1.9.0
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+          env:
+            - name: PORT
+              value: "5000"
+          envFrom:
+            - secretRef:
+                name: microtask-backend-secret
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "768Mi"
+            requests:
+              cpu: "500m"
+              memory: "384Mi"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 12
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 120
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 6
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 1001
+        runAsGroup: 1001
+        runAsNonRoot: true

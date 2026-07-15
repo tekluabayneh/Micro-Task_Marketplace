@@ -1,0 +1,17 @@
+/node_modules
+node_modules
+.env
+/.env
+
+/kind-config.yaml
+kind-config.yaml
+
+/K8s/base/secret
+/K8s/base/Secret
+
+K8s/base/secret
+K8s/base/Secret
+
+Secret.yaml
+*.secret
+*.Secret
