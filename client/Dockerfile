@@ -1,5 +1,5 @@
 # Step 1: Build the React app
-FROM node:22-alpine AS build
+FROM node:slim AS build
 
 WORKDIR /client
 
@@ -7,9 +7,9 @@ WORKDIR /client
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci 
 
-# Copy the rest of the app's source code to the container
+# i will be fine cuz i already have  dockerignore so it will not be loaded  
 COPY . .
 
 # Build the React app for production
@@ -22,13 +22,16 @@ FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy the custom nginx.conf into the container
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # Copy the built React app from the previous stage into NGINX's public directory
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /client/dist  /usr/share/nginx/html
+
 
 # Expose port 80 (default HTTP port)
 EXPOSE 80
 
 # Start NGINX when the container is run
 CMD ["nginx", "-g", "daemon off;"]
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl http://localhost:80

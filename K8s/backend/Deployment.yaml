@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: microtask-backend-continer
-          image: tekluman/colab-backend:v1.9.0
+          image: tekluman/micro-backend:v1
           ports:
             - containerPort: 5000
               protocol: TCP
