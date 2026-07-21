@@ -1,13 +1,26 @@
-FROM node:22-alpine
+FROM node:22-alpine as build
 
-WORKDIR /
+WORKDIR /backend
 
 COPY package*.json ./ 
 
-RUN npm install 
+RUN npm ci 
 
 COPY . . 
 
+FROM node:22-alpine 
+
+WORKDIR /backend
+
+COPY --from=build /backend/node_modules ./node_modules
+
+COPY --from=build /backend .
+
+USER 1001
+
 EXPOSE 5000
 
-CMD ["node", "Server.js"]
+# Start NGINX when the container is run
+CMD ["nginx", "-g", "daemon off;"]
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl http://localhost:5000
