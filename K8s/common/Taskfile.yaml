@@ -1,0 +1,14 @@
+version: "3"
+
+env:
+  BORDER: double
+  BORDER_FOREGROUND: "212"
+  PADDING: "1 1"
+  MARGIN: "1 1"
+  NAMESPACE: microtask-app
+
+tasks:
+  01-apply-ingress:
+    desc: "Apply Ingress configuration"
+    cmds:
+      - kubectl apply -f ./Ingress.yaml -n {{.NAMESPACE}}
