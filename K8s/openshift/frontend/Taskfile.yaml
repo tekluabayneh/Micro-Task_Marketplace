@@ -5,7 +5,7 @@ env:
   BORDER_FOREGROUND: "212"
   PADDING: "1 1"
   MARGIN: "1 1"
-  NAMESPACE: colab-app
+  NAMESPACE: teklu-soft-dev
 
 tasks:
   01-apply-Deployment:
@@ -23,12 +23,7 @@ tasks:
     cmds:
       - kubectl apply -f Secret.yaml -n {{.NAMESPACE}}
 
-  04-apply-nodeport-service:
-    desc: "Apply Secret configuration"
+  04-apply-route:
+    desc: "Apply the ClusterIP Service"
     cmds:
-      - kubectl apply -f nodeport_service.yaml -n {{.NAMESPACE}}
-
-  05-apply-loadbalancer-service:
-    desc: "Apply Secret configuration"
-    cmds:
-      - kubectl apply -f Loadbalancer.yaml -n {{.NAMESPACE}}
+      - kubectl apply -f Route.yaml -n {{.NAMESPACE}}

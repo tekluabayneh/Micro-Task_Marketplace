@@ -4,7 +4,7 @@ env:
   BORDER_FOREGROUND: "212"
   PADDING: "1 1"
   MARGIN: "1 1"
-  NAMESPACE: microtask-app
+  NAMESPACE: teklu-soft-dev
 
 tasks:
 
@@ -17,6 +17,11 @@ tasks:
     desc: "Apply the ClusterIP Service"
     cmds:
       - kubectl apply -f Service.yaml -n {{.NAMESPACE}}
+
+  03-apply-route:
+    desc: "Apply the ClusterIP Service"
+    cmds:
+      - kubectl apply -f Route.yaml -n {{.NAMESPACE}}
 
   03-apply-secret-string-data:
     desc: "Apply Secret configuration"

@@ -2,12 +2,12 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: microtask-backend-route
-  namespace: teklu-soft-dev # namespace need to be changed
+  namespace: teklu-soft-dev
 spec:
   path: /api
   to:
     kind: Service
-    name: backend-service
+    name: microtask-backend-service
   port:
     targetPort: 5000
   tls:

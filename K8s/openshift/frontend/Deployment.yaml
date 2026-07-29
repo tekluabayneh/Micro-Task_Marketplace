@@ -1,23 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: colab-frontend
-  namespace: colab-app
+  name: microtask-frontend
+  namespace: teklu-soft-dev
   labels:
-    app: colab-frontend-deploy
+    app: microtask-frontend-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: colab-frontend # only manage this pods 
+      app: microtask-frontend # only manage this pods 
   template:
     metadata:
       labels:
-        app: colab-frontend # this is the pod labels that let's us to connect to services 
+        app: microtask-frontend # this is the pod labels that let's us to connect to services 
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1011790000
+        seccompProfile:
+          type: RuntimeDefault
       containers:
-        - name: colab-frontend-app
-          image: tekluman/colab-frontend:v1.0.9
+        - name: microtask-frontend-app
+          image: tekluman/micro-frontend:v4.6
           ports:
             - containerPort: 3000
               protocol: TCP
@@ -26,7 +31,7 @@ spec:
               value: "3000"
           envFrom:
             - secretRef:
-                name: colab-frontend-secret
+                name: microtask-frontend-secret
           resources:
             limits:
               cpu: "1000m"
@@ -54,9 +59,5 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             privileged: false
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
-        runAsUser: 1001
-        runAsGroup: 1001
-        runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]

@@ -14,4 +14,8 @@ K8s/base/Secret
 
 Secret.yaml
 *.secret
-*.Secret
+*.Secret 
+
+./K8s/micro-task-chart/values.yaml
+
+K8s/micro-task-chart/values.yaml
